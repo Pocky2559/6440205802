@@ -118,11 +118,47 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     public void UpgradeFoodGatheringSpeed() // Click upgrade food gathering speed
     {
-        isFoodGatheringSpeedUpgrade = true;
+        if (resourcesStatus.gold_Amount >= economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringSpeed)
+        {
+            if (isFoodGatheringSpeedUpgrade == false)
+            {
+                isFoodGatheringSpeedUpgrade = true;
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringSpeed;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                foodGatheringSpeedButton.enabled = false;
+            }
+            else
+            {
+                Debug.Log("You have already upgrade");
+            }
+        }
+
+        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringSpeed)
+        {
+            Debug.Log("Not Enough Gold");
+        }
     }
 
     public void UpgradeFoodGatheringCapacity() // Click upgrad food gathering capacity
     {
-        isFoodGatheringCapacityUpgrade = true;
+        if (resourcesStatus.gold_Amount >= economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringCapacity)
+        {
+            if (isFoodGatheringCapacityUpgrade == false)
+            {
+                isFoodGatheringCapacityUpgrade = true;
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringCapacity;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                foodGatheringCapacityButton.enabled = false;
+            }
+            else
+            {
+                Debug.Log("You have already upgrade");
+            }
+        }
+
+        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringCapacity)
+        {
+            Debug.Log("Not Enough Gold");
+        }
     }
 }
