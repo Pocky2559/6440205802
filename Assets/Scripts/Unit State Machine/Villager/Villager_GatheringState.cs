@@ -36,7 +36,7 @@ public class Villager_GatheringState : VillagerBaseState
         isFoodGatheringSpeedUpgrade = villager.isWindMillGatheringSpeedUpgrade;
         isFoodGatheringCapacityUpgrade = villager.isWindMillGatheringCapacityUpgrade;
 
-        // change capacity
+        // if capacity upgrade
         //Wood
         if(isWoodGatheringCapacityUpgrade == true && isAlreadyUpgradeWoodCapacity == false)
         {
@@ -49,6 +49,12 @@ public class Villager_GatheringState : VillagerBaseState
         {
             villager.goldStoneCarryingCapacity = villager.goldStoneCarryingCapacity + villager.economicUpgradeDatabase.economicUpgrade[1].increaseGatheringCapacity;
             isAlreadyUpgradeGoldStoneCapacity = true;
+        }
+
+        if(isFoodGatheringCapacityUpgrade == true && isAlreadyUpgradeFoodCapacity == false)
+        {
+            villager.foodCarryingCapacity = villager.foodCarryingCapacity + villager.economicUpgradeDatabase.economicUpgrade[2].increaseGatheringCapacity;
+            isAlreadyUpgradeFoodCapacity = true;
         }
     }
     public override void UpdateState(VillagerStateController villager)
@@ -71,7 +77,7 @@ public class Villager_GatheringState : VillagerBaseState
 
         #region Switch to Storing State
 
-        if(villager.currentCarryingResource == "Wood")
+        if (villager.currentCarryingResource == "Wood")
         {
             if (villager.gatheringAmount == villager.woodCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
@@ -81,7 +87,7 @@ public class Villager_GatheringState : VillagerBaseState
             }
         }
 
-        if ((villager.currentCarryingResource == "Gold"))
+        if (villager.currentCarryingResource == "Gold")
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
@@ -91,7 +97,7 @@ public class Villager_GatheringState : VillagerBaseState
             }
         }
 
-        if ((villager.currentCarryingResource == "Stone"))
+        if (villager.currentCarryingResource == "Stone")
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
@@ -101,6 +107,15 @@ public class Villager_GatheringState : VillagerBaseState
             }
         }
 
+        if (villager.currentCarryingResource == "Food")
+        {
+            if(villager.gatheringAmount == villager.foodCarryingCapacity)
+            {
+                villager.Villager.isStopped = false;
+                villager.isStoringManual = false;
+                villager.SwitchState(villager.vil_StoringState);
+            }
+        }
         #endregion
     }
 
@@ -145,7 +160,7 @@ public class Villager_GatheringState : VillagerBaseState
 
             else
             {
-                if (Time.time > lastShotTime + villager.unitStat.unitAttackSpeed) // villager will start gatering resources
+                if (Time.time > lastShotTime + villager.unitStat.unitAttackSpeed) // villager will start gatering resources normal speed
                 {
                     villager.gatheringAmount = villager.gatheringAmount + 1;
                     lastShotTime = Time.time;
@@ -154,11 +169,29 @@ public class Villager_GatheringState : VillagerBaseState
         }
         #endregion
 
-        /* if (Time.time > lastShotTime + villager.unitStat.unitAttackSpeed) // villager will start gatering resources
-         {
-             villager.gatheringAmount = villager.gatheringAmount + 1;
-             lastShotTime = Time.time;
-         }*/
+        #region Gather Food
+        if (villager.currentCarryingResource == "Food")
+        {
+            if (isFoodGatheringSpeedUpgrade == true) // if upgrade speed of gathering
+            {
+                //if upgrade gathering speed (unitAttackSpeed in villager is the speed of gathering resources)
+                if (Time.time > lastShotTime + villager.unitStat.unitAttackSpeed - villager.economicUpgradeDatabase.economicUpgrade[2].increaseGatheringSpeed) // villager will start gatering resources with more speed
+                {
+                    villager.gatheringAmount = villager.gatheringAmount + 1;
+                    lastShotTime = Time.time;
+                }
+            }
+
+            else
+            {
+                if (Time.time > lastShotTime + villager.unitStat.unitAttackSpeed) // villager will start gatering resources normal speed
+                {
+                    villager.gatheringAmount = villager.gatheringAmount + 1;
+                    lastShotTime = Time.time;
+                }
+            }
+        }
+        #endregion
     }
 
     public void ChangeTargetResources(VillagerStateController villager)
