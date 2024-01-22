@@ -3141,7 +3141,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 348357929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeGoldStoneGatheringCapacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &348357929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3927,7 +3939,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 529703861}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeGoldStoneGatheringSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &529703861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5383,7 +5407,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 687383440}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeFoodGatheringSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &687383440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7591,7 +7627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &967567190
 Transform:
   m_ObjectHideFlags: 0
@@ -11806,7 +11842,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1458224407}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeWoodGatheringCapacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1458224407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16251,7 +16299,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2081226994}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeWoodGatheringSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2081226994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16368,9 +16428,17 @@ MonoBehaviour:
   isWoodGatheringSpeedUpgrade: 0
   isWoodGatheringCapacityUpgrade: 0
   isGoldStoneGatheringSpeedUpgrade: 0
-  isGoldStoneGatheringCapacityUpgrad: 0
+  isGoldStoneGatheringCapacityUpgrade: 0
   isFoodGatheringSpeedUpgrade: 0
   isFoodGatheringCapacityUpgrade: 0
+  woodGatheringSpeedButton: {fileID: 2081226993}
+  woodGatheringCapacityButton: {fileID: 1458224406}
+  goldAndStoneGatheringSpeedButton: {fileID: 529703860}
+  goldAndStoneGatheringCapacityButton: {fileID: 348357928}
+  foodGatheringSpeedButton: {fileID: 687383439}
+  foodGatheringCapacityButton: {fileID: 2101211967}
+  resourcesStatus: {fileID: 2069055}
+  economicUpgradeDatabase: {fileID: 11400000, guid: 5e873c72fc72f7d4794b379eef1c692b, type: 2}
 --- !u!4 &2090896168
 Transform:
   m_ObjectHideFlags: 0
@@ -16469,7 +16537,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2101211968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeFoodGatheringCapacity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2101211968
 MonoBehaviour:
   m_ObjectHideFlags: 0
