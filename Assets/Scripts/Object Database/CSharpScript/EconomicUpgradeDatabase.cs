@@ -15,4 +15,6 @@ public class EconomicUpgradeInfo
     public string upgradeType;
     public int increaseGatheringSpeed;
     public int increaseGatheringCapacity;
+    public int goldCostForUpgradeGatheringSpeed;
+    public int goldCostForUpgradeGatheringCapacity;
 }
