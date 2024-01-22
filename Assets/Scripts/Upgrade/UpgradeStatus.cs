@@ -32,6 +32,7 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
             {
                 isWoodGatheringSpeedUpgrade = true;
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 woodGatheringSpeedButton.enabled = false;
             }
             else
@@ -54,6 +55,7 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
             {
                 isWoodGatheringCapacityUpgrade = true;
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 woodGatheringCapacityButton.enabled = false;
             }
             else
@@ -70,12 +72,48 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     public void UpgradeGoldStoneGatheringSpeed() // Click upgrade gold stone gathering speed
     {
-        isGoldStoneGatheringSpeedUpgrade = true;
+        if (resourcesStatus.gold_Amount >= economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed)
+        {
+            if (isGoldStoneGatheringSpeedUpgrade == false)
+            {
+                isGoldStoneGatheringSpeedUpgrade = true;
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                goldAndStoneGatheringSpeedButton.enabled = false;
+            }
+            else
+            {
+                Debug.Log("You have already upgrade");
+            }
+        }
+
+        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed)
+        {
+            Debug.Log("Not Enough Gold");
+        }
     }
 
     public void UpgradeGoldStoneGatheringCapacity() // Click upgrade gold stone gathering capacity
     {
-        isGoldStoneGatheringCapacityUpgrade = true;
+        if (resourcesStatus.gold_Amount >= economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringCapacity)
+        {
+            if (isGoldStoneGatheringCapacityUpgrade == false)
+            {
+                isGoldStoneGatheringCapacityUpgrade = true;
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringCapacity;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                goldAndStoneGatheringCapacityButton.enabled = false;
+            }
+            else
+            {
+                Debug.Log("You have already upgrade");
+            }
+        }
+
+        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringCapacity)
+        {
+            Debug.Log("Not Enough Gold");
+        }
     }
 
     public void UpgradeFoodGatheringSpeed() // Click upgrade food gathering speed
