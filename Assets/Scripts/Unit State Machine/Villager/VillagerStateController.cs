@@ -13,6 +13,7 @@ public class VillagerStateController : MonoBehaviour
     public GameObject unitSelectionAssign;
     public GameObject targetResources;
     public GameObject selectedStoringPoint;
+    public GameObject upgradeStatusAssign;
     public LayerMask resorcesLayerMask;
     public LayerMask groundLayerMask;
     public int gatheringAmount;
@@ -27,15 +28,9 @@ public class VillagerStateController : MonoBehaviour
     public UnitSelection unitSelection;
     public VillagerGatheringCapacity villagerGatheringCapacity;
     
-    
     //Upgrade 
     public EconomicUpgradeDatabase economicUpgradeDatabase;
-    public bool isLumberCampGatheringSpeedUpgrade;
-    public bool isLumberCampGatheringCapacityUpgrade;
-    public bool isMiningCartGatheringSpeedUpgrade;
-    public bool isMiningCartGatheringCapacityUpgrade;
-    public bool isWindMillGatheringSpeedUpgrade;
-    public bool isWindMillGatheringCapacityUpgrade;
+    public UpgradeStatus upgradeStatus;
 
     //States
     private VillagerBaseState currentState;
@@ -49,10 +44,12 @@ public class VillagerStateController : MonoBehaviour
         //create game object that contain component
         unitSelectionAssign = GameObject.FindGameObjectWithTag("UnitSelection");
         resourcesStatusAssign = GameObject.FindGameObjectWithTag("ResourcesStatus");
+        upgradeStatusAssign = GameObject.FindGameObjectWithTag("UpgradeStatus");
 
         //Assign compoent
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
         unitSelection = unitSelectionAssign.GetComponent<UnitSelection>();
+        upgradeStatus = upgradeStatusAssign.GetComponent<UpgradeStatus>();
         Villager = GetComponent<NavMeshAgent>();
         unitStat = GetComponent<UnitStat>();
 

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpgradeStatus : MonoBehaviour
+public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrade you have already done.
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool isWoodGatheringSpeedUpgrade;
+    public bool isWoodGatheringCapacityUpgrade;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public bool isGoldStoneGatheringSpeedUpgrade;
+    public bool isGoldStoneGatheringCapacityUpgrade;
+
+    public bool isFoodGatheringSpeedUpgrade;
+    public bool isFoodGatheringCapacityUpgrade;
 }

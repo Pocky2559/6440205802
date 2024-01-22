@@ -26,15 +26,15 @@ public class Villager_GatheringState : VillagerBaseState
         Debug.Log("Villager is gathering resources");
         villager.Villager.SetDestination(villager.targetResources.transform.position);
 
-        //Is Upgrade
-        isWoodGatheringSpeedUpgrade = villager.isLumberCampGatheringSpeedUpgrade;
-        isWoodGatheringCapacityUpgrade = villager.isLumberCampGatheringCapacityUpgrade;
+        //Is Upgrade (change varible name for easier to look)
+        isWoodGatheringSpeedUpgrade = villager.upgradeStatus.isWoodGatheringSpeedUpgrade;
+        isWoodGatheringCapacityUpgrade = villager.upgradeStatus.isWoodGatheringCapacityUpgrade;
 
-        isGoldStoneGatheringSpeedUpgrade = villager.isMiningCartGatheringSpeedUpgrade;
-        isGoldStoneGatheringCapacityUpgrade = villager.isMiningCartGatheringCapacityUpgrade;
+        isGoldStoneGatheringSpeedUpgrade = villager.upgradeStatus.isGoldStoneGatheringSpeedUpgrade;
+        isGoldStoneGatheringCapacityUpgrade = villager.upgradeStatus.isGoldStoneGatheringCapacityUpgrade;
 
-        isFoodGatheringSpeedUpgrade = villager.isWindMillGatheringSpeedUpgrade;
-        isFoodGatheringCapacityUpgrade = villager.isWindMillGatheringCapacityUpgrade;
+        isFoodGatheringSpeedUpgrade = villager.upgradeStatus.isFoodGatheringSpeedUpgrade;
+        isFoodGatheringCapacityUpgrade = villager.upgradeStatus.isFoodGatheringCapacityUpgrade;
 
         // if capacity upgrade
         //Wood
