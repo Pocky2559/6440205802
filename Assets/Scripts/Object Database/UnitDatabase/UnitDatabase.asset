@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32137b023cefc724c854a2e3edbc4777, type: 3}
+  m_Name: UnitDatabase
+  m_EditorClassIdentifier: 
+  unitDetails:
+  - unitID: 0
+    unitPrefab: {fileID: 3879042087438360872, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
+    unitName: Villager
+    HP: 100
+    damage: 0
+    meleeArmor: 0
+    rangedArmor: 0
+    attackSpeed: 2
+    foodCost: 50
+    goldCost: 0
+    trainingTime: 5
+  - unitID: 1
+    unitPrefab: {fileID: 2052379715951911027, guid: a4f7d98024807e2458250e82c9407287, type: 3}
+    unitName: Gunner
+    HP: 100
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 3
+    attackSpeed: 1.5
+    foodCost: 100
+    goldCost: 50
+    trainingTime: 0
+  - unitID: 2
+    unitPrefab: {fileID: 0}
+    unitName: Landsknecht
+    HP: 100
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 2
+    attackSpeed: 1.5
+    foodCost: 100
+    goldCost: 20
+    trainingTime: 0
+  - unitID: 3
+    unitPrefab: {fileID: 0}
+    unitName: Captain
+    HP: 100
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 2
+    attackSpeed: 1.5
+    foodCost: 300
+    goldCost: 200
+    trainingTime: 0
+  - unitID: 4
+    unitPrefab: {fileID: 0}
+    unitName: Kartouwe
+    HP: 100
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 2
+    attackSpeed: 1.5
+    foodCost: 200
+    goldCost: 500
+    trainingTime: 0
+  - unitID: 8
+    unitPrefab: {fileID: 5491826239358125280, guid: e31d1a03ed3a16f43906568e246cb2f9, type: 3}
+    unitName: Enemy
+    HP: 100
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 2
+    attackSpeed: 1.5
+    foodCost: 0
+    goldCost: 0
+    trainingTime: 0

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 873260f74f1b7d941b5f4313d69ece70, type: 3}
+  m_Name: BuildingDatabase
+  m_EditorClassIdentifier: 
+  objects:
+  - Prefab: {fileID: 6658291518509114060, guid: 62ed2428d6d2c96418287117cc1425fa, type: 3}
+    ID: 0
+    Name: House
+  - Prefab: {fileID: 5472605851252603581, guid: 2749600ae85213d43bd6f97080bba830, type: 3}
+    ID: 1
+    Name: Town Center
+  - Prefab: {fileID: 3344131966832300689, guid: 3ee7ca16150ebeb40bdb7083c9311032, type: 3}
+    ID: 2
+    Name: Lumber Camp
+  - Prefab: {fileID: 392232626303209858, guid: 480f028b23a4e8b4faab6fde2d900701, type: 3}
+    ID: 3
+    Name: Mining Cart
+  - Prefab: {fileID: 3509661935248633451, guid: f4267d42a9da4b542825a71f2deb24db, type: 3}
+    ID: 4
+    Name: Wind Mill
+  - Prefab: {fileID: 4314595430119107435, guid: 407340f16f186714fb2e60c24e713c35, type: 3}
+    ID: 5
+    Name: Barrack
+  - Prefab: {fileID: 413013442547704099, guid: e032d6bb95237b04592d01c140413a36, type: 3}
+    ID: 6
+    Name: Artillary

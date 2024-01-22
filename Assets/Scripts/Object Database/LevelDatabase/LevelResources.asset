@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b59df076eedab55438b440d08652b8b8, type: 3}
+  m_Name: LevelResources
+  m_EditorClassIdentifier: 
+  levelData:
+  - levelName: Tutorial
+    foodAmount: 0
+    woodAmount: 0
+    goldAmount: 0
+    stoneAmount: 0
+    resourcesCarryingCapacity: 10
+  - levelName: Prepare The Defenses
+    foodAmount: 500
+    woodAmount: 50
+    goldAmount: 50
+    stoneAmount: 0
+    resourcesCarryingCapacity: 10
+  - levelName: Janissaries Advance
+    foodAmount: 100
+    woodAmount: 50
+    goldAmount: 50
+    stoneAmount: 0
+    resourcesCarryingCapacity: 10
+  - levelName: Terror From The Past
+    foodAmount: 100
+    woodAmount: 50
+    goldAmount: 50
+    stoneAmount: 50
+    resourcesCarryingCapacity: 10
+  - levelName: The Wall Breached
+    foodAmount: 100
+    woodAmount: 50
+    goldAmount: 50
+    stoneAmount: 50
+    resourcesCarryingCapacity: 0
