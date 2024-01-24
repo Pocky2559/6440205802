@@ -1476,6 +1476,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 1913143688177068205, guid: 2749600ae85213d43bd6f97080bba830, type: 3}
+      propertyPath: clickToShowOBJInfo
+      value: 
+      objectReference: {fileID: 681908651}
     - target: {fileID: 2110808032570064353, guid: 2749600ae85213d43bd6f97080bba830, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -4264,26 +4268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4859ee82cfb0fa44a2f40a422389bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &580302857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580302842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24a77ecca458bf241bd2262c38d9d075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  villagers: []
-  militaryUnits: []
-  lastTrainingTime: 0
-  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
-  clickToShowOBJInfo: {fileID: 681908651}
-  resourcesStatus: {fileID: 2069055}
-  positionToSpawn: {x: 0, y: 0, z: 0}
-  uniqueKeys: []
 --- !u!1 &591847924
 GameObject:
   m_ObjectHideFlags: 0
@@ -5261,7 +5245,7 @@ GameObject:
   - component: {fileID: 681908651}
   m_Layer: 0
   m_Name: ClickToShowOBJInfo
-  m_TagString: Untagged
+  m_TagString: ClickToShowOBJInfo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6945,9 +6929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14fc473c2c45d94bb8b48e8fd76a62f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
-  layername:
-    m_Bits: 8
 --- !u!136 &908024593
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -10633,7 +10614,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1287239889}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2090896167}
+        m_TargetAssemblyTypeName: UpgradeStatus, Assembly-CSharp
+        m_MethodName: UpgradeTownCenter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1287239889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13338,26 +13331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4859ee82cfb0fa44a2f40a422389bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1689110439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689110431}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24a77ecca458bf241bd2262c38d9d075, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  villagers: []
-  militaryUnits: []
-  lastTrainingTime: 0
-  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
-  clickToShowOBJInfo: {fileID: 681908651}
-  resourcesStatus: {fileID: 2069055}
-  positionToSpawn: {x: 0, y: 0, z: 0}
-  uniqueKeys: []
 --- !u!1 &1697464672
 GameObject:
   m_ObjectHideFlags: 0
@@ -16437,8 +16410,11 @@ MonoBehaviour:
   goldAndStoneGatheringCapacityButton: {fileID: 348357928}
   foodGatheringSpeedButton: {fileID: 687383439}
   foodGatheringCapacityButton: {fileID: 2101211967}
+  isTownCenterUpgrade: 0
+  townCenterUpgradeButton: {fileID: 1287239888}
   resourcesStatus: {fileID: 2069055}
   economicUpgradeDatabase: {fileID: 11400000, guid: 5e873c72fc72f7d4794b379eef1c692b, type: 2}
+  townCenterUpgradeDatabase: {fileID: 11400000, guid: 07c8874babbba834a8fa0529e4487e84, type: 2}
 --- !u!4 &2090896168
 Transform:
   m_ObjectHideFlags: 0
