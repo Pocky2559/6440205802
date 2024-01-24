@@ -15,4 +15,5 @@ public class TownCenterUpgradeInfo
     public string upgradeType;
     public string upgradeInfo;
     public int reduceTrainingTime;
+    public int upgradeCost;
 }
