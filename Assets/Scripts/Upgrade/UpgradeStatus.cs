@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrade you have already done.
 {
+
+    //Economic Building
     public bool isWoodGatheringSpeedUpgrade;
     public bool isWoodGatheringCapacityUpgrade;
 
@@ -13,13 +15,20 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     public bool isFoodGatheringSpeedUpgrade;
     public bool isFoodGatheringCapacityUpgrade;
-
+    
     public Button woodGatheringSpeedButton;
     public Button woodGatheringCapacityButton;
     public Button goldAndStoneGatheringSpeedButton;
     public Button goldAndStoneGatheringCapacityButton;
     public Button foodGatheringSpeedButton;
     public Button foodGatheringCapacityButton;
+    //
+
+    //Town Center
+    public bool isTownCenterUpgrade;
+
+    public Button townCenterUpgradeButton;
+    //
 
     public ResourcesStatus resourcesStatus;
     public EconomicUpgradeDatabase economicUpgradeDatabase;

@@ -1259,6 +1259,7 @@ GameObject:
   - component: {fileID: -6328347274269436028}
   - component: {fileID: -874136227404237629}
   - component: {fileID: 1568260096665748350}
+  - component: {fileID: 1086175600107756686}
   m_Layer: 6
   m_Name: TownCenter
   m_TagString: Town Center
@@ -1406,6 +1407,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -1.54, y: 1.69, z: -0.54}
   m_TimeToStationary: 1
+--- !u!114 &1086175600107756686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472605851252603581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a77ecca458bf241bd2262c38d9d075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  villagers: []
+  militaryUnits: []
+  lastTrainingTime: 0
+  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
+  clickToShowOBJInfo: {fileID: 0}
+  resourcesStatus: {fileID: 0}
+  positionToSpawn: {x: 0, y: 0, z: 0}
+  uniqueKeys: []
 --- !u!1 &5530297588725429640
 GameObject:
   m_ObjectHideFlags: 0
