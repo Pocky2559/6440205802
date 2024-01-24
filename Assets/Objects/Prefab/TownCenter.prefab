@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: -6328347274269436028}
   - component: {fileID: -874136227404237629}
   - component: {fileID: 1568260096665748350}
-  - component: {fileID: 1086175600107756686}
+  - component: {fileID: 1913143688177068205}
   m_Layer: 6
   m_Name: TownCenter
   m_TagString: Town Center
@@ -1407,7 +1407,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -1.54, y: 1.69, z: -0.54}
   m_TimeToStationary: 1
---- !u!114 &1086175600107756686
+--- !u!114 &1913143688177068205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1420,13 +1420,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   villagers: []
-  militaryUnits: []
   lastTrainingTime: 0
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
   clickToShowOBJInfo: {fileID: 0}
   resourcesStatus: {fileID: 0}
   positionToSpawn: {x: 0, y: 0, z: 0}
   uniqueKeys: []
+  upgradeStatus: {fileID: 0}
+  townCenterUpgradeDatabase: {fileID: 11400000, guid: 07c8874babbba834a8fa0529e4487e84, type: 2}
 --- !u!1 &5530297588725429640
 GameObject:
   m_ObjectHideFlags: 0
