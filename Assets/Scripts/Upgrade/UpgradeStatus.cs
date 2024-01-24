@@ -32,7 +32,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     public ResourcesStatus resourcesStatus;
     public EconomicUpgradeDatabase economicUpgradeDatabase;
+    public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
 
+    private void Awake()
+    {
+        
+    }
+
+    #region Economic Upgrade
     public void UpgradeWoodGatheringSpeed() // Click upgrade wood gathering speed
     {
         if(resourcesStatus.gold_Amount >= economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed)
@@ -170,4 +177,31 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
             Debug.Log("Not Enough Gold");
         }
     }
+    #endregion
+
+    #region Town Center Upgrade
+    public void UpgradeTownCenter()
+    {
+        if (resourcesStatus.gold_Amount >= townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost)
+        {
+            if(isTownCenterUpgrade == false)
+            {
+                isTownCenterUpgrade = true;
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                townCenterUpgradeButton.enabled = false;
+            }
+
+            else
+            {
+                Debug.Log("You have already upgrade");
+            }
+        }
+
+        if (resourcesStatus.gold_Amount < townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost)
+        {
+            Debug.Log("Not enough gold");
+        }
+    }
+    #endregion
 }
