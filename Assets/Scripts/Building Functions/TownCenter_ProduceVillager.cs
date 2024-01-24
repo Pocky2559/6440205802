@@ -6,19 +6,37 @@ using UnityEngine;
 public class TownCenter_ProduceVillager : MonoBehaviour
 {
 
-    public List<GameObject> villagers;
-    public List<GameObject> militaryUnits;
+    
     public float lastTrainingTime = 0f;
+    private int villagerNumber = 0;
+    private string uniqueKey;
+    public Vector3 positionToSpawn;
+    private GameObject clickToShowOBJInfoAssign;
+    private GameObject upgradeStatusAssign;
+    private GameObject resourcesStatusAssign;
+    
+    public ResourcesStatus resourcesStatus;
+    public UpgradeStatus upgradeStatus;
     public UnitDatabaseSO unitDatabase;
     public ClickToShowOBJInfo clickToShowOBJInfo;
-    public ResourcesStatus resourcesStatus;
-    public Vector3 positionToSpawn;
-
+    public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
+    
     public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
     public List<string> uniqueKeys;
-    private string uniqueKey;
-    private int i = 0;
+    public List<GameObject> villagers;
 
+    public void Awake()
+    {
+        // creat game object that contain component
+        clickToShowOBJInfoAssign = GameObject.FindGameObjectWithTag("ClickToShowOBJInfo");
+        upgradeStatusAssign = GameObject.FindGameObjectWithTag("UpgradeStatus");
+        resourcesStatusAssign = GameObject.FindGameObjectWithTag("ResourcesStatus");
+        
+        // assign component
+        clickToShowOBJInfo = clickToShowOBJInfoAssign.GetComponent<ClickToShowOBJInfo>();
+        upgradeStatus = upgradeStatusAssign.GetComponent<UpgradeStatus>();
+        resourcesStatus= resourcesStatusAssign.GetComponent<ResourcesStatus>();
+    }
     public void AddVillagerQue() //if click button to train villager
     {
         if (resourcesStatus.food_Amount >= 50) // if resources is more than 50 , you can train villager
@@ -41,56 +59,62 @@ public class TownCenter_ProduceVillager : MonoBehaviour
         }
     }
 
-    public void AddMilitaryUnitsQue(string unitName) // if click button to train military units
-    {
-        if (unitName == "Gunner")
-        {
-            militaryUnits.Add(gameObject); // add military units to que
-        }
-
-        if (unitName == "LandSknecht")
-        {
-
-        }
-    }
-
     private void Update()
     {
-        #region Villagers Que
-        if (villagers.Count != 0)
+        if(villagers.Count > 0)
         {
-            if (Time.time > lastTrainingTime + unitDatabase.unitDetails[0].trainingTime)
+            if (upgradeStatus.isTownCenterUpgrade == true)
             {
-                GameObject villagerPrefab = villagers[villagers.Count - 1];
-                // Check if the prefab has a stored spawn position
-                if (positionsToSpawn.ContainsKey(uniqueKeys[i]))
+                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[0].trainingTime - townCenterUpgradeDatabase.townCenterUpgrades[0].reduceTrainingTime)
                 {
-                    Vector3 spawnPosition = positionsToSpawn[uniqueKeys[i]];
-                    Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
-                    villagers.Remove(villagerPrefab);
-                    lastTrainingTime = Time.time;
+                    GameObject villagerPrefab = villagers[villagers.Count - 1];
+                    // Check if the prefab has a stored spawn position
+                    if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
+                    {
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
+                        villagers.Remove(villagerPrefab);
+                        lastTrainingTime = Time.time;
 
-                    // Remove the stored spawn position for this prefab
-                    positionsToSpawn.Remove(uniqueKeys[i]);
-                    uniqueKeys.Remove(uniqueKeys[i]);
+                        // Remove the stored spawn position for this prefab
+                        positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
+                        uniqueKeys.Remove(uniqueKeys[villagerNumber]);
+                    }
+                    else
+                    {
+                        villagerNumber++;
+                    }
                 }
-                else
+            }
+
+            else
+            {
+                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[0].trainingTime)
                 {
-                    i++;
+                    GameObject villagerPrefab = villagers[villagers.Count - 1];
+                    // Check if the prefab has a stored spawn position
+                    if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
+                    {
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
+                        villagers.Remove(villagerPrefab);
+                        lastTrainingTime = Time.time;
+
+                        // Remove the stored spawn position for this prefab
+                        positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
+                        uniqueKeys.Remove(uniqueKeys[villagerNumber]);
+                    }
+                    else
+                    {
+                        villagerNumber++;
+                    }
                 }
-                /////
-                /*Instantiate(villagers[villagers.Count - 1], clickToShowOBJInfo.selectedObjectPosition, Quaternion.identity);
-                Instantiate(villagers[villagers.Count - 1], positionToSpawn, Quaternion.identity);
-                villagers.Remove(villagers[villagers.Count - 1]);
-                lastTrainingTime = Time.time;*/
             }
         }
-
+ 
         else
         {
             lastTrainingTime = Time.time;
         }
-
-        #endregion
     }
 }
