@@ -33,10 +33,10 @@ public class IdelState : GunnerBaseState
                     Debug.Log("Switching from Idel State to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }
-                else // if right click on something else
+                /*else // if right click on something else
                 {
                     gunner.selectedEnemy = null; // no switching and set seleced enemy as null
-                }
+                }*/
             }
         }
         #endregion

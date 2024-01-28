@@ -137,6 +137,7 @@ MonoBehaviour:
   unitSelectionAssign: {fileID: 0}
   targetResources: {fileID: 0}
   selectedStoringPoint: {fileID: 0}
+  upgradeStatusAssign: {fileID: 0}
   resorcesLayerMask:
     serializedVersion: 2
     m_Bits: 1024
@@ -155,12 +156,7 @@ MonoBehaviour:
   unitSelection: {fileID: 0}
   villagerGatheringCapacity: {fileID: 11400000, guid: a1000f4466af98347be1a22f03e39516, type: 2}
   economicUpgradeDatabase: {fileID: 11400000, guid: 5e873c72fc72f7d4794b379eef1c692b, type: 2}
-  isLumberCampGatheringSpeedUpgrade: 0
-  isLumberCampGatheringCapacityUpgrade: 0
-  isMiningCartGatheringSpeedUpgrade: 0
-  isMiningCartGatheringCapacityUpgrade: 0
-  isWindMillGatheringSpeedUpgrade: 0
-  isWindMillGatheringCapacityUpgrade: 0
+  upgradeStatus: {fileID: 0}
 --- !u!195 &3295163873697700569
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -241,7 +237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4404780213616638349}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.02, y: -1.06, z: -0.01}
+  m_LocalPosition: {x: -0.02, y: -0.69, z: -0.01}
   m_LocalScale: {x: 1.2000148, y: 1.1999938, z: 1.1999938}
   m_ConstrainProportionsScale: 0
   m_Children: []
