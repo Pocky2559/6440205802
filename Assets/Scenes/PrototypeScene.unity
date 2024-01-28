@@ -108,11 +108,11 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 51.1
-    agentClimb: 0.5
+    agentSlope: 45
+    agentClimb: 1.2
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    minRegionArea: 6
+    minRegionArea: 10
     manualCellSize: 0
     cellSize: 0.16666667
     manualTileSize: 0
@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8479,25 +8479,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 54204138055189983, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 2056
+      objectReference: {fileID: 0}
     - target: {fileID: 3879042087438360872, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_Name
       value: Villager (4)
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 99.01
+      value: 92.91
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 30.96
+      value: 29.53
       objectReference: {fileID: 0}
     - target: {fileID: 3879042087438362325, guid: 74b2b833d56707b47a682a9aefd64fbd, type: 3}
       propertyPath: m_LocalRotation.w
