@@ -4085,6 +4085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5212076919254286538}
+  - component: {fileID: 454595927524148536}
   m_Layer: 0
   m_Name: PalisadeGate
   m_TagString: Untagged
@@ -4184,6 +4185,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &454595927524148536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4836537226367752816}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.474098, y: 5.4762316, z: 9.618416}
+  m_Center: {x: -0.06680679, y: 2.6389728, z: -0.033405304}
 --- !u!1 &5038807124046879676
 GameObject:
   m_ObjectHideFlags: 0

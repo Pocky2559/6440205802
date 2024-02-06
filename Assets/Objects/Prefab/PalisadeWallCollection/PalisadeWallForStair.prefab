@@ -4670,6 +4670,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6688782443455993640}
+  - component: {fileID: 7714812806438592920}
   m_Layer: 0
   m_Name: PalisadeWallForStair
   m_TagString: Untagged
@@ -4762,6 +4763,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7714812806438592920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311940687749189010}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.3762817, y: 3.7483864, z: 3.0930023}
+  m_Center: {x: 1.9555817, y: 1.8181634, z: -1.4693298}
 --- !u!1 &6312624548200434798
 GameObject:
   m_ObjectHideFlags: 0

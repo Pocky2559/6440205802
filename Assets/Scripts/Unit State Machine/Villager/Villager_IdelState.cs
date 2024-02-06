@@ -22,6 +22,7 @@ public class Villager_IdelState : VillagerBaseState
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
               villager.selectedPosition = hit.point;
+                Debug.Log("Hit on " + hit.collider.gameObject.name);
               villager.SwitchState(villager.vil_MovingState); 
             }
             #endregion

@@ -3006,6 +3006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9014712036729627915}
+  - component: {fileID: 5286322074094020594}
   m_Layer: 0
   m_Name: PalisadeWall
   m_TagString: Untagged
@@ -3055,3 +3056,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5286322074094020594
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525701643587911601}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.391533, y: 3.7830753, z: 3.1576614}
+  m_Center: {x: 0.42996597, y: 1.8605952, z: -1.4540787}
