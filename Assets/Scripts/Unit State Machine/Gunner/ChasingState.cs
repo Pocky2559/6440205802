@@ -17,7 +17,7 @@ public class ChasingState : GunnerBaseState
         {
             float distanceOfGunnerAndTargetEnemy = Vector3.Distance(gunner.Gunner.transform.position, gunner.selectedEnemy.transform.position); // the distance between gunner and selected enemy
 
-            if (distanceOfGunnerAndTargetEnemy <= 9.8f) // gunner.selectedEnemy.transorm means that game object is still exist in hierarchy
+            if (distanceOfGunnerAndTargetEnemy <= 6.8f) // gunner.selectedEnemy.transorm means that game object is still exist in hierarchy
             {
                 gunner.Gunner.isStopped = true;  // if the enemy reach firing range it will stop
 
@@ -27,10 +27,10 @@ public class ChasingState : GunnerBaseState
                 if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.right, out hit, 9.8f, gunner.targetLayerMask)) // cast ray
+                    if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.forward, out hit, 6.8f, gunner.targetLayerMask)) // cast ray
                     {
                         Debug.Log("Cast Ray");
-                        Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.right * hit.distance, Color.red, 0.9f);
+                        Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 0.9f);
 
                         GameObject shootPTC = GameObject.Instantiate(gunner.shootParticle, gunner.Gun.transform.position, Quaternion.identity); // instantiate particle
                         GameObject hitPTC = GameObject.Instantiate(gunner.hitParticle, hit.collider.transform.position, Quaternion.identity);   // instantiate particle

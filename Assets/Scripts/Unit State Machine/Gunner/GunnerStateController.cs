@@ -18,6 +18,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public LayerMask groundLayerMask;
     public Vector3 selectedPosition;
     public GameObject rootGameObject;
+    public SphereCollider detectionArea;
 
     GunnerBaseState currentState;
     public IdelState idelState = new();
@@ -33,6 +34,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
         //Assign component
         unitStat = GetComponentInParent<UnitStat>();
         unitSelection = unitSelectionAssign.GetComponent<UnitSelection>();
+        detectionArea = GetComponent<SphereCollider>();
 
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;
