@@ -22,15 +22,15 @@ public class ChasingState : GunnerBaseState
                 gunner.Gunner.isStopped = true;  // if the enemy reach firing range it will stop
 
                 #region Shoot
-                gunner.transform.parent.LookAt(gunner.selectedEnemy.transform); // make gunner face at target enemy
+                gunner.transform.parent.LookAt(gunner.selectedEnemy.transform.root); // make gunner face at target enemy
 
                 if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.forward, out hit, 6.8f, gunner.targetLayerMask)) // cast ray
+                    if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.forward , out hit, Mathf.Infinity, gunner.targetLayerMask)) // cast ray
                     {
                         Debug.Log("Cast Ray");
-                        Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 0.9f);
+                        Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 2);
 
                         GameObject shootPTC = GameObject.Instantiate(gunner.shootParticle, gunner.Gun.transform.position, Quaternion.identity); // instantiate particle
                         GameObject hitPTC = GameObject.Instantiate(gunner.hitParticle, hit.collider.transform.position, Quaternion.identity);   // instantiate particle
@@ -44,7 +44,7 @@ public class ChasingState : GunnerBaseState
                 #endregion
             }
 
-            if (distanceOfGunnerAndTargetEnemy > 9.8f) // if the enemy is far than 9.8 f
+            if (distanceOfGunnerAndTargetEnemy > 6.8f) // if the enemy is far than 9.8 f
             {
                 gunner.Gunner.isStopped = false;
                 gunner.Gunner.SetDestination(gunner.selectedEnemy.transform.position);

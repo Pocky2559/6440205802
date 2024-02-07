@@ -39,7 +39,7 @@ public class MovingState : GunnerBaseState
         #region Switch to Idel State
         if (gunner.Gunner.remainingDistance == 0) //if Gunner is moving then it will switch to MovingState
         {
-            Debug.Log("Switching from MOving state to Idel state");
+            Debug.Log("Switching from Moving state to Idel state");
             gunner.SwitchState(gunner.idelState); // Switch to moving state
         }
         #endregion
