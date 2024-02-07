@@ -22,6 +22,8 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public Button removeButtonArtillary;
 
     public Button produceVillagerButton;
+    public Button produceGunnerButton;
+    public Button produceLandsknetchButton;
 
     public Text nameText;
 
@@ -32,6 +34,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public PreviewSystem previewSystem;
     public ObjectData data;
     public TownCenter_ProduceVillager produceVillager;
+    public Barrack_Producing produceMilitary;
 
     /// Building Details UI
     public GameObject townCenterUI;
@@ -41,6 +44,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public GameObject windMillUI;
     public GameObject barrackUI;
     public GameObject artillaryUI;
+    
 
     private void Start()
     {
@@ -160,6 +164,13 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Barrack"))
                     {
+                        produceMilitary = hit.collider.GetComponent<Barrack_Producing>();
+                        produceGunnerButton.onClick.RemoveAllListeners();
+                        produceGunnerButton.onClick.AddListener(produceMilitary.AddGunnerQue);
+
+                        produceLandsknetchButton.onClick.RemoveAllListeners();
+                        produceLandsknetchButton.onClick.AddListener(produceMilitary.AddLandsknetchQue);
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         barrackUI.SetActive(true);

@@ -25,18 +25,18 @@ MonoBehaviour:
     goldCost: 0
     trainingTime: 5
   - unitID: 1
-    unitPrefab: {fileID: 2052379715951911027, guid: a4f7d98024807e2458250e82c9407287, type: 3}
+    unitPrefab: {fileID: 2018023881312256668, guid: 0777d02660f2269429d485a019fdd61c, type: 3}
     unitName: Gunner
     HP: 100
     damage: 10
     meleeArmor: 0
     rangedArmor: 3
     attackSpeed: 1.5
-    foodCost: 100
-    goldCost: 50
-    trainingTime: 0
+    foodCost: 120
+    goldCost: 40
+    trainingTime: 5
   - unitID: 2
-    unitPrefab: {fileID: 0}
+    unitPrefab: {fileID: 1262647154511741680, guid: 15cdfd73b5a7b874db44b789c25c2424, type: 3}
     unitName: Landsknecht
     HP: 100
     damage: 10
@@ -45,7 +45,7 @@ MonoBehaviour:
     attackSpeed: 1.5
     foodCost: 100
     goldCost: 20
-    trainingTime: 0
+    trainingTime: 5
   - unitID: 3
     unitPrefab: {fileID: 0}
     unitName: Captain

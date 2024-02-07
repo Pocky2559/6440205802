@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1220507943787240350}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UpperLeg.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7080713869398777042}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Foot.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5356716582571279117}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shoulder.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8681033696000120609}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKPole.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5369528831859770111}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Pelvis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9058702875868184188}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Foot.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,9 +205,10 @@ GameObject:
   - component: {fileID: 5804876768235831208}
   - component: {fileID: 9123329368145175207}
   - component: {fileID: 2679171819125836094}
-  m_Layer: 0
+  - component: {fileID: 9086488943199029748}
+  m_Layer: 8
   m_Name: GunnerModel
-  m_TagString: Untagged
+  m_TagString: Gunner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,6 +280,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b171147e9c215b498255cde502825a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9086488943199029748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018023881312256668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d006543fdcf6d3498271bdb055f4095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
+  statList: []
+  unitDatabaseIndex: 0
+  unitHP: 0
+  unitName: 
+  unitDamage: 0
+  unitAttackSpeed: 0
+  unitMeleeArmor: 0
+  unitRangedArmor: 0
 --- !u!1 &2265818463390443612
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9116137499200638111}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hand.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5273416397832261447}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 591878553629961016}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Armature.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3318470567647075653}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKPole.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2683951375538822419}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKTarget.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,7 +472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 633298979534089221}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKTarget.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7276260935890557938}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hand.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -512,7 +534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3612000708408015073}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hand.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -544,7 +566,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6758281058207948209}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UpperArm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +598,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7573315045027945039}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spine1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +630,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 105229878556774803}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKTarget.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +661,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7055453117607787144}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LowerArm.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +693,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7549706891386610719}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKPole.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +724,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6778675033805925613}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LowerArm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -734,7 +756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8390027565490232127}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Foot.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +788,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698616154503148092}
   - component: {fileID: 7002484705795552783}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -872,7 +894,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8241400438298625923}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Shoulder.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,7 +926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1711945140764190253}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LowerLeg.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581111482762416997}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LowerLeg.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -968,7 +990,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5876592364090742136}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UpperArm.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1000,7 +1022,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717719550475554297}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spine2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1034,7 +1056,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3805103891348187987}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: UpperLeg.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1066,7 +1088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1639105123042381611}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKPole.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,7 +1120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8474929881914334649}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Hand.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5558413989877695299}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1185,7 @@ GameObject:
   - component: {fileID: 2603803982625664988}
   - component: {fileID: 4417664447540100683}
   - component: {fileID: 2090607287123394911}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DetectionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,6 +1249,7 @@ MonoBehaviour:
     m_Bits: 2184
   selectedPosition: {x: 0, y: 0, z: 0}
   rootGameObject: {fileID: 0}
+  detectionArea: {fileID: 0}
 --- !u!1 &8397418085143699801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7912672908449333010}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: IKTarget.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1268,7 +1291,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4656603165539989940}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Foot.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1298,6 +1321,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1678337067394734118}
     m_Modifications:
+    - target: {fileID: 3922973121126956279, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4193380497887108288, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5094334956510948703, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1345,6 +1376,26 @@ PrefabInstance:
     - target: {fileID: 5618634205186553829, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
       propertyPath: m_Name
       value: GunModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5618634205186553829, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5852310405024752610, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6844626572949795140, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644668939044995233, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8898234202018561263, guid: 267757447b522c245af6aaabbf9ff919, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 267757447b522c245af6aaabbf9ff919, type: 3}

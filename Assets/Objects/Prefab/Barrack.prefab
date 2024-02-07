@@ -1010,6 +1010,7 @@ GameObject:
   - component: {fileID: 8082936158527133124}
   - component: {fileID: -4238353825229458761}
   - component: {fileID: -2060528203011526548}
+  - component: {fileID: 7133386131620278414}
   m_Layer: 6
   m_Name: Barrack
   m_TagString: Barrack
@@ -1162,6 +1163,26 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.33, y: 1.26, z: -0.64}
   m_TimeToStationary: 0.5
+--- !u!114 &7133386131620278414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4314595430119107435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626d04b161c6ec7479a4650a306a0167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastTrainingTime: 0
+  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
+  clickToShowOBJInfo: {fileID: 0}
+  resourcesStatus: {fileID: 0}
+  militaryQue: []
+  uniqueKey: 
+  uniqueKeys: []
+  troopNumber: 0
 --- !u!1 &4372309086957134942
 GameObject:
   m_ObjectHideFlags: 0
