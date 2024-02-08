@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class UnitStat : MonoBehaviour
     public float unitAttackSpeed;
     public int unitMeleeArmor;
     public int unitRangedArmor;
+
 
     private void Start()
     {
@@ -102,6 +104,20 @@ public class UnitStat : MonoBehaviour
            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
         }
+
+        //Building
+        if (gameObject.CompareTag("PalisadeGate"))
+        {
+            unitDatabaseIndex = 6;
+            unitHP = statList[unitDatabaseIndex].HP;
+            unitDamage = statList[unitDatabaseIndex].damage;
+            unitName = statList[unitDatabaseIndex].unitName;
+            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
+            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
+            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+        }
+
+
         
     }
 
@@ -116,5 +132,7 @@ public class UnitStat : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+   
     }
 }

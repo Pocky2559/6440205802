@@ -86,11 +86,11 @@ public class Landsk_Chasing : LandsknetchBaseState
 
     public override void OnTriggerStay(LandsknetchStateController landsknetch, Collider coll)
     {
-        Debug.Log("");
+        return;
     }
 
     public override void OnTriggerExit(LandsknetchStateController landsknetch, Collider coll)
     {
-        Debug.Log("");
+        return;
     }
 }
