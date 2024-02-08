@@ -9,7 +9,6 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
 {
     private float lastShotTime = 0.0f;
     float distanceOfEnemyAndWall;
-    int generateNavMesh;
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
         if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
