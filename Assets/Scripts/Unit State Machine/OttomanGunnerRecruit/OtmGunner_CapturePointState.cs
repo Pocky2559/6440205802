@@ -6,7 +6,8 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
 {
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
-        return;
+        otmGunner.otmGunnerAgent.isStopped = false;
+        otmGunner.otmGunnerAgent.SetDestination(GameObject.FindGameObjectWithTag("CapturedPoint").transform.position);
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
@@ -16,7 +17,11 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
 
     public override void OnTriggerStay(OttomanGunnerRecruitStateController otmGunner, Collider coll)
     {
-        return;
+        if(coll.CompareTag("Gunner") || coll.CompareTag("Landsknecht") || coll.CompareTag("Villager"))
+        {
+            otmGunner.targetPlayerUnit = coll.gameObject;
+            otmGunner.SwitchState(otmGunner.otmGunner_AttackPlayerUnitState);
+        }
     }
 
     public override void OnTriggerExit(OttomanGunnerRecruitStateController otmGunner, Collider coll)

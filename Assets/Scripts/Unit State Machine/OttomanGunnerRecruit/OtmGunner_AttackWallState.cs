@@ -11,7 +11,14 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
         {
             otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
+            otmGunner.rootGameObject.transform.LookAt(otmGunner.Wall.transform.position);
         }
+
+        else
+        {
+            otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
+        }
+
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
@@ -30,12 +37,28 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
                     lastShotTime = Time.time;
                 }
             }
+
+            else
+            {
+                otmGunner.otmGunnerAgent.isStopped = false;
+                otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
+            }
+        }
+
+        else
+        {
+            otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
         }
     }
 
     public override void OnTriggerStay(OttomanGunnerRecruitStateController otmGunner, Collider coll)
     {
-        return;
+        Collider target = coll;
+        if(target.CompareTag("Gunner") || target.CompareTag("Landsknecht") || target.CompareTag("Villager"))
+        {
+            otmGunner.targetPlayerUnit = coll.gameObject;
+            otmGunner.SwitchState(otmGunner.otmGunner_AttackPlayerUnitState);
+        }
     }
 
     public override void OnTriggerExit(OttomanGunnerRecruitStateController otmGunner, Collider coll)

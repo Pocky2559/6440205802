@@ -9,6 +9,9 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public GameObject Wall;
     public UnitStat unitStat;
     public LayerMask wallLayerMask;
+    public GameObject targetPlayerUnit;
+    public GameObject rootGameObject;
+    public LayerMask targetLayerMask;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
@@ -21,6 +24,7 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         otmGunnerAgent= GetComponentInParent<NavMeshAgent>();
         Wall = GameObject.FindGameObjectWithTag("PalisadeGate");
         unitStat = GetComponentInParent<UnitStat>();
+        rootGameObject = transform.root.gameObject;
     }
 
     private void Start()
@@ -34,7 +38,7 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         currentState.UpdateState(this);
     }
 
-    private void OnTriggerStay(Collider otherStay)
+    public void OnTriggerStay(Collider otherStay)
     {
         currentState.OnTriggerStay(this, otherStay);
     }
