@@ -39,7 +39,11 @@ public class Landsk_Idel : LandsknetchBaseState
     {
         Collider targetCollider = coll;
         #region Switch to Chasing State
-        if (targetCollider.CompareTag("Enemy")) // if the enemy is in a detection area
+        if (targetCollider.CompareTag("OttomanRecruit")
+            || targetCollider.CompareTag("OttomanGunnerRecruit")
+            || targetCollider.CompareTag("MeleeJanissary")
+            || targetCollider.CompareTag("RangedJanissary")
+            || targetCollider.CompareTag("OttomanCannon")) // if the enemy is in a detection area
         {
             landsknetch.targetEnemy = coll.gameObject;
             landsknetch.SwitchState(landsknetch.land_ChasingState); // switch to chasing state

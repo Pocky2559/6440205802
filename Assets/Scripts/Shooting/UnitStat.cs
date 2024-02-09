@@ -94,7 +94,7 @@ public class UnitStat : MonoBehaviour
 
 
         //Enemy's units
-        if (gameObject.CompareTag("Enemy"))
+        if (gameObject.CompareTag("OttomanRecruit"))
         {
            unitDatabaseIndex = 5;
            unitHP = statList[unitDatabaseIndex].HP;
@@ -105,10 +105,57 @@ public class UnitStat : MonoBehaviour
            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
         }
 
+        if (gameObject.CompareTag("OttomanGunnerRecruit"))
+        {
+            unitDatabaseIndex = 6;
+            unitHP = statList[unitDatabaseIndex].HP;
+            unitDamage = statList[unitDatabaseIndex].damage;
+            unitName = statList[unitDatabaseIndex].unitName;
+            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
+            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
+            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+        }
+
+        if (gameObject.CompareTag("MeleeJanissary"))
+        {
+            unitDatabaseIndex = 7;
+            unitHP = statList[unitDatabaseIndex].HP;
+            unitDamage = statList[unitDatabaseIndex].damage;
+            unitName = statList[unitDatabaseIndex].unitName;
+            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
+            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
+            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+        }
+
+
+        if (gameObject.CompareTag("RangedJanissary"))
+        {
+            unitDatabaseIndex = 8;
+            unitHP = statList[unitDatabaseIndex].HP;
+            unitDamage = statList[unitDatabaseIndex].damage;
+            unitName = statList[unitDatabaseIndex].unitName;
+            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
+            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
+            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+        }
+
+
+        if (gameObject.CompareTag("OttomanCannon"))
+        {
+            unitDatabaseIndex = 9;
+            unitHP = statList[unitDatabaseIndex].HP;
+            unitDamage = statList[unitDatabaseIndex].damage;
+            unitName = statList[unitDatabaseIndex].unitName;
+            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
+            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
+            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+        }
+
+
         //Building
         if (gameObject.CompareTag("PalisadeGate"))
         {
-            unitDatabaseIndex = 6;
+            unitDatabaseIndex = 10;
             unitHP = statList[unitDatabaseIndex].HP;
             unitDamage = statList[unitDatabaseIndex].damage;
             unitName = statList[unitDatabaseIndex].unitName;

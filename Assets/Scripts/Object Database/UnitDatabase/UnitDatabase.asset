@@ -69,17 +69,61 @@ MonoBehaviour:
     goldCost: 500
     trainingTime: 0
   - unitID: 5
-    unitPrefab: {fileID: 5491826239358125280, guid: e31d1a03ed3a16f43906568e246cb2f9, type: 3}
-    unitName: Enemy
+    unitPrefab: {fileID: 3575369023408630659, guid: e15b1f3305658fd43a0007369fe0d04c, type: 3}
+    unitName: Ottoman Recruit
     HP: 100
     damage: 10
     meleeArmor: 0
-    rangedArmor: 2
+    rangedArmor: 8
     attackSpeed: 1.5
     foodCost: 0
     goldCost: 0
     trainingTime: 0
   - unitID: 6
+    unitPrefab: {fileID: 6476812232195504875, guid: 6c80258b38fbb7b4fbb39ba4ec45d199, type: 3}
+    unitName: Ottoman Gunner Recruit
+    HP: 90
+    damage: 10
+    meleeArmor: 0
+    rangedArmor: 0
+    attackSpeed: 1.5
+    foodCost: 0
+    goldCost: 0
+    trainingTime: 0
+  - unitID: 7
+    unitPrefab: {fileID: 0}
+    unitName: Melee Janissary
+    HP: 150
+    damage: 15
+    meleeArmor: 5
+    rangedArmor: 5
+    attackSpeed: 1.5
+    foodCost: 0
+    goldCost: 0
+    trainingTime: 0
+  - unitID: 8
+    unitPrefab: {fileID: 0}
+    unitName: Ranged Janissary
+    HP: 120
+    damage: 18
+    meleeArmor: 5
+    rangedArmor: 5
+    attackSpeed: 1.5
+    foodCost: 0
+    goldCost: 0
+    trainingTime: 0
+  - unitID: 9
+    unitPrefab: {fileID: 0}
+    unitName: Ottoman Cannon
+    HP: 200
+    damage: 30
+    meleeArmor: 0
+    rangedArmor: 9
+    attackSpeed: 5
+    foodCost: 0
+    goldCost: 0
+    trainingTime: 0
+  - unitID: 10
     unitPrefab: {fileID: 4836537226367752816, guid: 739a07d562e03654faeb6e4785279f20, type: 3}
     unitName: PalisadeGate
     HP: 500

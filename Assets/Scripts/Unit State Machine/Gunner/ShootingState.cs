@@ -49,7 +49,11 @@ public class ShootingState : GunnerBaseState
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.collider.CompareTag("Enemy")) // if right click on the enemy
+                if (hit.collider.CompareTag("OttomanRecruit")
+                      || hit.collider.CompareTag("OttomanGunnerRecruit")
+                      || hit.collider.CompareTag("MeleeJanissary")
+                      || hit.collider.CompareTag("RangedJanissary")
+                      || hit.collider.CompareTag("OttomanCannon")) // if right click on the enemy
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
                     Debug.Log("Switching from Idel State to Chasing state");
@@ -72,14 +76,22 @@ public class ShootingState : GunnerBaseState
 
     public override void OnTriggerStay(GunnerStateController gunner, Collider coll)
     {
-        if (coll.CompareTag("Enemy")) // if enemy is in a detection area, gunner will start shooting at him
+        if (coll.CompareTag("OttomanRecruit")
+            || coll.CompareTag("OttomanGunnerRecruit")
+            || coll.CompareTag("MeleeJanissary")
+            || coll.CompareTag("RangedJanissary")
+            || coll.CompareTag("OttomanCannon")) // if enemy is in a detection area, gunner will start shooting at him
         {
             targetEnemy = coll.gameObject; // assign the target enemy game object
         }
     }
     public override void OnTriggerExit(GunnerStateController gunner, Collider coll)
     {
-        if (coll.CompareTag("Enemy")) // if enemy is outside of a detection area, gunner will enter idelState
+        if (coll.CompareTag("OttomanRecruit")
+            || coll.CompareTag("OttomanGunnerRecruit")
+            || coll.CompareTag("MeleeJanissary")
+            || coll.CompareTag("RangedJanissary")
+            || coll.CompareTag("OttomanCannon")) // if enemy is outside of a detection area, gunner will enter idelState
         {
             gunner.SwitchState(gunner.idelState); // switch to idelState
         }

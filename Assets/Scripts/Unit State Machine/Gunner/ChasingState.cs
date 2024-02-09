@@ -55,7 +55,11 @@ public class ChasingState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (!hit.collider.CompareTag("Enemy")) // if it is something else that not Enemy
+                if (!(hit.collider.CompareTag("OttomanRecruit")
+                      || hit.collider.CompareTag("OttomanGunnerRecruit")
+                      || hit.collider.CompareTag("MeleeJanissary")
+                      || hit.collider.CompareTag("RangedJanissary")
+                      || hit.collider.CompareTag("OttomanCannon"))) // if it is something else that not Enemy
                 {
                     gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     gunner.selectedEnemy = null; // reset all selected enemy

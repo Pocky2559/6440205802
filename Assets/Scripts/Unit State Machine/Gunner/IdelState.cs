@@ -27,7 +27,11 @@ public class IdelState : GunnerBaseState
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.collider.CompareTag("Enemy")) // if right click on the enemy
+                if (hit.collider.CompareTag("OttomanRecruit")
+                      || hit.collider.CompareTag("OttomanGunnerRecruit")
+                      || hit.collider.CompareTag("MeleeJanissary")
+                      || hit.collider.CompareTag("RangedJanissary")
+                      || hit.collider.CompareTag("OttomanCannon")) // if right click on the enemy
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
                     Debug.Log("Switching from Idel State to Chasing state");
@@ -46,7 +50,11 @@ public class IdelState : GunnerBaseState
     {
         Collider targetCollider = coll;
         #region Switch to Shooting State
-        if (targetCollider.CompareTag("Enemy")) // if the enemy is in a detection area
+        if (targetCollider.CompareTag("OttomanRecruit")
+            || targetCollider.CompareTag("OttomanGunnerRecruit")
+            || targetCollider.CompareTag("MeleeJanissary")
+            || targetCollider.CompareTag("RangedJanissary")
+            || targetCollider.CompareTag("OttomanCannon")) // if the enemy is in a detection area
         {
             gunner.SwitchState(gunner.shootingState); // switch to shooting state
         }

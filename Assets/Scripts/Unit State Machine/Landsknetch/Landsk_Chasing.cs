@@ -61,7 +61,11 @@ public class Landsk_Chasing : LandsknetchBaseState
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (!hit.collider.CompareTag("Enemy")) // if it is something else that not Enemy
+                if (!(hit.collider.CompareTag("OttomanRecruit")
+                      || hit.collider.CompareTag("OttomanGunnerRecruit")
+                      || hit.collider.CompareTag("MeleeJanissary")
+                      || hit.collider.CompareTag("RangedJanissary")
+                      || hit.collider.CompareTag("OttomanCannon"))) // if it is something else that not Enemy
                 {
                     landsknetch.landsknetchAgent.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     landsknetch.targetEnemy = null; // reset all selected enemy
