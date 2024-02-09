@@ -8,8 +8,6 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public NavMeshAgent Gunner;
     public GameObject Gun;
     public LayerMask targetLayerMask;
-    public GameObject shootParticle;
-    public GameObject hitParticle;
     public UnitStat unitStat;
     public GameObject selectedEnemy;
     public bool isChasing;

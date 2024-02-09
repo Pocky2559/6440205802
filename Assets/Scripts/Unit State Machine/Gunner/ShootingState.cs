@@ -27,12 +27,6 @@ public class ShootingState : GunnerBaseState
                 {
                     Debug.Log("Cast Ray");
                     Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 0.9f);
-
-                    GameObject shootPTC = GameObject.Instantiate(gunner.shootParticle, gunner.Gun.transform.position, Quaternion.identity); // instantiate particle
-                    GameObject hitPTC = GameObject.Instantiate(gunner.hitParticle, hit.collider.transform.position, Quaternion.identity);   // instantiate particle
-                    GameObject.Destroy(shootPTC, 1);
-                    GameObject.Destroy(hitPTC, 2);
-
                     lastShotTime = Time.time;
 
                     TargetRecieveDamage(gunner, hit);
