@@ -296,6 +296,7 @@ MonoBehaviour:
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
   statList: []
   unitDatabaseIndex: 0
+  capturePointByEnemy: {fileID: 0}
   unitHP: 0
   unitName: 
   unitDamage: 0
@@ -1235,7 +1236,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 15
   m_Center: {x: 0.05, y: 1.2232608, z: 0}
 --- !u!114 &2090607287123394911
 MonoBehaviour:

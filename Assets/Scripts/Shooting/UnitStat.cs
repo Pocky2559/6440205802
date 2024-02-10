@@ -9,6 +9,7 @@ public class UnitStat : MonoBehaviour
     public UnitDatabaseSO unitDatabase;
     public List<UnitDetails> statList;
     public int unitDatabaseIndex;
+    public CapturePointByEnemy capturePointByEnemy;
 
     public int unitHP;
     public string unitName;
@@ -17,10 +18,10 @@ public class UnitStat : MonoBehaviour
     public int unitMeleeArmor;
     public int unitRangedArmor;
 
-
-    private void Start()
+    private void Awake()
     {
         statList = unitDatabase.unitDetails;
+        capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
         AssignDataForThisUnit();
     }
     private void AssignDataForThisUnit()
@@ -177,8 +178,26 @@ public class UnitStat : MonoBehaviour
     {
         if (unitHP <= 1)
         {
-            Destroy(gameObject);
+            if(unitDatabaseIndex == 5    
+               || unitDatabaseIndex == 6
+               || unitDatabaseIndex == 7
+               || unitDatabaseIndex == 8)  // Check this becauser when Enemy was killed the the area of capture point
+                                           // it will be deleted immediatly and OnTriggerWExit won't detect
+                                           // So we need to make it check that this enemy was trigger the OnTriggerExit and stop count down the time 
+            {
+                GameObject TargetObject = unitDatabase.unitDetails[unitDatabaseIndex].unitPrefab;
+                Collider colliderOfGameObject = TargetObject.GetComponent<Collider>();
+                capturePointByEnemy.OnTriggerExit(colliderOfGameObject);
+                Destroy(gameObject);
+            }
+            else
+            {
+              Destroy(gameObject);
+            }
+            
         }
+
+
         
    
     }
