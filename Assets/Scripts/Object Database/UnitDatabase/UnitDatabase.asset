@@ -30,7 +30,7 @@ MonoBehaviour:
     HP: 100
     damage: 10
     meleeArmor: 0
-    rangedArmor: 3
+    rangedArmor: 2
     attackSpeed: 1.5
     foodCost: 120
     goldCost: 40
@@ -41,7 +41,7 @@ MonoBehaviour:
     HP: 100
     damage: 10
     meleeArmor: 0
-    rangedArmor: 2
+    rangedArmor: 3
     attackSpeed: 1.5
     foodCost: 100
     goldCost: 20
@@ -74,7 +74,7 @@ MonoBehaviour:
     HP: 100
     damage: 10
     meleeArmor: 0
-    rangedArmor: 8
+    rangedArmor: 2
     attackSpeed: 1.5
     foodCost: 0
     goldCost: 0
@@ -82,8 +82,8 @@ MonoBehaviour:
   - unitID: 6
     unitPrefab: {fileID: 6476812232195504875, guid: 6c80258b38fbb7b4fbb39ba4ec45d199, type: 3}
     unitName: Ottoman Gunner Recruit
-    HP: 90
-    damage: 10
+    HP: 80
+    damage: 8
     meleeArmor: 0
     rangedArmor: 0
     attackSpeed: 1.5
@@ -126,7 +126,7 @@ MonoBehaviour:
   - unitID: 10
     unitPrefab: {fileID: 4836537226367752816, guid: 739a07d562e03654faeb6e4785279f20, type: 3}
     unitName: PalisadeGate
-    HP: 500
+    HP: 3000
     damage: 0
     meleeArmor: 0
     rangedArmor: 5
