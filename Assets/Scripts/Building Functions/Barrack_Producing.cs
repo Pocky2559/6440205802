@@ -18,6 +18,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
     private GameObject clickToShowOBJInfoAssign;
     private GameObject resourcesStatusAssign;
+    public HouseList population;
 
     private void Awake()
     {
@@ -28,11 +29,14 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         // assign component
         clickToShowOBJInfo = clickToShowOBJInfoAssign.GetComponent<ClickToShowOBJInfo>();
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
     }
 
     public void AddGunnerQue()
     {
-        if(resourcesStatus.food_Amount >= 120 && resourcesStatus.gold_Amount >= 40)
+        if(resourcesStatus.food_Amount >= 120
+           && resourcesStatus.gold_Amount >= 40
+           && population.currentPopulation < population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[1].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
@@ -48,7 +52,9 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
 
     public void AddLandsknetchQue()
     {
-        if (resourcesStatus.food_Amount >= 100 && resourcesStatus.gold_Amount >= 20)
+        if (resourcesStatus.food_Amount >= 100
+            && resourcesStatus.gold_Amount >= 20
+            && population.currentPopulation < population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[2].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
@@ -79,6 +85,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                         lastTrainingTime = Time.time;
                         positionsToSpawn.Remove(uniqueKeys[troopNumber]);
                         uniqueKeys.Remove(uniqueKeys[troopNumber]);
+                        population.PopulationChanges(unitDatabase.unitDetails[1].population);
                     }
                 }
             }
@@ -96,6 +103,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                         lastTrainingTime = Time.time;
                         positionsToSpawn.Remove(uniqueKeys[troopNumber]);
                         uniqueKeys.Remove(uniqueKeys[troopNumber]);
+                        population.PopulationChanges(unitDatabase.unitDetails[2].population);
                     }
                 }
             }

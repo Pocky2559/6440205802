@@ -15,12 +15,14 @@ public class PlacementSystem : MonoBehaviour
     private int placeToken = 1;
     public bool canItPlace;
     private GameObject refGameObject;
+    private string refGameObjectName;
     public Grid grid;
     private Vector3Int currentPosGrid;
     MeshRenderer meshRenderer;
     Material originMaterial;
     public BuildingResourcesSpend buildingResourcesSpend;
     public TargetSelected targetSelected;
+    public HouseList listOfHouse;
 
     //this method recieve the Game Object from class PreviewSystem
     public void PlaceObjectState(GameObject gameOBJ)
@@ -29,6 +31,8 @@ public class PlacementSystem : MonoBehaviour
        gameObj = gameOBJ;
         // refGameObject = GameObject.FindGameObjectWithTag(database.objects[selectObject.ID].Name); //Find Game Object in hierachy with ID from class SelectObject
         refGameObject = database.objects[selectObject.ID].Prefab;
+        refGameObjectName = database.objects[selectObject.ID].Name;
+
 
        if(gameObj != null)
         { 
@@ -44,14 +48,19 @@ public class PlacementSystem : MonoBehaviour
     {
         buildingResourcesSpend.CheckAvailbleResources(selectObject.ID); // Check available resources first
         if(canItPlace == true) // if is has available resources
-         {
+        {
              Destroy(refGameObject.GetComponent<DetectTrigger>()); // Delete DetectTrigger from new game object that we place
              refGameObject.layer = 6; // 6 layer = Building // change layermask of placed building
              currentPosGrid.y = 0; // make building stick to the ground
              meshRenderer.material = originMaterial;
              refGameObject = Instantiate(refGameObject, grid.CellToWorld(currentPosGrid), Quaternion.identity); //clone object
              refGameObject.AddComponent<TargetSelected>(); // add this compent for select and look details of this building
-         }
+        }
+
+        if (canItPlace == true && refGameObjectName == "House" && listOfHouse.currentHouseCapacity <= 200)
+        {
+            listOfHouse.AddHouseToList(refGameObject);
+        }
     }
 
     //make the Game Object in this class is null and destroy it

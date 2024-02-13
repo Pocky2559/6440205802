@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class TownCenter_ProduceVillager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
     public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
     public List<string> uniqueKeys;
     public List<GameObject> villagersQue;
+    public HouseList population; 
 
     public void Awake()
     {
@@ -34,10 +36,11 @@ public class TownCenter_ProduceVillager : MonoBehaviour
         clickToShowOBJInfo = clickToShowOBJInfoAssign.GetComponent<ClickToShowOBJInfo>();
         upgradeStatus = upgradeStatusAssign.GetComponent<UpgradeStatus>();
         resourcesStatus= resourcesStatusAssign.GetComponent<ResourcesStatus>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
     }
     public void AddVillagerQue() //if click button to train villager
     {
-        if (resourcesStatus.food_Amount >= 50) // if resources is more than 50 , you can train villager
+        if (resourcesStatus.food_Amount >= 50 && population.currentPopulation < population.currentHouseCapacity) // if resources is more than 50 , you can train villager
         {
             GameObject newPrefabVillager = unitDatabase.unitDetails[0].unitPrefab;
 
@@ -77,6 +80,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
                         // Remove the stored spawn position for this prefab
                         positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
                         uniqueKeys.Remove(uniqueKeys[villagerNumber]);
+                        population.PopulationChanges(unitDatabase.unitDetails[0].population);
                     }
                     else
                     {
@@ -101,6 +105,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
                         // Remove the stored spawn position for this prefab
                         positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
                         uniqueKeys.Remove(uniqueKeys[villagerNumber]);
+                        population.PopulationChanges(unitDatabase.unitDetails[0].population);
                     }
                     else
                     {

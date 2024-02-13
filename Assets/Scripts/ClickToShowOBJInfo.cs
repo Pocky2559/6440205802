@@ -33,8 +33,10 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
     public PreviewSystem previewSystem;
     public ObjectData data;
+    public UnitDatabaseSO unitDatabase;
     public TownCenter_ProduceVillager produceVillager;
     public Barrack_Producing produceMilitary;
+    public HouseList listOfHouse;
 
     /// Building Details UI
     public GameObject townCenterUI;
@@ -209,12 +211,29 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     }
     private void RemoveObject()
     {
-        if(selectedObject != null) 
+        #region Remove Building
+        if (selectedObject.CompareTag("House"))
+        {
+            listOfHouse.DeleteHouseFromList(selectedObject);
+            listOfHouse.currentHouseCapacity = listOfHouse.currentHouseCapacity - listOfHouse.houseCapacityAssign;
+            Destroy(selectedObject);
+            buildingUIDetails.SetActive(false);
+            previewSystem.StopPreview();
+            selectedObject = null;
+        }
+        
+        if (selectedObject.CompareTag("Town Center")
+            || selectedObject.CompareTag("Lumber Camp")
+            || selectedObject.CompareTag("Mining Cart")
+            || selectedObject.CompareTag("Wind Mill")
+            || selectedObject.CompareTag("Barrack")
+            || selectedObject.CompareTag("Artillary"))
         {
             Destroy(selectedObject);
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();
             selectedObject = null;
         }
+        #endregion
     }
 }

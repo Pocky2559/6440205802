@@ -24,4 +24,5 @@ public class UnitDetails
     public int foodCost;
     public int goldCost;
     public float trainingTime;
+    public int population;
 }

@@ -10,6 +10,7 @@ public class UnitStat : MonoBehaviour
     public List<UnitDetails> statList;
     public int unitDatabaseIndex;
     public CapturePointByEnemy capturePointByEnemy;
+    public HouseList population;
 
     public int unitHP;
     public string unitName;
@@ -17,11 +18,13 @@ public class UnitStat : MonoBehaviour
     public float unitAttackSpeed;
     public int unitMeleeArmor;
     public int unitRangedArmor;
+    public int unitPopulation;
 
     private void Awake()
     {
         statList = unitDatabase.unitDetails;
         capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         AssignDataForThisUnit();
     }
     private void AssignDataForThisUnit()
@@ -36,6 +39,8 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;    
+            
         }
 
         if (gameObject.CompareTag("Gunner"))
@@ -47,6 +52,7 @@ public class UnitStat : MonoBehaviour
            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+           unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("Landsknecht"))
@@ -58,6 +64,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("Landsknecht"))
@@ -69,6 +76,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("Captain"))
@@ -80,6 +88,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("Kartouwe"))
@@ -91,6 +100,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
 
@@ -104,6 +114,7 @@ public class UnitStat : MonoBehaviour
            unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
            unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
            unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+           unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("OttomanGunnerRecruit"))
@@ -115,6 +126,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
         if (gameObject.CompareTag("MeleeJanissary"))
@@ -126,6 +138,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
 
@@ -138,6 +151,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
 
@@ -150,6 +164,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
 
@@ -163,6 +178,7 @@ public class UnitStat : MonoBehaviour
             unitAttackSpeed = statList[unitDatabaseIndex].attackSpeed;
             unitMeleeArmor = statList[unitDatabaseIndex].meleeArmor;
             unitRangedArmor = statList[unitDatabaseIndex].rangedArmor;
+            unitPopulation = statList[unitDatabaseIndex].population;
         }
 
 
@@ -192,6 +208,7 @@ public class UnitStat : MonoBehaviour
             }
             else
             {
+              population.PopulationChanges(-1 * unitPopulation);
               Destroy(gameObject);
             }
             

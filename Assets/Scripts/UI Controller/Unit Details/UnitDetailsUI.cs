@@ -9,7 +9,10 @@ public class UnitDetailsUI : MonoBehaviour
 {
     public UnitSelection unitSelection;
     public GameObject unitDetailsUI;
+    public GameObject thisGameObject;
     public UnitStat unitStat;
+    public HouseList population;
+    public UnitDatabaseSO unitDatabase;
 
     public TMP_Text unitName;
     public TMP_Text unitAttackDetail;
@@ -17,6 +20,11 @@ public class UnitDetailsUI : MonoBehaviour
     public TMP_Text unitMeleeArmorDetail;
     public TMP_Text unitRangedArmorDetail;
 
+
+    private void Awake()
+    {
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();    
+    }
     private void Update()
     {
        CheckSelection();
@@ -30,6 +38,7 @@ public class UnitDetailsUI : MonoBehaviour
             try
             {
                 unitStat = unitSelection.unitSelected[0].GetComponent<UnitStat>();
+                thisGameObject = unitSelection.unitSelected[0].gameObject;
                 unitName.text = unitStat.unitName;
                 unitAttackDetail.text = "Attack : " + unitStat.unitDamage.ToString();
                 unitHPDetail.text = "HP : " + unitStat.unitHP.ToString();
@@ -52,6 +61,37 @@ public class UnitDetailsUI : MonoBehaviour
     public void DeleteUnit()
     {
         unitSelection.DeselectAll();
-        Destroy(unitStat.gameObject);
+
+        #region Remove Unit
+        if (thisGameObject.CompareTag("Villager"))
+        {
+            population.PopulationChanges(-1 * unitDatabase.unitDetails[0].population);
+            Destroy(unitStat.gameObject);
+        }
+
+        if (thisGameObject.CompareTag("Gunner"))
+        {
+            population.PopulationChanges(-1 * unitDatabase.unitDetails[1].population);
+            Destroy(unitStat.gameObject);
+        }
+
+        if (thisGameObject.CompareTag("Landsknecht"))
+        {
+            population.PopulationChanges(-1 * unitDatabase.unitDetails[2].population);
+            Destroy(unitStat.gameObject);
+        }
+
+        if (thisGameObject.CompareTag("Captain"))
+        {
+            population.PopulationChanges(-1 * unitDatabase.unitDetails[3].population);
+            Destroy(unitStat.gameObject);
+        }
+
+        if (thisGameObject.CompareTag("Kartouwe"))
+        {
+            population.PopulationChanges(-1 * unitDatabase.unitDetails[4].population);
+            Destroy(unitStat.gameObject);
+        }
+        #endregion
     }
 }
