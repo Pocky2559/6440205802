@@ -127,7 +127,17 @@ public class BuildingResourcesSpend : MonoBehaviour // this script use to calcul
 
         if(buildingID == 6) // Artillery
         {
-
+            if (resourcesStatus.wood_Amount < buildingCost.buildingCostsData[6].woodRequire)
+            {
+                Debug.Log("Need more resources");
+                placementSystem.canItPlace = false;
+            }
+            else
+            {
+                resourcesStatus.wood_Amount = resourcesStatus.wood_Amount - buildingCost.buildingCostsData[6].woodRequire;
+                resourcesStatus.wood_Text.text = resourcesStatus.wood_Amount.ToString();
+                placementSystem.canItPlace = true;
+            }
         }
     }
 }
