@@ -209,7 +209,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
             }
         }
     }
-    private void RemoveObject()
+    public void RemoveObject()
     {
         #region Remove Building
         if (selectedObject.CompareTag("House"))
@@ -223,9 +223,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
         }
         
         if (selectedObject.CompareTag("Town Center")
-            || selectedObject.CompareTag("Lumber Camp")
-            || selectedObject.CompareTag("Mining Cart")
-            || selectedObject.CompareTag("Wind Mill")
+            || selectedObject.CompareTag("Wood Storage")
+            || selectedObject.CompareTag("Gold Stone Storage")
+            || selectedObject.CompareTag("Food Storage")
             || selectedObject.CompareTag("Barrack")
             || selectedObject.CompareTag("Artillary"))
         {
