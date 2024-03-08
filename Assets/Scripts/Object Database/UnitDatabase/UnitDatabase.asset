@@ -52,25 +52,25 @@ MonoBehaviour:
   - unitID: 3
     unitPrefab: {fileID: 0}
     unitName: Captain
-    HP: 100
-    damage: 10
-    meleeArmor: 0
-    rangedArmor: 2
+    HP: 200
+    damage: 15
+    meleeArmor: 2
+    rangedArmor: 3
     attackSpeed: 1.5
-    foodCost: 300
-    goldCost: 200
+    foodCost: 200
+    goldCost: 50
     trainingTime: 0
     population: 1
   - unitID: 4
     unitPrefab: {fileID: 0}
     unitName: Kartouwe
-    HP: 100
-    damage: 10
+    HP: 150
+    damage: 20
     meleeArmor: 0
-    rangedArmor: 2
-    attackSpeed: 1.5
+    rangedArmor: 5
+    attackSpeed: 0
     foodCost: 200
-    goldCost: 500
+    goldCost: 100
     trainingTime: 0
     population: 5
   - unitID: 5
@@ -100,10 +100,10 @@ MonoBehaviour:
   - unitID: 7
     unitPrefab: {fileID: 0}
     unitName: Melee Janissary
-    HP: 150
+    HP: 120
     damage: 15
-    meleeArmor: 5
-    rangedArmor: 5
+    meleeArmor: 2
+    rangedArmor: 4
     attackSpeed: 1.5
     foodCost: 0
     goldCost: 0
@@ -113,9 +113,9 @@ MonoBehaviour:
     unitPrefab: {fileID: 0}
     unitName: Ranged Janissary
     HP: 120
-    damage: 18
-    meleeArmor: 5
-    rangedArmor: 5
+    damage: 15
+    meleeArmor: 1
+    rangedArmor: 3
     attackSpeed: 1.5
     foodCost: 0
     goldCost: 0
@@ -124,10 +124,10 @@ MonoBehaviour:
   - unitID: 9
     unitPrefab: {fileID: 0}
     unitName: Ottoman Cannon
-    HP: 200
-    damage: 30
+    HP: 150
+    damage: 25
     meleeArmor: 0
-    rangedArmor: 9
+    rangedArmor: 5
     attackSpeed: 5
     foodCost: 0
     goldCost: 0

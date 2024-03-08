@@ -34,8 +34,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
 
     public void AddGunnerQue()
     {
-        if(resourcesStatus.food_Amount >= 120
-           && resourcesStatus.gold_Amount >= 40
+        if(resourcesStatus.food_Amount >= unitDatabase.unitDetails[1].foodCost
+           && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[1].goldCost
            && population.currentPopulation < population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[1].unitPrefab);
@@ -52,8 +52,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
 
     public void AddLandsknetchQue()
     {
-        if (resourcesStatus.food_Amount >= 100
-            && resourcesStatus.gold_Amount >= 20
+        if (resourcesStatus.food_Amount >= unitDatabase.unitDetails[2].foodCost
+            && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[2].goldCost
             && population.currentPopulation < population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[2].unitPrefab);
