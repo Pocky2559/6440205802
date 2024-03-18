@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 1989661140553058399}
   m_Layer: 9
   m_Name: OttomanGunnerRecruit
-  m_TagString: OttomanRecruit
+  m_TagString: OttomanGunnerRecruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -800,7 +800,7 @@ Transform:
   m_GameObject: {fileID: 6476812232195504875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 102.883766, y: -0.0000014305115, z: 34.8179}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6281794644358302461}
@@ -839,12 +839,14 @@ MonoBehaviour:
   statList: []
   unitDatabaseIndex: 0
   capturePointByEnemy: {fileID: 0}
+  population: {fileID: 0}
   unitHP: 0
   unitName: 
   unitDamage: 0
   unitAttackSpeed: 0
   unitMeleeArmor: 0
   unitRangedArmor: 0
+  unitPopulation: 0
 --- !u!195 &6886840097023742432
 NavMeshAgent:
   m_ObjectHideFlags: 0

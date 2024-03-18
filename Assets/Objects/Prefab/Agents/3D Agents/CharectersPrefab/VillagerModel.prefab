@@ -233,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 1702504067144714779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 102.04, y: -0.0000023841858, z: 77.36}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6761278944140271803}
@@ -282,12 +282,15 @@ MonoBehaviour:
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
   statList: []
   unitDatabaseIndex: 0
+  capturePointByEnemy: {fileID: 0}
+  population: {fileID: 0}
   unitHP: 0
   unitName: 
   unitDamage: 0
   unitAttackSpeed: 0
   unitMeleeArmor: 0
   unitRangedArmor: 0
+  unitPopulation: 0
 --- !u!114 &7909693756850953305
 MonoBehaviour:
   m_ObjectHideFlags: 0
