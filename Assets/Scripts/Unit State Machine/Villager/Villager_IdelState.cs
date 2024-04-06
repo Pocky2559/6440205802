@@ -88,7 +88,6 @@ public class Villager_IdelState : VillagerBaseState
                         villager.SwitchState(villager.vil_StoringState);
                     }
                 }
-
             }
             #endregion
 

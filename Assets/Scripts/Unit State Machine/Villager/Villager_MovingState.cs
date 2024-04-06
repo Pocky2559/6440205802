@@ -6,22 +6,17 @@ public class Villager_MovingState : VillagerBaseState
     public override void EnterState(VillagerStateController villager)
     {
         Debug.Log("Villager is Moving");
-        villager.Villager.SetDestination(villager.selectedPosition); // villager will move to the selected position
+        //villager.Villager.SetDestination(villager.selectedPosition); // villager will move to the selected position
     }
     public override void UpdateState(VillagerStateController villager)
     {
+
+        // Moving Logic Control by outside script name "UnitFormation"
         
         if (villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1)) // if we select villager and right clicke
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
-            #region Change Destination
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask)) // if click on ground
-            {
-                villager.Villager.SetDestination(hit.point); // change destination to the latest selected position
-            }
-            #endregion
 
             #region Switch to Gathering State 
 
@@ -61,7 +56,6 @@ public class Villager_MovingState : VillagerBaseState
                 }
             }
             #endregion
-
 
             #region Switch to Storing State
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)) // if right click on something
