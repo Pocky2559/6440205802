@@ -60,7 +60,14 @@ public class UnitFormation : MonoBehaviour
             #endregion
 
             #region Single Selection Move on any terrian
-            if (unitSelection.unitSelected.Count == 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask))
+            if (unitSelection.unitSelected.Count == 1
+                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask)
+               )
+            {
+                unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
+                unit.SetDestination(hit.point);
+            }
+            if (unitSelection.unitSelected.Count == 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
                 unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
                 unit.SetDestination(hit.point);
@@ -75,11 +82,8 @@ public class UnitFormation : MonoBehaviour
         for (int i = 0; i < unitSelection.unitSelected.Count; i++)
         {
             unit = unitSelection.unitSelected[i].GetComponent<NavMeshAgent>();
-            unit.SetDestination(unitFormationPosition[i]);
+            unit.SetDestination(unitFormationPosition[i]); 
         }
         unitFormationPosition.Clear();
-
-
-
     }
 }

@@ -21,8 +21,8 @@ public class Villager_IdelState : VillagerBaseState
             #region Switch to moving state 
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
-              villager.selectedPosition = hit.point;
-                Debug.Log("Hit on " + hit.collider.gameObject.name);
+              //villager.selectedPosition = hit.point;
+              //Debug.Log("Hit on " + hit.collider.gameObject.name);
               villager.SwitchState(villager.vil_MovingState); 
             }
             #endregion

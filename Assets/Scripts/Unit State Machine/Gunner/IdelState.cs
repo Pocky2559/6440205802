@@ -12,6 +12,8 @@ public class IdelState : GunnerBaseState
 
     public override void UpdateState(GunnerStateController gunner)
     {
+        Debug.Log("Gunner is in Idle State");
+
 
         #region Switch to Moving State & Chasing State
 
@@ -21,7 +23,7 @@ public class IdelState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit , Mathf.Infinity, gunner.groundLayerMask))
             {
-               gunner.selectedPosition = hit.point;
+               //gunner.selectedPosition = hit.point;
                gunner.SwitchState(gunner.movingState);
             }
 

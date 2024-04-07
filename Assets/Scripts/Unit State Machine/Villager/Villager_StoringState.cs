@@ -228,7 +228,7 @@ public class Villager_StoringState : VillagerBaseState
                 #region Switch to Moving State
                 if (hit.collider.CompareTag("Ground"))
                 {
-                   villager.selectedPosition = hit.point;
+                   //villager.selectedPosition = hit.point;
                    villager.SwitchState(villager.vil_MovingState);
                 }
                 #endregion

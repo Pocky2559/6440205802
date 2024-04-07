@@ -268,7 +268,7 @@ public class Villager_GatheringState : VillagerBaseState
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
                 villager.Villager.isStopped = false; // make villager can move
-                villager.selectedPosition = hit.point; // assign the position where village will move to
+                //villager.selectedPosition = hit.point; // assign the position where village will move to
                 villager.SwitchState(villager.vil_MovingState); // change state
             }
         }

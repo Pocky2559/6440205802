@@ -86,12 +86,15 @@ public class Villager_MovingState : VillagerBaseState
         #region Switch to Idel State
 
         // if he is standing still, they will enter "vil_IdelState"
-        if (villager.Villager.remainingDistance == 0) //if Gunner is moving then it will switch to MovingState
+
+        if(villager.Villager.pathPending == false) // if unity finish calculating the path
         {
-            Debug.Log("Switching from Moving state to Idel state");
-            villager.SwitchState(villager.vil_IdelState); // Switch to moving state
+             if (Mathf.RoundToInt(villager.Villager.remainingDistance) == 0) //if distance between villager and destination are 0 
+             {
+                  Debug.Log("Switching from Moving state to Idel state");
+                  villager.SwitchState(villager.vil_IdelState); // Switch to moving state
+             }
         }
         #endregion
-
     }
 }

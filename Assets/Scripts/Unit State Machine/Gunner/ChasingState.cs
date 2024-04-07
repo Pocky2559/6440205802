@@ -64,7 +64,7 @@ public class ChasingState : GunnerBaseState
                     gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     gunner.selectedEnemy = null; // reset all selected enemy
                     Debug.Log("Switching from Chasing state to Moving state");
-                    gunner.selectedPosition = hit.point;
+                    //gunner.selectedPosition = hit.point;
                     gunner.SwitchState(gunner.movingState); // Switch to idel state
                 }
                 else // if it is enemy

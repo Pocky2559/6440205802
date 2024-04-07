@@ -43,7 +43,7 @@ public class ShootingState : GunnerBaseState
 
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, gunner.groundLayerMask))
             {
-                gunner.selectedPosition = hit.point;
+                //gunner.selectedPosition = hit.point;
                 gunner.SwitchState(gunner.movingState);
             }
 
