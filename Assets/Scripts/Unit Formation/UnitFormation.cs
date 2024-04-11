@@ -7,6 +7,7 @@ public class UnitFormation : MonoBehaviour
 {
     public UnitSelection unitSelection;
     public LayerMask terrainLayerMask;
+    public LayerMask resourcesLayerMask;
     public LayerMask wallLayerMask;
     public NavMeshAgent unit;
     public List<Vector3> unitFormationPosition;
@@ -19,30 +20,36 @@ public class UnitFormation : MonoBehaviour
         if(Input.GetMouseButtonDown(1)) 
         {
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log("Formation Ray");
 
             #region Move on terrain
 
             //Multiple Selection
-            if (unitSelection.unitSelected.Count > 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask))
+            if (unitSelection.unitSelected.Count > 1
+                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask)
+               )
             {
-                leaderPosition = hit.point;
-
-                for (int i = 0; i < unitSelection.unitSelected.Count; i++)
+                Debug.Log("TerrainRay hits " + hit.collider.name);
+                if (hit.collider.CompareTag("Ground"))
                 {
-                    if(i < 5)
+                    leaderPosition = hit.point;
+
+                    for (int i = 0; i < unitSelection.unitSelected.Count; i++)
                     {
-                        unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
+                        if (i < 5)
+                        {
+                            unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
+                        }
+
+                        else if (i >= 5)
+                        {
+                            int row = i / 5;
+                            int col = i % 5;
+                            unitFormationPosition.Add(leaderPosition + new Vector3(col, 0, row));
+                        }
                     }
 
-                    else if(i >= 5)
-                    {
-                        int row = i / 5;
-                        int col = i % 5;
-                        unitFormationPosition.Add(leaderPosition + new Vector3(col, 0, row));
-                    }
-                }
                     MoveFormationUnit();
+                }
             }        
             #endregion
 
@@ -61,11 +68,15 @@ public class UnitFormation : MonoBehaviour
 
             #region Single Selection Move on any terrian
             if (unitSelection.unitSelected.Count == 1
-                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask)
+                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask
+               )
                )
             {
-                unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
-                unit.SetDestination(hit.point);
+                if (hit.collider.CompareTag("Ground"))
+                {
+                    unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
+                    unit.SetDestination(hit.point);
+                }
             }
             if (unitSelection.unitSelected.Count == 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
@@ -84,6 +95,7 @@ public class UnitFormation : MonoBehaviour
             unit = unitSelection.unitSelected[i].GetComponent<NavMeshAgent>();
             unit.SetDestination(unitFormationPosition[i]); 
         }
+        Debug.Log("Unit Formation");
         unitFormationPosition.Clear();
     }
 }

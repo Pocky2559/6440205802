@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Analytics;
+using static UnityEngine.UI.Image;
 
 public class Villager_IdelState : VillagerBaseState
 {
@@ -7,6 +8,7 @@ public class Villager_IdelState : VillagerBaseState
     {
         // Enter IdelState
         Debug.Log("Villager is Ideling");
+        villager.Villager.enabled = true;
     }
     public override void UpdateState(VillagerStateController villager)
     {
@@ -19,11 +21,13 @@ public class Villager_IdelState : VillagerBaseState
             RaycastHit hit;
 
             #region Switch to moving state 
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
-              //villager.selectedPosition = hit.point;
-              //Debug.Log("Hit on " + hit.collider.gameObject.name);
-              villager.SwitchState(villager.vil_MovingState); 
+                Debug.Log("GroundRay hits " + hit.collider.name);
+                if (hit.collider.CompareTag("Ground"))
+                {
+                    villager.SwitchState(villager.vil_MovingState);
+                }
             }
             #endregion
 
@@ -32,8 +36,10 @@ public class Villager_IdelState : VillagerBaseState
             // If click on the resources, it will switch to "vil_GatheringState"
             if (Physics.Raycast(ray, out hit , Mathf.Infinity ,villager.resorcesLayerMask)) // if the ray hit the resources layermask
             {
+                Debug.Log("ResourcesRay hits " + hit.collider.name);
                 if (hit.collider.CompareTag("Wood")) // if ray hit the wood
                 {
+                    villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
                     villager.targetResources = hit.collider.gameObject; // target resources game object
                     villager.currentCarryingResource = "Wood";
                     villager.gatheringAmount = 0;

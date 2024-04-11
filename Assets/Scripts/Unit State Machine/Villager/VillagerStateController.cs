@@ -27,6 +27,7 @@ public class VillagerStateController : MonoBehaviour
     public UnitStat unitStat;
     public UnitSelection unitSelection;
     public VillagerGatheringCapacity villagerGatheringCapacity;
+    public GatheringWaypointForTree gatheringWaypointForTree;
     
     //Upgrade 
     public EconomicUpgradeDatabase economicUpgradeDatabase;
@@ -68,7 +69,7 @@ public class VillagerStateController : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
-        Debug.Log("Current State i = " + currentState);
+        Debug.Log("Current State = " + currentState);
         Debug.Log("isStoringManual = " + isStoringManual);
     }
 

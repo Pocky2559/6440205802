@@ -10,6 +10,7 @@ public class Villager_StoringState : VillagerBaseState
     {
         // Enter MovingState
         Debug.Log("Village is going to store resources");
+        villager.Villager.enabled = true;
 
         #region Auto find all storing points 
         GameObject[] lumberCamps = GameObject.FindGameObjectsWithTag("Wood Storage"); // all Lumber Camp in game

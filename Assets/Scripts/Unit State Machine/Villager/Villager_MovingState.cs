@@ -6,13 +6,15 @@ public class Villager_MovingState : VillagerBaseState
     public override void EnterState(VillagerStateController villager)
     {
         Debug.Log("Villager is Moving");
+        villager.Villager.enabled = true;
         //villager.Villager.SetDestination(villager.selectedPosition); // villager will move to the selected position
     }
     public override void UpdateState(VillagerStateController villager)
     {
+        Debug.Log("Villager is in Moving State");
 
         // Moving Logic Control by outside script name "UnitFormation"
-        
+
         if (villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1)) // if we select villager and right clicke
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
