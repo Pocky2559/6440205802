@@ -27,6 +27,7 @@ public class Villager_MovingState : VillagerBaseState
             {
                 if (hit.collider.CompareTag("Wood")) // if ray hit the wood
                 {
+                    villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
                     villager.targetResources = hit.collider.gameObject; // target resources game object
                     villager.currentCarryingResource = "Wood";
                     villager.gatheringAmount = 0;

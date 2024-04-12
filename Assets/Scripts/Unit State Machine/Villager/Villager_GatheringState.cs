@@ -242,26 +242,31 @@ public class Villager_GatheringState : VillagerBaseState
             RaycastHit hit;
 
         #region Change target resources
-        /*if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.resorcesLayerMask))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.resorcesLayerMask))
             {
-                if (hit.collider.gameObject) // if select the same game object, it will have nothing happen.
+                if (hit.collider.gameObject == villager.targetResources) // if select the same game object, it will have nothing happen.
                 {
-                villager.gatheringAmount = 0;
+                   
                 }
-                if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject!= villager.targetResources) // if select wood and it not the same object that you clicked.
+
+                if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
                 {
-                    if (villager.currentCarryingResource != "Wood") // if the new target resources not wood it will start new count
-                    {
+                  Debug.Log("Change resources");
+                     if (villager.currentCarryingResource != "Wood") // if the new target resources not wood it will start new count
+                     {
                         villager.gatheringAmount = 0;
-                    }
-
-                    villager.targetResources = hit.collider.gameObject; // assign new target resources
-                    villager.currentCarryingResource = "Wood"; // assign new name of resources
-                    villager.Villager.isStopped = false; // make villager can move
-                    villager.Villager.SetDestination(hit.point); // set destination for villager
+                     }
+                     villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
+                     startGathering = false; // stop villager from gathering
+                     villager.Villager.enabled = true;
+                     villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
+                     villager.targetResources = hit.collider.gameObject; // assign new target resources
+                     villager.currentCarryingResource = "Wood"; // assign new name of resources
+                     villager.Villager.isStopped = false; // make villager can move
+                     FindClosestWaypoint(villager);
                 }
 
-                if (hit.collider.gameObject.CompareTag("Gold") && villager.currentCarryingResource != villager.currentTask) // if select Gold and it not the same object that you clicked.
+                if (hit.collider.gameObject.CompareTag("Gold") && hit.collider.gameObject != villager.targetResources) // if select Gold and it not the same object that you clicked.
                 {
                    if (villager.currentCarryingResource != "Gold") // if the new target resources not Gold it will start new count
                 {
@@ -300,14 +305,14 @@ public class Villager_GatheringState : VillagerBaseState
                 villager.Villager.SetDestination(hit.point);// set destination for villager
             }
 
-        }*/
+        }
         #endregion
 
         #region Switch to Moving state
 
         if(villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1))
         {
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("Ground")
                     && !hit.collider.CompareTag("Wood")
