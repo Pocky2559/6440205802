@@ -18,58 +18,62 @@ public class UnitFormation : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
             #region Move on terrain
 
             //Multiple Selection
-            if (unitSelection.unitSelected.Count > 1
-                && Physics.Raycast(ray, out hit, Mathf.Infinity)
-               )
-            {
-                Debug.Log("TerrainRay hits " + hit.collider.name);
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5f);
-                if (hit.collider.CompareTag("Ground")
-                    && !hit.collider.CompareTag("Wood")
-                    && !hit.collider.CompareTag("Food")
-                    && !hit.collider.CompareTag("Gold")
-                    && !hit.collider.CompareTag("Stone"))
+            if (unitSelection != null 
+                && unitSelection.unitSelected.Count > 1
+                && Physics.Raycast(ray, out hit, Mathf.Infinity))
                 {
-                    leaderPosition = hit.point;
+                   Debug.Log("TerrainRay hits " + hit.collider.name);
+                   Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5f);
+                   if (hit.collider.CompareTag("Ground")
+                        && !hit.collider.CompareTag("Wood")
+                        && !hit.collider.CompareTag("Food")
+                        && !hit.collider.CompareTag("Gold")
+                        && !hit.collider.CompareTag("Stone"))
+                   {
+                        leaderPosition = hit.point;
 
-                    for (int i = 0; i < unitSelection.unitSelected.Count; i++)
-                    {
-                        if (i < 5)
+                        for (int i = 0; i < unitSelection.unitSelected.Count; i++)
                         {
-                            unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
-                        }
+                            if (i < 5)
+                            {
+                                unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
+                            }
 
-                        else if (i >= 5)
-                        {
-                            int row = i / 5;
-                            int col = i % 5;
-                            unitFormationPosition.Add(leaderPosition + new Vector3(col, 0, row));
+                            else if (i >= 5)
+                            {
+                                int row = i / 5;
+                                int col = i % 5;
+                                unitFormationPosition.Add(leaderPosition + new Vector3(col, 0, row));
+                            }
                         }
-                    }
-
-                    MoveFormationUnit();
+                      MoveFormationUnit();
+                   }
                 }
-            }
+            
                 #endregion
 
-                #region Move on wall
-                if (unitSelection.unitSelected.Count > 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
+            #region Move on wall
+            if (unitSelection != null
+                && unitSelection.unitSelected.Count > 1
+                && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
                 leaderPosition = hit.point;
 
                 for (int i = 0; i < unitSelection.unitSelected.Count; i++)
                 {
-                    unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
+                  unitFormationPosition.Add(leaderPosition + new Vector3(i, 0, 0));
                 }
-                MoveFormationUnit();
+              MoveFormationUnit();
             }
             #endregion
 
             #region Single Selection Move on any terrian
-            if (unitSelection.unitSelected.Count == 1
+            if (unitSelection != null
+                && unitSelection.unitSelected.Count == 1
                 && Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.collider.CompareTag("Ground") 
@@ -82,7 +86,9 @@ public class UnitFormation : MonoBehaviour
                     unit.SetDestination(hit.point);
                 }
             }
-            if (unitSelection.unitSelected.Count == 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
+            if (unitSelection != null
+                && unitSelection.unitSelected.Count == 1
+                && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
                 unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
                 unit.SetDestination(hit.point);

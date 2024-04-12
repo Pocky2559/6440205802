@@ -75,7 +75,7 @@ public class Villager_GatheringState : VillagerBaseState
         #region Is villager reach the target resources?
         // if the villager reach the target resources
 
-        if (conditionMet == true)
+        if (conditionMet == true && villager.Villager.enabled == true) // if there has a available waypoint and NavmeshAgent is enabled
         {
             if (villager.Villager.remainingDistance <= 0)
             {
@@ -83,12 +83,6 @@ public class Villager_GatheringState : VillagerBaseState
                 villager.transform.LookAt(villager.targetResources.transform.position);
                 startGathering = true;
             }
-
-            //else
-            //{
-            //    villager.Villager.isStopped = false;
-            //    villager.Villager.SetDestination(avaliableWaypoint.transform.position);
-            //}
         }
 
         if(startGathering == true)
@@ -128,7 +122,7 @@ public class Villager_GatheringState : VillagerBaseState
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
                 villager.isStoringManual = false;
-                
+                villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -246,20 +240,19 @@ public class Villager_GatheringState : VillagerBaseState
             {
                 if (hit.collider.gameObject == villager.targetResources) // if select the same game object, it will have nothing happen.
                 {
-                   
+                   //Nothing happen
                 }
 
                 if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
                 {
-                  Debug.Log("Change resources");
                      if (villager.currentCarryingResource != "Wood") // if the new target resources not wood it will start new count
                      {
                         villager.gatheringAmount = 0;
                      }
-                     villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
                      startGathering = false; // stop villager from gathering
                      villager.Villager.enabled = true;
                      villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
+                     villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
                      villager.targetResources = hit.collider.gameObject; // assign new target resources
                      villager.currentCarryingResource = "Wood"; // assign new name of resources
                      villager.Villager.isStopped = false; // make villager can move
@@ -272,12 +265,15 @@ public class Villager_GatheringState : VillagerBaseState
                 {
                      villager.gatheringAmount = 0;
                    }
-
+                   startGathering = false;
+                   villager.Villager.enabled = true;
+                   villager.gatheringWaypointForGold= hit.collider.GetComponent<GatheringWaypointForGold>();
+                   villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true);
                    villager.targetResources = hit.collider.gameObject; // assign new target resources
                    villager.currentCarryingResource = "Gold"; // assign new name of resources
                    villager.Villager.isStopped = false;// make villager can move
-                villager.Villager.SetDestination(hit.point);// set destination for villager
-            }
+                   villager.Villager.SetDestination(hit.point);// set destination for villager
+                }
 
                 if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
                 {
@@ -320,9 +316,26 @@ public class Villager_GatheringState : VillagerBaseState
                     && !hit.collider.CompareTag("Gold")
                     && !hit.collider.CompareTag("Stone"))
                 {
+                    if(villager.currentCarryingResource == "Wood")
+                    {
+                        villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
+                    }
+
+                    if(villager.currentCarryingResource == "Gold")
+                    {
+                        villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
+                    }
+
+                    if(villager.currentCarryingResource == "Food")
+                    {
+                        // make the waypoint available
+                    }
+
+                    if (villager.currentCarryingResource == "Stone")
+                    {
+                        // make the waypoint available
+                    }
                     villager.Villager.isStopped = false; // make villager can move
-                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
-                    //villager.selectedPosition = hit.point; // assign the position where village will move to
                     villager.SwitchState(villager.vil_MovingState); // change state
                 }
             }
@@ -349,7 +362,7 @@ public class Villager_GatheringState : VillagerBaseState
 
     private void FindClosestWaypoint(VillagerStateController villager)
     {
-        #region Find closest waypoint of the tree
+        #region Find the closest waypoint of the tree
         if (villager.currentCarryingResource == "Wood")
         {
             foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForTree.waypoints)
@@ -371,7 +384,35 @@ public class Villager_GatheringState : VillagerBaseState
                     villager.Villager.SetDestination(avaliableWaypoint.transform.position);
                 }
             }
+            else
+            {
+                villager.SwitchState(villager.vil_IdelState);
+            }
+        }
+        #endregion
 
+        #region Find the closest waypoint of the gold
+        if (villager.currentCarryingResource == "Gold")
+        {
+            foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForGold.waypoints)
+            {
+                if (waypoint.Value == true)
+                {
+                    avaliableWaypoint = waypoint.Key;
+                    conditionMet = true;
+                    break;
+                }
+            }
+
+            if (conditionMet == true)
+            {
+                /// Finish Finding the waypoint
+                if (villager.gatheringWaypointForGold.waypoints[avaliableWaypoint] == true)
+                {
+                    villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, false);
+                    villager.Villager.SetDestination(avaliableWaypoint.transform.position);
+                }
+            }
             else
             {
                 villager.SwitchState(villager.vil_IdelState);

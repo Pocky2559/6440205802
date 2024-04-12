@@ -36,6 +36,7 @@ public class Villager_MovingState : VillagerBaseState
 
                 if (hit.collider.CompareTag("Gold")) // if ray hit the gold
                 {
+                    villager.gatheringWaypointForGold = hit.collider.GetComponent<GatheringWaypointForGold>();
                     villager.targetResources = hit.collider.gameObject; // target resources game object
                     villager.currentCarryingResource = "Gold";
                     villager.gatheringAmount = 0;

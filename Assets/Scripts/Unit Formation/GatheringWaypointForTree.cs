@@ -14,13 +14,11 @@ public class GatheringWaypointForTree : MonoBehaviour
         for (int i = 0; i < waypointsList.Count; i++)
         {
             waypoints.Add(waypointsList[i], true);
-            Debug.Log("Waypoint 0  = " + waypointsList[i].name + " = " + waypoints[waypointsList[i]]);
         }
     }
 
     public void WaypointStatus(GameObject waypointObject, bool isAvailable)
     {
         waypoints[waypointObject] = isAvailable;
-        Debug.Log("Waypoint 0  = " + waypointObject.name + " = " + isAvailable);
     }
 }

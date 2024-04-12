@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class GatheringWaypointForGold : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Dictionary<GameObject, bool> waypoints;
+    public List<GameObject> waypointsList;
+
+    private void Start()
     {
-        
+        waypoints = new Dictionary<GameObject, bool>();
+
+        for (int i = 0; i < waypointsList.Count; i++)
+        {
+            waypoints.Add(waypointsList[i], true);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void WaypointStatus(GameObject waypointObject, bool isAvailable)
     {
-        
+        waypoints[waypointObject] = isAvailable;
     }
 }
