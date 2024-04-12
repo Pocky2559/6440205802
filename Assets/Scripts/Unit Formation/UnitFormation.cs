@@ -6,30 +6,32 @@ using UnityEngine.AI;
 public class UnitFormation : MonoBehaviour
 {
     public UnitSelection unitSelection;
-    public LayerMask terrainLayerMask;
-    public LayerMask resourcesLayerMask;
     public LayerMask wallLayerMask;
     public NavMeshAgent unit;
     public List<Vector3> unitFormationPosition;
-    private Ray ray;
-    private RaycastHit hit;
+    
     [SerializeField] Vector3 leaderPosition;
 
     void Update()
     {
         if(Input.GetMouseButtonDown(1)) 
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             #region Move on terrain
 
             //Multiple Selection
             if (unitSelection.unitSelected.Count > 1
-                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask)
+                && Physics.Raycast(ray, out hit, Mathf.Infinity)
                )
             {
                 Debug.Log("TerrainRay hits " + hit.collider.name);
-                if (hit.collider.CompareTag("Ground"))
+                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5f);
+                if (hit.collider.CompareTag("Ground")
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone"))
                 {
                     leaderPosition = hit.point;
 
@@ -50,11 +52,11 @@ public class UnitFormation : MonoBehaviour
 
                     MoveFormationUnit();
                 }
-            }        
-            #endregion
+            }
+                #endregion
 
-            #region Move on wall
-            if (unitSelection.unitSelected.Count > 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
+                #region Move on wall
+                if (unitSelection.unitSelected.Count > 1 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
                 leaderPosition = hit.point;
 
@@ -68,11 +70,13 @@ public class UnitFormation : MonoBehaviour
 
             #region Single Selection Move on any terrian
             if (unitSelection.unitSelected.Count == 1
-                && Physics.Raycast(ray, out hit, Mathf.Infinity, terrainLayerMask
-               )
-               )
+                && Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (hit.collider.CompareTag("Ground"))
+                if (hit.collider.CompareTag("Ground") 
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone"))
                 {
                     unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
                     unit.SetDestination(hit.point);

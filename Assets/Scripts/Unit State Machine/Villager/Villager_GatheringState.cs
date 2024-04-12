@@ -32,6 +32,7 @@ public class Villager_GatheringState : VillagerBaseState
     public override void EnterState(VillagerStateController villager)
     {
         Debug.Log("Villager is gathering resources");
+        villager.Villager.isStopped = false;
         villager.Villager.enabled = true;
 
         //Find the closest waypoint
@@ -79,6 +80,7 @@ public class Villager_GatheringState : VillagerBaseState
             if (villager.Villager.remainingDistance <= 0)
             {
                 villager.Villager.enabled = false; // villager will stop
+                villager.transform.LookAt(villager.targetResources.transform.position);
                 startGathering = true;
             }
 
@@ -110,6 +112,7 @@ public class Villager_GatheringState : VillagerBaseState
             if (villager.gatheringAmount == villager.woodCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
                 //villager.Villager.isStopped = false; // make villager can move before changing state
+                startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
                 villager.isStoringManual = false;
                 villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true);
@@ -121,8 +124,11 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
-                villager.Villager.isStopped = false; // make villager can move before changing state
+                //villager.Villager.isStopped = false; // make villager can move before changing
+                startGathering = false; // stop gathering
+                villager.Villager.enabled = true;
                 villager.isStoringManual = false;
+                
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -131,8 +137,11 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
-                villager.Villager.isStopped = false; // make villager can move before changing state
+                //villager.Villager.isStopped = false; // make villager can move before changing state
+                startGathering = false; // stop gathering
+                villager.Villager.enabled = true;
                 villager.isStoringManual = false;
+
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -141,8 +150,11 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if(villager.gatheringAmount == villager.foodCarryingCapacity)
             {
-                villager.Villager.isStopped = false;
+                //villager.Villager.isStopped = false;
+                startGathering = false; // stop gathering
+                villager.Villager.enabled = true;
                 villager.isStoringManual = false;
+
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -297,9 +309,17 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
-                villager.Villager.isStopped = false; // make villager can move
-                //villager.selectedPosition = hit.point; // assign the position where village will move to
-                villager.SwitchState(villager.vil_MovingState); // change state
+                if (hit.collider.CompareTag("Ground")
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone"))
+                {
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
+                    //villager.selectedPosition = hit.point; // assign the position where village will move to
+                    villager.SwitchState(villager.vil_MovingState); // change state
+                }
             }
         }
 
@@ -312,6 +332,8 @@ public class Villager_GatheringState : VillagerBaseState
             {
                 if (hit.collider.CompareTag("Town Center")) //if click on Town Center
                 {
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make that waypoint available
                     villager.Villager.SetDestination(hit.collider.transform.position); // go to that storing point
                     villager.SwitchState(villager.vil_StoringState);
                 }
@@ -322,32 +344,35 @@ public class Villager_GatheringState : VillagerBaseState
 
     private void FindClosestWaypoint(VillagerStateController villager)
     {
-        
-       
-        foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForTree.waypoints)
+        #region Find closest waypoint of the tree
+        if (villager.currentCarryingResource == "Wood")
         {
-            if(waypoint.Value == true) 
-            { 
-                avaliableWaypoint = waypoint.Key;
-                conditionMet = true;
-                Debug.Log("Foreach Loop Working");
-                break;
-            }
-        }
-        
-        if(conditionMet == true)
-        {
-            /// Finish Finding the waypoint
-            if (villager.gatheringWaypointForTree.waypoints[avaliableWaypoint] == true)
+            foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForTree.waypoints)
             {
-                villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, false);
-                villager.Villager.SetDestination(avaliableWaypoint.transform.position);
+                if (waypoint.Value == true)
+                {
+                    avaliableWaypoint = waypoint.Key;
+                    conditionMet = true;
+                    break;
+                }
+            }
+
+            if (conditionMet == true)
+            {
+                /// Finish Finding the waypoint
+                if (villager.gatheringWaypointForTree.waypoints[avaliableWaypoint] == true)
+                {
+                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, false);
+                    villager.Villager.SetDestination(avaliableWaypoint.transform.position);
+                }
+            }
+
+            else
+            {
+                villager.SwitchState(villager.vil_IdelState);
             }
         }
+        #endregion
 
-        else
-        {
-            villager.SwitchState(villager.vil_IdelState);
-        }
     }
 }

@@ -24,7 +24,11 @@ public class Villager_IdelState : VillagerBaseState
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
             {
                 Debug.Log("GroundRay hits " + hit.collider.name);
-                if (hit.collider.CompareTag("Ground"))
+                if (hit.collider.CompareTag("Ground")
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone"))
                 {
                     villager.SwitchState(villager.vil_MovingState);
                 }

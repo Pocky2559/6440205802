@@ -34,7 +34,7 @@ public class VillagerStateController : MonoBehaviour
     public UpgradeStatus upgradeStatus;
 
     //States
-    private VillagerBaseState currentState;
+    public VillagerBaseState currentState;
     public Villager_IdelState vil_IdelState = new();
     public Villager_MovingState vil_MovingState = new();
     public Villager_GatheringState vil_GatheringState = new();

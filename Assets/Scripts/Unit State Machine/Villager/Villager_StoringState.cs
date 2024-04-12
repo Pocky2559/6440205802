@@ -227,7 +227,11 @@ public class Villager_StoringState : VillagerBaseState
             if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 #region Switch to Moving State
-                if (hit.collider.CompareTag("Ground"))
+                if (hit.collider.CompareTag("Ground")
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone"))
                 {
                    //villager.selectedPosition = hit.point;
                    villager.SwitchState(villager.vil_MovingState);

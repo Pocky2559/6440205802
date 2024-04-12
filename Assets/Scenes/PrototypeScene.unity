@@ -13512,12 +13512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSelection: {fileID: 1605604051}
-  terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  resourcesLayerMask:
-    serializedVersion: 2
-    m_Bits: 1024
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -49186,6 +49180,10 @@ PrefabInstance:
       propertyPath: capturePointTimerText
       value: 
       objectReference: {fileID: 977828685}
+    - target: {fileID: 3564583067129991829, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4904461493235851077, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
       propertyPath: m_Name
       value: CapturedPoint
@@ -51313,12 +51311,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitSelection: {fileID: 0}
-  terrainLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  resourcesLayerMask:
-    serializedVersion: 2
-    m_Bits: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 0
