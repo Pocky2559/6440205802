@@ -148,7 +148,7 @@ public class Villager_GatheringState : VillagerBaseState
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
                 villager.isStoringManual = false;
-
+                villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -272,7 +272,7 @@ public class Villager_GatheringState : VillagerBaseState
                    villager.targetResources = hit.collider.gameObject; // assign new target resources
                    villager.currentCarryingResource = "Gold"; // assign new name of resources
                    villager.Villager.isStopped = false;// make villager can move
-                   villager.Villager.SetDestination(hit.point);// set destination for villager
+                   FindClosestWaypoint(villager);
                 }
 
                 if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
@@ -294,13 +294,15 @@ public class Villager_GatheringState : VillagerBaseState
                 {
                     villager.gatheringAmount = 0;
                 }
-
+                startGathering = false;
+                villager.Villager.enabled = true;
+                villager.gatheringWaypointForFood = hit.collider.GetComponent<GatheringWaypointForFood>();
+                villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);
                 villager.targetResources = hit.collider.gameObject; // assign new target resources
                 villager.currentCarryingResource = "Food"; // assign new name of resources
                 villager.Villager.isStopped = false;// make villager can move
-                villager.Villager.SetDestination(hit.point);// set destination for villager
+                FindClosestWaypoint(villager);
             }
-
         }
         #endregion
 
@@ -328,7 +330,7 @@ public class Villager_GatheringState : VillagerBaseState
 
                     if(villager.currentCarryingResource == "Food")
                     {
-                        // make the waypoint available
+                        villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
                     }
 
                     if (villager.currentCarryingResource == "Stone")
@@ -336,6 +338,7 @@ public class Villager_GatheringState : VillagerBaseState
                         // make the waypoint available
                     }
                     villager.Villager.isStopped = false; // make villager can move
+                    villager.currentCarryingResource = null;
                     villager.SwitchState(villager.vil_MovingState); // change state
                 }
             }
@@ -420,5 +423,33 @@ public class Villager_GatheringState : VillagerBaseState
         }
         #endregion
 
+        #region Find the closest waypoint of the food
+        if (villager.currentCarryingResource == "Food")
+        {
+            foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForFood.waypoints)
+            {
+                if (waypoint.Value == true)
+                {
+                    avaliableWaypoint = waypoint.Key;
+                    conditionMet = true;
+                    break;
+                }
+            }
+
+            if (conditionMet == true)
+            {
+                /// Finish Finding the waypoint
+                if (villager.gatheringWaypointForFood.waypoints[avaliableWaypoint] == true)
+                {
+                    villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, false);
+                    villager.Villager.SetDestination(avaliableWaypoint.transform.position);
+                }
+            }
+            else
+            {
+                villager.SwitchState(villager.vil_IdelState);
+            }
+        }
+        #endregion
     }
 }

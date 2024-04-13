@@ -29,6 +29,7 @@ public class VillagerStateController : MonoBehaviour
     public VillagerGatheringCapacity villagerGatheringCapacity;
     public GatheringWaypointForTree gatheringWaypointForTree;
     public GatheringWaypointForGold gatheringWaypointForGold;
+    public GatheringWaypointForFood gatheringWaypointForFood;
     
     //Upgrade 
     public EconomicUpgradeDatabase economicUpgradeDatabase;

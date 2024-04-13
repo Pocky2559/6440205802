@@ -53,6 +53,7 @@ public class Villager_MovingState : VillagerBaseState
 
                 if (hit.collider.CompareTag("Food")) // if ray hit the food
                 {
+                    villager.gatheringWaypointForFood = hit.collider.GetComponent<GatheringWaypointForFood>();
                     villager.targetResources = hit.collider.gameObject;
                     villager.currentCarryingResource = "Food";
                     villager.gatheringAmount = 0;
