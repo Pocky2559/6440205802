@@ -61,6 +61,7 @@ public class Villager_IdelState : VillagerBaseState
 
                 if (hit.collider.CompareTag("Stone")) // if ray hit the stone
                 {
+                    villager.gatheringWaypointForStone = hit.collider.GetComponent<GatheringWaypointForStone>();
                     villager.targetResources = hit.collider.gameObject;
                     villager.currentCarryingResource = "Stone";
                     villager.gatheringAmount = 0;

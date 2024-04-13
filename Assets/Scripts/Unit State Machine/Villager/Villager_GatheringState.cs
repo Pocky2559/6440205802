@@ -135,7 +135,7 @@ public class Villager_GatheringState : VillagerBaseState
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
                 villager.isStoringManual = false;
-
+                villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
             }
         }
@@ -278,15 +278,18 @@ public class Villager_GatheringState : VillagerBaseState
                 if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
                 {
                    if (villager.currentCarryingResource != "Stone") // if the new target resources not stone it will start new count
-                {
+                   {
                      villager.gatheringAmount = 0;
                    }
-
+                   startGathering = false;
+                   villager.Villager.enabled = true;
+                   villager.gatheringWaypointForStone = hit.collider.GetComponent<GatheringWaypointForStone>();
+                   villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);
                    villager.targetResources = hit.collider.gameObject; // assign new target resources
                    villager.currentCarryingResource = "Stone"; // assign new name of resources
                    villager.Villager.isStopped = false;// make villager can move
-                villager.Villager.SetDestination(hit.point);// set destination for villager
-            }
+                   FindClosestWaypoint(villager);
+                } 
 
             if (hit.collider.gameObject.CompareTag("Food") && hit.collider.gameObject != villager.targetResources) // if select food and it not the same object that you clicked.
             {
@@ -335,7 +338,7 @@ public class Villager_GatheringState : VillagerBaseState
 
                     if (villager.currentCarryingResource == "Stone")
                     {
-                        // make the waypoint available
+                        villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
                     }
                     villager.Villager.isStopped = false; // make villager can move
                     villager.currentCarryingResource = null;
@@ -442,6 +445,35 @@ public class Villager_GatheringState : VillagerBaseState
                 if (villager.gatheringWaypointForFood.waypoints[avaliableWaypoint] == true)
                 {
                     villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, false);
+                    villager.Villager.SetDestination(avaliableWaypoint.transform.position);
+                }
+            }
+            else
+            {
+                villager.SwitchState(villager.vil_IdelState);
+            }
+        }
+        #endregion
+
+        #region Find the closest waypoint of stone
+        if (villager.currentCarryingResource == "Stone")
+        {
+            foreach (KeyValuePair<GameObject, bool> waypoint in villager.gatheringWaypointForStone.waypoints)
+            {
+                if (waypoint.Value == true)
+                {
+                    avaliableWaypoint = waypoint.Key;
+                    conditionMet = true;
+                    break;
+                }
+            }
+
+            if (conditionMet == true)
+            {
+                /// Finish Finding the waypoint
+                if (villager.gatheringWaypointForStone.waypoints[avaliableWaypoint] == true)
+                {
+                    villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, false);
                     villager.Villager.SetDestination(avaliableWaypoint.transform.position);
                 }
             }
