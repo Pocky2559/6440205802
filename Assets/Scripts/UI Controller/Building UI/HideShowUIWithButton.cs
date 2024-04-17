@@ -36,13 +36,21 @@ public class HideShowUIWithButton : MonoBehaviour
     void ShowUI()
     {
         targetUI.SetActive(false);
-        SelectedUI.SetActive(false);
+
+        if(SelectedUI!= null)
+        {
+            SelectedUI.SetActive(false);
+        }
     }
 
     private void HideUI()
     {
         targetUI.SetActive(true);
-        SelectedUI.SetActive(false);
+
+        if (SelectedUI != null)
+        {
+            SelectedUI.SetActive(false);
+        }
     }
 
    

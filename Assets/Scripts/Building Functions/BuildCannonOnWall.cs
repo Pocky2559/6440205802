@@ -10,6 +10,7 @@ public class BuildCannonOnWall : MonoBehaviour
     public ResourcesStatus resourcesStatus;
     public UnitDatabaseSO unitDatabase;
     public HouseList population;
+    public GameObject icon;
 
     public void BuildCannon()
     {
@@ -21,8 +22,9 @@ public class BuildCannonOnWall : MonoBehaviour
             resourcesStatus.ResourcesChange("Food", -(unitDatabase.unitDetails[4].foodCost));
             resourcesStatus.ResourcesChange("Gold", -(unitDatabase.unitDetails[4].goldCost));
             population.PopulationChanges(unitDatabase.unitDetails[4].population);
-            // Clone Cannon at position of "positionToPlace"
-            Debug.Log("Built Cannon");
+            Instantiate(kartaune, positionToPlace.transform.position, Quaternion.identity);
+            positionToPlace.SetActive(false);
+            icon.SetActive(false);
         }
     }
 }
