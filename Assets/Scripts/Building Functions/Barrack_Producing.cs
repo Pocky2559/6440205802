@@ -36,7 +36,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     {
         if(resourcesStatus.food_Amount >= unitDatabase.unitDetails[1].foodCost
            && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[1].goldCost
-           && population.currentPopulation < population.currentHouseCapacity)
+           && population.currentPopulation + unitDatabase.unitDetails[1].population <= population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[1].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
@@ -54,7 +54,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     {
         if (resourcesStatus.food_Amount >= unitDatabase.unitDetails[2].foodCost
             && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[2].goldCost
-            && population.currentPopulation < population.currentHouseCapacity)
+            && population.currentPopulation + unitDatabase.unitDetails[2].population <= population.currentHouseCapacity)
         {
             militaryQue.Add(unitDatabase.unitDetails[2].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();

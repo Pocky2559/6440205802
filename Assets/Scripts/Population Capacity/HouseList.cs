@@ -13,6 +13,10 @@ public class HouseList : MonoBehaviour // X/number
     public UnitSelection listOfUnits;
     private bool IsCalculatePopAtBeginning;
 
+    private void Start()
+    {
+        CalculatePopulationAtBeginning();
+    }
     public void AddHouseToList(GameObject house)
     { 
         houseList.Add(house);
@@ -27,16 +31,15 @@ public class HouseList : MonoBehaviour // X/number
     public void PopulationChanges(int populationChanges)
     {
         currentPopulation = currentPopulation + populationChanges;
-        Debug.Log("Current Pop : " + currentPopulation);
     }
 
     private void Update()
     {
-        if(IsCalculatePopAtBeginning == false)
-        {
-            CalculatePopulationAtBeginning();
-            IsCalculatePopAtBeginning = true;
-        }
+        //if(IsCalculatePopAtBeginning == false)
+        //{
+        //    CalculatePopulationAtBeginning();
+        //    IsCalculatePopAtBeginning = true;
+        //}
 
         
         currentPopulationText.text = string.Format("{0}/{1}", currentPopulation, currentHouseCapacity);
@@ -45,7 +48,7 @@ public class HouseList : MonoBehaviour // X/number
     private void CalculatePopulationAtBeginning()
     {
         currentPopulation = listOfUnits.unitList.Count;
-        Debug.Log("Population : " + currentPopulation);
+        currentHouseCapacity = houseCapacityAssign * houseList.Count;
     }
 
 }

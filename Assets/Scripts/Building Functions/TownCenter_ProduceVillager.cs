@@ -40,7 +40,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
     }
     public void AddVillagerQue() //if click button to train villager
     {
-        if (resourcesStatus.food_Amount >= 50 && population.currentPopulation < population.currentHouseCapacity) // if resources is more than 50 , you can train villager
+        if (resourcesStatus.food_Amount >= 50 && population.currentPopulation + unitDatabase.unitDetails[0].population <= population.currentHouseCapacity) // if resources is more than 50 , you can train villager
         {
             GameObject newPrefabVillager = unitDatabase.unitDetails[0].unitPrefab;
 
