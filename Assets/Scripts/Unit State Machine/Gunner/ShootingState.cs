@@ -17,7 +17,6 @@ public class ShootingState : GunnerBaseState
         #region Shooting Logic
         if (targetEnemy != null) // if it has target enemy
         {
-
             gunner.transform.parent.LookAt(targetEnemy.transform); // make gunner face at target enemy
 
             if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)

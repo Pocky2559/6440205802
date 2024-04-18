@@ -22,7 +22,7 @@ public class BuildCannonOnWall : MonoBehaviour
             resourcesStatus.ResourcesChange("Food", -(unitDatabase.unitDetails[4].foodCost));
             resourcesStatus.ResourcesChange("Gold", -(unitDatabase.unitDetails[4].goldCost));
             population.PopulationChanges(unitDatabase.unitDetails[4].population);
-            Instantiate(kartaune, positionToPlace.transform.position, Quaternion.identity);
+            Instantiate(kartaune, positionToPlace.transform.position, Quaternion.Euler(0,-180,0));
             positionToPlace.SetActive(false);
             icon.SetActive(false);
         }
