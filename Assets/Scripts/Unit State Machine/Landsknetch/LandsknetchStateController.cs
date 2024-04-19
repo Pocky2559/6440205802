@@ -20,7 +20,6 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
     public Landsk_Idel land_IdelState = new();
     public Landsk_Moving land_MovingState = new();
     public Landsk_Chasing land_ChasingState = new();
-    public Landsk_Attacking landsk_AttackingState = new();
 
     private void Awake()
     {  

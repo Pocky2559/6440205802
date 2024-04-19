@@ -16648,6 +16648,7 @@ MonoBehaviour:
   produceVillagerButton: {fileID: 1166951108}
   produceGunnerButton: {fileID: 1778079357}
   produceLandsknetchButton: {fileID: 1050696254}
+  produceCaptainButton: {fileID: 740813797}
   nameText: {fileID: 1429591083}
   selectedObject: {fileID: 0}
   buildingUIDetails: {fileID: 842900353}
@@ -17877,6 +17878,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 956bd2acf7aae244dac8fc20cf57858d, type: 3}
+--- !u!114 &740813797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1290183176661843196, guid: 7f1880edbcaace94caac8dbda694e6b0, type: 3}
+  m_PrefabInstance: {fileID: 1508749369094556839}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &744111141
 PrefabInstance:
   m_ObjectHideFlags: 0

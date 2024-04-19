@@ -24,6 +24,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public Button produceVillagerButton;
     public Button produceGunnerButton;
     public Button produceLandsknetchButton;
+    public Button produceCaptainButton;
 
     public Text nameText;
 
@@ -166,12 +167,19 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Barrack"))
                     {
+                        // These control UI clicking to train a troop
+                        //Gunnner
                         produceMilitary = hit.collider.GetComponent<Barrack_Producing>();
                         produceGunnerButton.onClick.RemoveAllListeners();
                         produceGunnerButton.onClick.AddListener(produceMilitary.AddGunnerQue);
 
+                        //Landsknecht
                         produceLandsknetchButton.onClick.RemoveAllListeners();
                         produceLandsknetchButton.onClick.AddListener(produceMilitary.AddLandsknetchQue);
+
+                        //Captain
+                        produceCaptainButton.onClick.RemoveAllListeners();
+                        produceCaptainButton.onClick.AddListener(produceMilitary.AddCaptainQue);
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
