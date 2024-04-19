@@ -19,7 +19,11 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
     public override void OnTriggerStay(OttomanRecruitStateController otmRecruit, Collider coll)
     {
         Collider target = coll;
-        if(target.CompareTag("Gunner") || target.CompareTag("Landsknecht") || target.CompareTag("Villager"))
+        if( target.CompareTag("Gunner")
+            || target.CompareTag("Landsknecht")
+            || target.CompareTag("Villager")
+            || target.CompareTag("Captain")
+            || target.CompareTag("Kartouwe"))
         {
             otmRecruit.targetPlayerUnit = target.gameObject;
             otmRecruit.SwitchState(otmRecruit.otmRecruit_AttackPlayerUnitState);

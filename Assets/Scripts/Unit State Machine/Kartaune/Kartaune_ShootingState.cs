@@ -14,7 +14,6 @@ public class Kartaune_ShootingState : KartauneBaseState
     }
     public override void UpdaterState(KartauneStateController kartaune)
     {
-        Debug.Log("Kartaune shooting");
        if(kartaune.targetEnemy != null)
        {
           Vector3 positionToAim = kartaune.targetEnemy.transform.position;

@@ -27,7 +27,7 @@ public class UnitSelection : MonoBehaviour
     {
         DeselectAll();
         unitSelected.Add(unitToAdd);
-        unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+        //unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
        // unitToAdd.GetComponent<UnitMovement>().enabled= true;
     }
     public void ShiftClickSelect(GameObject unitToAdd)
@@ -35,13 +35,13 @@ public class UnitSelection : MonoBehaviour
         if(!unitSelected.Contains(unitToAdd))
         {
             unitSelected.Add(unitToAdd);
-            unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+            //unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
            // unitToAdd.GetComponent<UnitMovement>().enabled = true;
         }
         else
         {
             //unitToAdd.GetComponent<UnitMovement>().enabled = false;
-            unitToAdd.transform.GetChild(0).gameObject.SetActive(false);
+            //unitToAdd.transform.GetChild(0).gameObject.SetActive(false);
             unitSelected.Remove(unitToAdd);
         }
     }
@@ -50,7 +50,7 @@ public class UnitSelection : MonoBehaviour
         if (!unitSelected.Contains(unitToAdd))
         {
             unitSelected.Add(unitToAdd);
-            unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+            //unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
            // unitToAdd.GetComponent<UnitMovement>().enabled = true;
         }
     }
@@ -61,7 +61,7 @@ public class UnitSelection : MonoBehaviour
             foreach (var unit in unitSelected)
             {
                 //unit.GetComponent<UnitMovement>().enabled = false;
-                unit.transform.GetChild(0).gameObject.SetActive(false);
+                //unit.transform.GetChild(0).gameObject.SetActive(false);
             }
             unitSelected.Clear();
         }

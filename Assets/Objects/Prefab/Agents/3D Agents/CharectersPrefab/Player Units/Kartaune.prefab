@@ -259,7 +259,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3546438911624535216}
   - component: {fileID: 1236296371845832039}
-  m_Layer: 0
+  - component: {fileID: -8728923717641695236}
+  - component: {fileID: 2751611019139780221}
+  m_Layer: 8
   m_Name: Kartaune
   m_TagString: Kartouwe
   m_Icon: {fileID: 0}
@@ -303,6 +305,44 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 96
   m_CollisionDetection: 0
+--- !u!136 &-8728923717641695236
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214432239203681802}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 8.740411
+  m_Height: 17.480822
+  m_Direction: 1
+  m_Center: {x: 0, y: 4.058222, z: -1.0045272}
+--- !u!114 &2751611019139780221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214432239203681802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d006543fdcf6d3498271bdb055f4095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
+  statList: []
+  unitDatabaseIndex: 0
+  capturePointByEnemy: {fileID: 0}
+  population: {fileID: 0}
+  unitHP: 0
+  unitName: 
+  unitDamage: 0
+  unitAttackSpeed: 0
+  unitMeleeArmor: 0
+  unitRangedArmor: 0
+  unitPopulation: 0
 --- !u!1 &5572229016328943144
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,3 +571,4 @@ MonoBehaviour:
   cannonball: {fileID: 8820477252845229294, guid: af04271d48a42e846a39aba4ca67fba6, type: 3}
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
   cannonballFunc: {fileID: 0}
+  originRotation: {x: 0, y: 0, z: 0, w: 0}

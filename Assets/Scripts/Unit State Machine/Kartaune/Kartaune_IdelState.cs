@@ -7,6 +7,7 @@ public class Kartaune_IdelState : KartauneBaseState
     public override void EnterState(KartauneStateController kartaune)
     {
         //Kartaune Enter Idel State
+        kartaune.transform.parent.rotation = kartaune.originRotation;
     }
     public override void UpdaterState(KartauneStateController kartaune)
     {

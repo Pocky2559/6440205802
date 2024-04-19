@@ -8,6 +8,7 @@ public class KartauneStateController : MonoBehaviour
     public GameObject cannonball;
     public UnitDatabaseSO unitDatabase;
     public CannonBallFunction cannonballFunc;
+    public Quaternion originRotation;
 
     KartauneBaseState currentState;
     public Kartaune_IdelState kartaune_IdelState = new();
@@ -15,6 +16,7 @@ public class KartauneStateController : MonoBehaviour
 
     private void Start()
     {
+        originRotation = gameObject.transform.parent.rotation;
         currentState = kartaune_IdelState;
         currentState.EnterState(this);
     }
