@@ -59,7 +59,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
     public void Attack(OttomanRecruitStateController otmRecruit)
     {
         RaycastHit hit;
-        if (Physics.Raycast(otmRecruit.transform.position, otmRecruit.transform.forward, out hit, Mathf.Infinity, otmRecruit.wallLayerMask))
+        if (Physics.Raycast(otmRecruit.transform.position, (otmRecruit.Wall.transform.position - otmRecruit.transform.position).normalized, out hit, Mathf.Infinity, otmRecruit.wallLayerMask))
         {
             Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 0.9f);
             Debug.Log("Attacking");

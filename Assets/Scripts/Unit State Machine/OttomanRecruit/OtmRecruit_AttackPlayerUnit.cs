@@ -28,7 +28,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                 if (Time.time > lastShotTime + otmRecruit.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(otmRecruit.transform.position, otmRecruit.transform.forward, out hit, Mathf.Infinity, otmRecruit.targetLayerMask)) // cast ray
+                    if (Physics.Raycast(otmRecruit.transform.position, (otmRecruit.targetPlayerUnit.transform.position - otmRecruit.transform.position).normalized, out hit, Mathf.Infinity, otmRecruit.targetLayerMask)) // cast ray
                     {
                         Debug.Log("Cast Ray");
                         Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 2);
