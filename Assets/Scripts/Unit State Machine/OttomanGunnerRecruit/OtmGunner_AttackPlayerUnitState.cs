@@ -24,8 +24,6 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
                 {
                     Debug.DrawRay(otmGunner.transform.position, otmGunner.transform.forward * hit.distance, Color.red, 0.9f);
                     lastShotTime = Time.time;
-                    Debug.Log("Attacking");
-
                     TargetRecieveDamage(otmGunner, hit);
                 }
             }

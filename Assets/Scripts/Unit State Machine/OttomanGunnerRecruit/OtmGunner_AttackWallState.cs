@@ -32,7 +32,6 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 
                 if (Time.time > lastShotTime + otmGunner.unitStat.unitAttackSpeed)
                 {
-                    Debug.Log("Starting to attack wall");
                     Attack(otmGunner);
                     lastShotTime = Time.time;
                 }
@@ -54,7 +53,11 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     public override void OnTriggerStay(OttomanGunnerRecruitStateController otmGunner, Collider coll)
     {
         Collider target = coll;
-        if(target.CompareTag("Gunner") || target.CompareTag("Landsknecht") || target.CompareTag("Villager"))
+        if(target.CompareTag("Gunner")
+            || target.CompareTag("Landsknecht")
+            || target.CompareTag("Villager")
+            || target.CompareTag("Captain")
+            || target.CompareTag("Kartouwe"))
         {
             otmGunner.targetPlayerUnit = coll.gameObject;
             otmGunner.SwitchState(otmGunner.otmGunner_AttackPlayerUnitState);
@@ -72,7 +75,6 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         if (Physics.Raycast(otmGunner.transform.position, otmGunner.transform.forward, out hit, Mathf.Infinity, otmGunner.wallLayerMask))
         {
             Debug.DrawRay(otmGunner.transform.position, otmGunner.transform.forward * hit.distance, Color.red, 0.9f);
-            Debug.Log("Attacking");
             TargetRecieveDamage(otmGunner, hit);
         }
     }
