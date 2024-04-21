@@ -10,7 +10,6 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
     {
         if(otmCannon.gate != null) // if there has a gate
         {
-            Debug.Log("Ottoman Cannon Moving to gate");
             otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position);
             otmCannon.transform.parent.LookAt(otmCannon.gate.transform.position);
         }
@@ -25,13 +24,11 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
     {
         if (otmCannon.gate != null)
         {
-            Debug.Log("Ottoman Cannon go to gate");
             distanceCannonAndGate = Vector3.Distance(otmCannon.transform.position, otmCannon.gate.transform.position);
             otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position);
-            if (distanceCannonAndGate <= 10/*otmCannon.attackRange.radius*/)
+            if (distanceCannonAndGate <= otmCannon.attackRange.radius)
             {
-                Debug.Log("Ottoman Cannon Stop");
-                otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position); // Stop moving
+                otmCannon.OtmCannon.isStopped = true; // Stop moving
                 otmCannon.OtmCannon.enabled = false; // disable NavMeshAgent to make it can walk through
                 Attack(otmCannon);
             }

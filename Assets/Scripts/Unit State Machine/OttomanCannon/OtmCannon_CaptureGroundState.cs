@@ -6,7 +6,7 @@ public class OtmCannon_CaptureGroundState : OtmCannonBaseState
 {
     public override void EnterState(OtmCannonStateController otmCannon)
     {
-        // Enter 
+        
     }
 
     public override void UpdateState(OtmCannonStateController otmCannon)

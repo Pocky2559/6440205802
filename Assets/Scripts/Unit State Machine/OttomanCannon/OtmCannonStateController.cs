@@ -21,7 +21,7 @@ public class OtmCannonStateController : MonoBehaviour
     {
         //assign 
         gate = GameObject.FindGameObjectWithTag("PalisadeGate");
-        //attackRange = GetComponent<SphereCollider>();
+        attackRange = GetComponent<SphereCollider>();
         OtmCannon = GetComponentInParent<NavMeshAgent>();
 
         currentState = otmCannon_AttackGateState;
