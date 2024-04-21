@@ -14,10 +14,12 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
             otmCannon.transform.parent.LookAt(otmCannon.gate.transform.position);
         }
 
+        #region Switch to CaptureGround State
         else
         {
             otmCannon.SwitchState(otmCannon.otmCannon_CaptureGroundState);
         }
+        #endregion
     }
 
     public override void UpdateState(OtmCannonStateController otmCannon)
@@ -25,14 +27,26 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
         if (otmCannon.gate != null)
         {
             distanceCannonAndGate = Vector3.Distance(otmCannon.transform.position, otmCannon.gate.transform.position);
-            otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position);
             if (distanceCannonAndGate <= otmCannon.attackRange.radius)
             {
                 otmCannon.OtmCannon.isStopped = true; // Stop moving
-                otmCannon.OtmCannon.enabled = false; // disable NavMeshAgent to make it can walk through
+                otmCannon.transform.parent.LookAt(otmCannon.gate.transform.position);
                 Attack(otmCannon);
             }
+
+            if (distanceCannonAndGate > otmCannon.attackRange.radius)
+            {
+                otmCannon.OtmCannon.isStopped = false;
+                otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position);
+            }
         }
+
+        #region Switch to CaptureGround State
+        else
+        {
+            otmCannon.SwitchState(otmCannon.otmCannon_CaptureGroundState);
+        }
+        #endregion
     }
 
     public override void OnTriggerStay(OtmCannonStateController otmCannon, Collider coll)
@@ -50,7 +64,7 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
         if (Time.time > lastShotTime + otmCannon.unitDatabase.unitDetails[4].attackSpeed)
         {
             GameObject cannonball = MonoBehaviour.Instantiate(otmCannon.cannonball, otmCannon.transform.parent.position, Quaternion.identity);
-            otmCannon.cannonballFunc = cannonball.GetComponent<CannonBallFunction>();
+            otmCannon.cannonballFunc = cannonball.GetComponent<CannonBallEnemyFunc>();
             lastShotTime = Time.time;
             otmCannon.cannonballFunc.AssignValueOfCannonball(cannonball, otmCannon.gate.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
         }

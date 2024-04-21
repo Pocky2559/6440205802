@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8087763900671009503}
   - component: {fileID: 325936451885997159}
-  - component: {fileID: 682913156300085793}
+  - component: {fileID: 6114013043917899148}
   m_Layer: 0
   m_Name: ExplosiveArea
   m_TagString: Untagged
@@ -46,7 +46,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.28
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &682913156300085793
+--- !u!114 &6114013043917899148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8253226618972711373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0429828f97f1e2b4987a73d99f55b3de, type: 3}
+  m_Script: {fileID: 11500000, guid: c404fe0f203c8044eaaf23c5c3f9528e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
@@ -71,10 +71,10 @@ GameObject:
   - component: {fileID: 1000397030782029114}
   - component: {fileID: 6959426661946533611}
   - component: {fileID: 3762124645909019727}
-  - component: {fileID: -7440823867364017155}
   - component: {fileID: 2327709444152633310}
+  - component: {fileID: 7948709495269226385}
   m_Layer: 0
-  m_Name: Cannonball
+  m_Name: EnemyCannonball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,22 +159,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-7440823867364017155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8820477252845229294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3109f328f1721cc4da4b35a72a254ac3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cannonball: {fileID: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
-  speed: 50
-  explosiveArea: {fileID: 682913156300085793}
 --- !u!54 &2327709444152633310
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,3 +175,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &7948709495269226385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820477252845229294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3343681d05ed44a56b4ba06cc79f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonball: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  speed: 50
+  explosiveArea: {fileID: 6114013043917899148}

@@ -9,13 +9,16 @@ public class OtmCannonStateController : MonoBehaviour
     public GameObject gate;
     public SphereCollider attackRange;
     public UnitDatabaseSO unitDatabase;
-    public CannonBallFunction cannonballFunc;
+    public CannonBallEnemyFunc cannonballFunc;
     public GameObject cannonball;
+    public CaptureGroundPoint captureGroundPoint;
+    public GameObject targetPlayerUnit;
+    public bool isCannonReachDestination;
 
     private OtmCannonBaseState currentState;
     public OtmCannon_AttackGateState otmCannon_AttackGateState = new();
     public OtmCannon_CaptureGroundState otmCannon_CaptureGroundState = new();
-    //public OtmCannon_AttackPlayerState otmCannon_AttackPlayerState = new();
+    public OtmCannon_AttackPlayerState otmCannon_AttackPlayerState = new();
 
     private void Start()
     {
@@ -23,6 +26,8 @@ public class OtmCannonStateController : MonoBehaviour
         gate = GameObject.FindGameObjectWithTag("PalisadeGate");
         attackRange = GetComponent<SphereCollider>();
         OtmCannon = GetComponentInParent<NavMeshAgent>();
+        captureGroundPoint = GameObject.FindGameObjectWithTag("CaptureGroundPoint").GetComponent<CaptureGroundPoint>();
+        isCannonReachDestination = false;
 
         currentState = otmCannon_AttackGateState;
         currentState.EnterState(this);

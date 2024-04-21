@@ -278,7 +278,10 @@ MonoBehaviour:
   attackRange: {fileID: 0}
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
   cannonballFunc: {fileID: 0}
-  cannonball: {fileID: 8820477252845229294, guid: af04271d48a42e846a39aba4ca67fba6, type: 3}
+  cannonball: {fileID: 8820477252845229294, guid: 939429d51ca784b49b1222b9b8064a47, type: 3}
+  captureGroundPoint: {fileID: 0}
+  targetPlayerUnit: {fileID: 0}
+  isCannonReachDestination: 0
 --- !u!1 &4309386911284301820
 GameObject:
   m_ObjectHideFlags: 0
@@ -493,7 +496,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.5
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

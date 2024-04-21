@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea script
+public class CannonBallEnemyFunc : MonoBehaviour
 {
     public GameObject cannonball;
     public Vector3 targetPosition;
     private bool isCannonballFiring;
     public float speed = 50f;
-    public ExplosiveArea explosiveArea;
+    public ExplosiveAreaEnemyCannonball explosiveArea;
 
-    public void AssignValueOfCannonball(GameObject ball, Vector3 enemyPosition)
-    {   
+    public void AssignValueOfCannonball(GameObject ball, Vector3 playerUnitPosition)
+    {
         cannonball = ball;
-        targetPosition = enemyPosition;
+        targetPosition = playerUnitPosition;
         isCannonballFiring = true;
         explosiveArea.enabled = false;
     }
-   
+
     private void Update()
     {
-       if(isCannonballFiring == true)
-       {
-          MoveCannonball();
-       }
+        if (isCannonballFiring == true)
+        {
+            MoveCannonball();
+        }
     }
 
     private void MoveCannonball()
@@ -34,7 +34,13 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Villager")
+            || other.CompareTag("Landsknecht")
+            || other.CompareTag("Gunner")
+            || other.CompareTag("Captain")
+            || other.CompareTag("Kartouwe")
+            //|| other.CompareTag("Ground")
+            || other.CompareTag("PalisadeGate"))
         {
             explosiveArea.enabled = true;
             Destroy(this.gameObject, 0.1f);
