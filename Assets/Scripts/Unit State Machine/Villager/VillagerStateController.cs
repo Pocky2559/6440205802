@@ -27,6 +27,7 @@ public class VillagerStateController : MonoBehaviour
     public UnitStat unitStat;
     public UnitSelection unitSelection;
     public VillagerGatheringCapacity villagerGatheringCapacity;
+    public HouseList population;
     public GatheringWaypointForTree gatheringWaypointForTree;
     public GatheringWaypointForGold gatheringWaypointForGold;
     public GatheringWaypointForFood gatheringWaypointForFood;
@@ -54,6 +55,7 @@ public class VillagerStateController : MonoBehaviour
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
         unitSelection = unitSelectionAssign.GetComponent<UnitSelection>();
         upgradeStatus = upgradeStatusAssign.GetComponent<UpgradeStatus>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         Villager = GetComponent<NavMeshAgent>();
         unitStat = GetComponent<UnitStat>();
 
@@ -72,8 +74,6 @@ public class VillagerStateController : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
-        Debug.Log("Current State = " + currentState);
-        Debug.Log("isStoringManual = " + isStoringManual);
     }
 
     public void SwitchState(VillagerBaseState statName)

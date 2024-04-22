@@ -5,16 +5,13 @@ public class Villager_MovingState : VillagerBaseState
 {
     public override void EnterState(VillagerStateController villager)
     {
-        Debug.Log("Villager is Moving");
         villager.Villager.enabled = true;
-        //villager.Villager.SetDestination(villager.selectedPosition); // villager will move to the selected position
+        villager.Villager.isStopped= false;
     }
     public override void UpdateState(VillagerStateController villager)
     {
-        Debug.Log("Villager is in Moving State");
-
         // Moving Logic Control by outside script name "UnitFormation"
-
+        Debug.Log("Moving State");
         if (villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1)) // if we select villager and right clicke
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -102,5 +99,17 @@ public class Villager_MovingState : VillagerBaseState
              }
         }
         #endregion
+
+        #region Switch to Exit State
+        if (villager.unitStat.unitHP <= 0)
+        {
+            ExitState(villager);
+        }
+        #endregion
+    }
+    public override void ExitState(VillagerStateController villager)
+    {
+        villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
     }
 }

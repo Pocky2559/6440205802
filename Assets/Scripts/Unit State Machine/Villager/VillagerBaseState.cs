@@ -5,4 +5,5 @@ public abstract class VillagerBaseState
 {
     public abstract void EnterState(VillagerStateController villager);
     public abstract void UpdateState(VillagerStateController villager);
+    public abstract void ExitState(VillagerStateController villager);
 }

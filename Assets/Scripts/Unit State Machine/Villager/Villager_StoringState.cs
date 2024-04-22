@@ -272,6 +272,10 @@ public class Villager_StoringState : VillagerBaseState
         }
         #endregion
     }
+    public override void ExitState(VillagerStateController villager)
+    {
+        throw new System.NotImplementedException();
+    }
 
     private GameObject FindClosestStoringPoint(Vector3 currentPosition, GameObject[] storingPoint)
     {

@@ -7,11 +7,11 @@ public class Villager_IdelState : VillagerBaseState
     public override void EnterState(VillagerStateController villager)
     {
         // Enter IdelState
-        Debug.Log("Villager is Ideling");
         villager.Villager.enabled = true;
     }
     public override void UpdateState(VillagerStateController villager)
     {
+        Debug.Log("Idel State");
         // villager will stand still if they are idel
 
         // If we select villager and click right mouse button
@@ -105,5 +105,18 @@ public class Villager_IdelState : VillagerBaseState
             #endregion
 
         }
+
+        #region Switch to Exit State
+        if (villager.unitStat.unitHP <= 0)
+        {
+            ExitState(villager);
+        }
+        #endregion
+    }
+
+    public override void ExitState(VillagerStateController villager)
+    {
+        villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
     }
 }

@@ -16,6 +16,17 @@ public class CaptureGroundPoint : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (GameObject.FindGameObjectWithTag("OttomanCannon") == null)
+        {
+            foreach(GameObject waypoint in waypointsList)
+            {
+                waypoints[waypoint] = true;
+            }
+        }
+    }
+
     public void WaypointStatus(GameObject waypointObject, bool isAvailable)
     {
         waypoints[waypointObject] = isAvailable;

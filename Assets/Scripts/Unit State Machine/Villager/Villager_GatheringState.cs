@@ -10,9 +10,9 @@ public class Villager_GatheringState : VillagerBaseState
 {
     private float lastShotTime = 0.0f;
     private GameObject avaliableWaypoint = null;
-    private bool conditionMet = false;
+    private bool conditionMet;
     private int gatheringCapacity;
-    private bool startGathering = false;
+    private bool startGathering;
     //Upgrade
     //Wood
     private bool isWoodGatheringSpeedUpgrade;
@@ -34,6 +34,9 @@ public class Villager_GatheringState : VillagerBaseState
         Debug.Log("Villager is gathering resources");
         villager.Villager.isStopped = false;
         villager.Villager.enabled = true;
+        avaliableWaypoint = null;
+        conditionMet = false;
+        startGathering = false;
 
         //Find the closest waypoint
         FindClosestWaypoint(villager);
@@ -72,12 +75,12 @@ public class Villager_GatheringState : VillagerBaseState
     }
     public override void UpdateState(VillagerStateController villager)
     {
-        #region Is villager reach the target resources?
-        // if the villager reach the target resources
+        #region Is villager find a available waypoint?
 
-        if (conditionMet == true && villager.Villager.enabled == true) // if there has a available waypoint and NavmeshAgent is enabled
+        if (conditionMet == true 
+            && villager.Villager.enabled == true) // if there has a available waypoint and NavmeshAgent is enabled
         {
-            if (villager.Villager.remainingDistance <= 0)
+            if (villager.Villager.remainingDistance <= 0) // Is villager reach the destination
             {
                 villager.Villager.enabled = false; // villager will stop
                 villager.transform.LookAt(villager.targetResources.transform.position);
@@ -85,7 +88,7 @@ public class Villager_GatheringState : VillagerBaseState
             }
         }
 
-        if(startGathering == true)
+        if (startGathering == true) // start gathering if startGathering = true
         {
             GatherResources(villager);
         }
@@ -153,6 +156,39 @@ public class Villager_GatheringState : VillagerBaseState
             }
         }
         #endregion
+
+        #region Switch to Exit State
+        if (villager.unitStat.unitHP <= 0)
+        {
+            ExitState(villager);
+        }
+        #endregion
+    }
+
+    public override void ExitState(VillagerStateController villager)
+    {
+        if(villager.currentCarryingResource == "Wood")
+        {
+           villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+        }
+
+        if(villager.currentCarryingResource == "Food")
+        {
+            villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+        }
+
+        if(villager.currentCarryingResource == "Gold")
+        {
+            villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+        }
+
+        if(villager.currentCarryingResource == "Stone")
+        {
+            villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+        }
+
+        villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
     }
 
     public void GatherResources(VillagerStateController villager)
@@ -340,6 +376,7 @@ public class Villager_GatheringState : VillagerBaseState
                     {
                         villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
                     }
+                    villager.Villager.enabled = true; //make NavMeshAgent active
                     villager.Villager.isStopped = false; // make villager can move
                     villager.currentCarryingResource = null;
                     villager.SwitchState(villager.vil_MovingState); // change state

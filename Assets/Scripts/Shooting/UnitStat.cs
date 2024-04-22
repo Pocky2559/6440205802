@@ -187,7 +187,7 @@ public class UnitStat : MonoBehaviour
 
     private void Update()
     {
-        UnitDeath();
+       // UnitDeath();
     }
 
     private void UnitDeath()
@@ -197,7 +197,7 @@ public class UnitStat : MonoBehaviour
             if(unitDatabaseIndex == 5    
                || unitDatabaseIndex == 6
                || unitDatabaseIndex == 7
-               || unitDatabaseIndex == 8)  // Check this becauser when Enemy was killed the the area of capture point
+               || unitDatabaseIndex == 8)  // Check this because when Enemy was killed the the area of capture point
                                            // it will be deleted immediatly and OnTriggerWExit won't detect
                                            // So we need to make it check that this enemy was trigger the OnTriggerExit and stop count down the time 
             {
@@ -211,11 +211,6 @@ public class UnitStat : MonoBehaviour
               population.PopulationChanges(-1 * unitPopulation);
               Destroy(gameObject);
             }
-            
         }
-
-
-        
-   
     }
 }
