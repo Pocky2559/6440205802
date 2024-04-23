@@ -9,8 +9,8 @@ public class Villager_StoringState : VillagerBaseState
     public override void EnterState(VillagerStateController villager)
     {
         // Enter MovingState
-        Debug.Log("Village is going to store resources");
         villager.Villager.enabled = true;
+        villager.Villager.isStopped = false;
 
         #region Auto find all storing points 
         GameObject[] lumberCamps = GameObject.FindGameObjectsWithTag("Wood Storage"); // all Lumber Camp in game
@@ -209,6 +209,7 @@ public class Villager_StoringState : VillagerBaseState
 
             if(villager.isStoringManual == true)
             {
+                villager.resourcesStatus.ResourcesChange(villager.currentCarryingResource, villager.gatheringAmount);
                 villager.gatheringAmount = 0;
                 villager.currentCarryingResource = null;
                 villager.SwitchState(villager.vil_IdelState);
@@ -271,10 +272,18 @@ public class Villager_StoringState : VillagerBaseState
             }
         }
         #endregion
+
+        #region Switch to Exit State
+        if (villager.unitStat.unitHP <= 0)
+        {
+            ExitState(villager);
+        }
+        #endregion
     }
     public override void ExitState(VillagerStateController villager)
     {
-        throw new System.NotImplementedException();
+        villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
     }
 
     private GameObject FindClosestStoringPoint(Vector3 currentPosition, GameObject[] storingPoint)
@@ -292,9 +301,6 @@ public class Villager_StoringState : VillagerBaseState
             }
         }
         return closestObject;
-
-
-        
     }
 }
 

@@ -31,7 +31,6 @@ public class Villager_GatheringState : VillagerBaseState
 
     public override void EnterState(VillagerStateController villager)
     {
-        Debug.Log("Villager is gathering resources");
         villager.Villager.isStopped = false;
         villager.Villager.enabled = true;
         avaliableWaypoint = null;
@@ -95,7 +94,7 @@ public class Villager_GatheringState : VillagerBaseState
             
         #endregion
 
-        #region If select another resources
+        #region If select another resources or storing point
         if (villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1)) // if select new target resources
         {
             ChangeTargetResources(villager);
@@ -108,9 +107,9 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.gatheringAmount == villager.woodCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
-                //villager.Villager.isStopped = false; // make villager can move before changing state
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;
                 villager.isStoringManual = false;
                 villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
@@ -121,9 +120,9 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
-                //villager.Villager.isStopped = false; // make villager can move before changing
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;
                 villager.isStoringManual = false;
                 villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
@@ -134,9 +133,9 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.gatheringAmount == villager.goldStoneCarryingCapacity) // if villager finish gather resources, he will change to "vil_StoringState"
             {
-                //villager.Villager.isStopped = false; // make villager can move before changing state
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;
                 villager.isStoringManual = false;
                 villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
@@ -147,9 +146,9 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if(villager.gatheringAmount == villager.foodCarryingCapacity)
             {
-                //villager.Villager.isStopped = false;
                 startGathering = false; // stop gathering
                 villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;
                 villager.isStoringManual = false;
                 villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);
                 villager.SwitchState(villager.vil_StoringState);
@@ -393,10 +392,70 @@ public class Villager_GatheringState : VillagerBaseState
             {
                 if (hit.collider.CompareTag("Town Center")) //if click on Town Center
                 {
+                    if (villager.currentCarryingResource == "Wood")
+                    {
+                        villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+                    }
+
+                    if (villager.currentCarryingResource == "Food")
+                    {
+                        villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+                    }
+
+                    if (villager.currentCarryingResource == "Gold")
+                    {
+                        villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+                    }
+
+                    if (villager.currentCarryingResource == "Stone")
+                    {
+                        villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true); //make waypoint available
+                    }
                     villager.Villager.isStopped = false; // make villager can move
-                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make that waypoint available
-                    villager.Villager.SetDestination(hit.collider.transform.position); // go to that storing point
+                    villager.selectedStoringPoint = hit.collider.gameObject;
+                    villager.isStoringManual = true; //manual storing resources
                     villager.SwitchState(villager.vil_StoringState);
+                }
+
+                else if(hit.collider.CompareTag("Wood Storage") && villager.currentCarryingResource == "Wood") //if click on Lumber Camp and villager is carrying wood
+                {
+                    villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true);
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.selectedStoringPoint = hit.collider.gameObject;
+                    villager.isStoringManual = true; //manual storing resources
+                    villager.SwitchState(villager.vil_StoringState);
+                }
+
+                else if(hit.collider.CompareTag("Gold Stone Storage") && villager.currentCarryingResource == "Gold") //if click on Mining Cart and villager is carrying gold
+                {
+                    villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true);
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.selectedStoringPoint = hit.collider.gameObject;
+                    villager.isStoringManual = true; //manual storing resources
+                    villager.SwitchState(villager.vil_StoringState);
+                }
+
+                else if(hit.collider.CompareTag("Gold Stone Storage") && villager.currentCarryingResource == "Stone") //if click on Mining Cart and villager is carrying stone
+                {
+                    villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.selectedStoringPoint = hit.collider.gameObject;
+                    villager.isStoringManual = true; //manual storing resources
+                    villager.SwitchState(villager.vil_StoringState);
+                }
+
+                else if(hit.collider.CompareTag("Food Storage") && villager.currentCarryingResource == "Food") 
+                {
+                    villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);
+                    villager.Villager.isStopped = false; // make villager can move
+                    villager.selectedStoringPoint = hit.collider.gameObject;
+                    villager.isStoringManual = true; //manual storing resources
+                    villager.SwitchState(villager.vil_StoringState);
+                }
+
+                else // such as click on house, barrack and etc.
+                {
+                    //Nothing Happen
                 }
             }
         }
