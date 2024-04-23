@@ -17,6 +17,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public Vector3 selectedPosition;
     public GameObject rootGameObject;
     public SphereCollider detectionArea;
+    public HouseList population;
 
     GunnerBaseState currentState;
     public IdelState idelState = new();
@@ -33,6 +34,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
         unitStat = GetComponentInParent<UnitStat>();
         unitSelection = unitSelectionAssign.GetComponent<UnitSelection>();
         detectionArea = GetComponent<SphereCollider>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
 
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;

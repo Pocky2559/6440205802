@@ -85,6 +85,13 @@ public class ChasingState : GunnerBaseState
             gunner.SwitchState(gunner.idelState); // switch to idel state
         }
         #endregion
+
+        #region Switch to ExitState
+        if (gunner.unitStat.unitHP <= 0)
+        {
+            ExitState(gunner);
+        }
+        #endregion
     }
 
     public void TargetRecieveDamage(GunnerStateController gunner, RaycastHit hit) // calculate reciever hp that recieve damage from attacker
@@ -100,5 +107,10 @@ public class ChasingState : GunnerBaseState
     public override void OnTriggerExit(GunnerStateController gunner, Collider coll)
     {
         return;
+    }
+    public override void ExitState(GunnerStateController gunner)
+    {
+        gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
     }
 }

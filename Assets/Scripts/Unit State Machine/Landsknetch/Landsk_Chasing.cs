@@ -13,9 +13,7 @@ public class Landsk_Chasing : LandsknetchBaseState
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
-    {
-        Debug.Log("Land Chasing State");
-        
+    {  
         if (landsknetch.targetEnemy != null)
         {
             float distanceOfLandsknetchAndTargetEnemy = Vector3.Distance(landsknetch.landsknetchAgent.transform.position, landsknetch.targetEnemy.transform.position);
@@ -80,6 +78,14 @@ public class Landsk_Chasing : LandsknetchBaseState
             }
         }
         #endregion
+
+        #region Switch to ExitState
+        if (landsknetch.unitStat.unitHP <= 0)
+        {
+            ExitState(landsknetch);
+        }
+        #endregion
+
     }
 
     public void TargetRecieveDamage(LandsknetchStateController landsknetch, RaycastHit hit) // calculate reciever hp that recieve damage from attacker
@@ -96,5 +102,11 @@ public class Landsk_Chasing : LandsknetchBaseState
     public override void OnTriggerExit(LandsknetchStateController landsknetch, Collider coll)
     {
         return;
+    }
+
+    public override void ExitState(LandsknetchStateController landsknecht)
+    {
+        landsknecht.population.PopulationChanges(-1 * landsknecht.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject); // Delete Villager from the game
     }
 }

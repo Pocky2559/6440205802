@@ -33,6 +33,13 @@ public class Landsk_Idel : LandsknetchBaseState
             }
         }
         #endregion
+
+        #region Switch to ExitState
+        if (landsknetch.unitStat.unitHP <= 0)
+        {
+            ExitState(landsknetch);
+        }
+        #endregion
     }
 
     public override void OnTriggerStay(LandsknetchStateController landsknetch, Collider coll)
@@ -53,6 +60,12 @@ public class Landsk_Idel : LandsknetchBaseState
 
     public override void OnTriggerExit(LandsknetchStateController landsknetch, Collider coll)
     {
-        Debug.Log("Enter");
+        return;
+    }
+
+    public override void ExitState(LandsknetchStateController landsknecht)
+    {
+        landsknecht.population.PopulationChanges(-1 * landsknecht.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject); // Delete Villager from the game
     }
 }

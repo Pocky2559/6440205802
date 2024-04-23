@@ -12,9 +12,6 @@ public class IdelState : GunnerBaseState
 
     public override void UpdateState(GunnerStateController gunner)
     {
-        Debug.Log("Gunner is in Idle State");
-
-
         #region Switch to Moving State & Chasing State
 
         if (gunner.unitSelection.unitSelected.Contains(gunner.rootGameObject) && Input.GetMouseButtonDown(1)) //if Gunner is moving then it will switch to MovingState
@@ -23,7 +20,6 @@ public class IdelState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit , Mathf.Infinity, gunner.groundLayerMask))
             {
-               //gunner.selectedPosition = hit.point;
                gunner.SwitchState(gunner.movingState);
             }
 
@@ -39,11 +35,14 @@ public class IdelState : GunnerBaseState
                     Debug.Log("Switching from Idel State to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }
-                /*else // if right click on something else
-                {
-                    gunner.selectedEnemy = null; // no switching and set seleced enemy as null
-                }*/
             }
+        }
+        #endregion
+
+        #region Switch to ExitState
+        if(gunner.unitStat.unitHP <= 0)
+        {
+            ExitState(gunner);
         }
         #endregion
     }
@@ -65,6 +64,12 @@ public class IdelState : GunnerBaseState
     public override void OnTriggerExit(GunnerStateController gunner, Collider coll)
     {
         return;
+    }
+
+    public override void ExitState(GunnerStateController gunner)
+    {
+        gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
     }
 
 }

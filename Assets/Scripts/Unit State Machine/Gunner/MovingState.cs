@@ -5,7 +5,6 @@ public class MovingState : GunnerBaseState
     public override void EnterState(GunnerStateController gunner)
     {
         gunner.Gunner.isStopped = false;
-       // gunner.Gunner.SetDestination(gunner.selectedPosition);
     }
     public override void UpdateState(GunnerStateController gunner)
     {
@@ -50,6 +49,13 @@ public class MovingState : GunnerBaseState
             }
         }
         #endregion
+
+        #region Switch to ExitState
+        if (gunner.unitStat.unitHP <= 0)
+        {
+            ExitState(gunner);
+        }
+        #endregion
     }
     public override void OnTriggerStay(GunnerStateController gunner, Collider coll)
     {
@@ -58,5 +64,10 @@ public class MovingState : GunnerBaseState
     public override void OnTriggerExit(GunnerStateController gunner, Collider coll)
     {
         return;
+    }
+    public override void ExitState(GunnerStateController gunner)
+    {
+        gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
     }
 }

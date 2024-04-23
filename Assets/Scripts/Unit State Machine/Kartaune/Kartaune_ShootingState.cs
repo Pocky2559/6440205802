@@ -27,6 +27,13 @@ public class Kartaune_ShootingState : KartauneBaseState
           kartaune.targetEnemy = null;
           kartaune.SwitchState(kartaune.kartaune_IdelState);
        }
+
+        #region Switch to ExitState
+        if (kartaune.unitStat.unitHP <= 0)
+        {
+            ExitState(kartaune);
+        }
+        #endregion
     }
 
     private void Shooting(KartauneStateController kartaune)
@@ -53,5 +60,12 @@ public class Kartaune_ShootingState : KartauneBaseState
             kartaune.SwitchState(kartaune.kartaune_IdelState);
         }
         #endregion
+    }
+    public override void ExitState(KartauneStateController kartaune)
+    {
+        kartaune.buildCannonOnWall.positionToPlace.SetActive(true); //show the point that can build a cannon
+        kartaune.buildCannonOnWall.icon.SetActive(true); //show icon of building cannon on wall
+        kartaune.population.PopulationChanges(-1 * kartaune.unitStat.unitPopulation); //Decrease population
+        MonoBehaviour.Destroy(kartaune.transform.parent.gameObject); // Delete Villager from the game
     }
 }

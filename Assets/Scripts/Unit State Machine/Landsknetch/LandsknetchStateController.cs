@@ -16,6 +16,7 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
     public UnitStat unitStat;
     public GameObject targetEnemy;
     public LayerMask targetLayerMask;
+    public HouseList population;
 
     public Landsk_Idel land_IdelState = new();
     public Landsk_Moving land_MovingState = new();
@@ -31,6 +32,7 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
         unitStat = GetComponentInParent<UnitStat>();
         landsknetchAgent = GetComponentInParent<NavMeshAgent>(); 
         rootGameObject = transform.root.gameObject;
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
     }
 
     private void Start()
