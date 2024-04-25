@@ -8,4 +8,5 @@ public abstract class OtmCannonBaseState
     public abstract void UpdateState(OtmCannonStateController otmCannon);
     public abstract void OnTriggerStay(OtmCannonStateController otmCannon, Collider coll);
     public abstract void OnTriggerExit(OtmCannonStateController otmCannon, Collider coll);
+    public abstract void ExitState(OtmCannonStateController otmCannon);
 }

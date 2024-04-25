@@ -7,4 +7,5 @@ public abstract class OttomanRecruitBaseState
     public abstract void UpdaterState(OttomanRecruitStateController otmRecruit);
     public abstract void OnTriggerStay(OttomanRecruitStateController otmRecruit, Collider coll);
     public abstract void OnTriggerExit(OttomanRecruitStateController otmRecruit, Collider coll);
+    public abstract void ExitState(OttomanRecruitStateController otmRecruit);
 }

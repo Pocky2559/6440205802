@@ -14,21 +14,29 @@ public class OtmCannonStateController : MonoBehaviour
     public CaptureGroundPoint captureGroundPoint;
     public GameObject targetPlayerUnit;
     public bool isCannonReachDestination;
+    public HouseList population;
+    public UnitStat unitStat;
+    public GameObject availableWaypoint;
 
     private OtmCannonBaseState currentState;
     public OtmCannon_AttackGateState otmCannon_AttackGateState = new();
     public OtmCannon_CaptureGroundState otmCannon_CaptureGroundState = new();
     public OtmCannon_AttackPlayerState otmCannon_AttackPlayerState = new();
 
-    private void Start()
+    private void Awake()
     {
         //assign 
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         gate = GameObject.FindGameObjectWithTag("PalisadeGate");
         attackRange = GetComponent<SphereCollider>();
         OtmCannon = GetComponentInParent<NavMeshAgent>();
         captureGroundPoint = GameObject.FindGameObjectWithTag("CaptureGroundPoint").GetComponent<CaptureGroundPoint>();
+        unitStat = GetComponentInParent<UnitStat>();    
         isCannonReachDestination = false;
-
+        availableWaypoint = null;
+    }
+    private void Start()
+    {
         currentState = otmCannon_AttackGateState;
         currentState.EnterState(this);
     }

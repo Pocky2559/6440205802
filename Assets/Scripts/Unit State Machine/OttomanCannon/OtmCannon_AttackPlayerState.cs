@@ -28,6 +28,13 @@ public class OtmCannon_AttackPlayerState : OtmCannonBaseState
         }
         #endregion
 
+        #region Switch to ExitState
+        if (otmCannon.unitStat.unitHP <= 0)
+        {
+            ExitState(otmCannon);
+        }
+        #endregion
+
     }
     public override void OnTriggerStay(OtmCannonStateController otmCannon, Collider coll)
     {
@@ -51,5 +58,13 @@ public class OtmCannon_AttackPlayerState : OtmCannonBaseState
             lastShotTime = Time.time;
             otmCannon.cannonballFunc.AssignValueOfCannonball(cannonball, otmCannon.targetPlayerUnit.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
         }
+    }
+    public override void ExitState(OtmCannonStateController otmCannon)
+    {
+        if(otmCannon.isCannonReachDestination == true)
+        {
+            otmCannon.captureGroundPoint.WaypointStatus(otmCannon.availableWaypoint, true); //make waypoint available
+        }
+        MonoBehaviour.Destroy(otmCannon.transform.root.gameObject); // Delete Villager from the game
     }
 }

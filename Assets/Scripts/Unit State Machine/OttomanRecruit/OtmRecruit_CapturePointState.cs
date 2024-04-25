@@ -13,7 +13,12 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
-        return;
+        #region Switch to ExitState
+        if (otmRecruit.unitStat.unitHP <= 0)
+        {
+            ExitState(otmRecruit);
+        }
+        #endregion
     }
 
     public override void OnTriggerStay(OttomanRecruitStateController otmRecruit, Collider coll)
@@ -33,5 +38,12 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
     public override void OnTriggerExit(OttomanRecruitStateController otmRecruit, Collider coll)
     {
         return;
+    }
+
+    public override void ExitState(OttomanRecruitStateController otmRecruit)
+    {
+        Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
+        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject); // Delete Villager from the game
     }
 }

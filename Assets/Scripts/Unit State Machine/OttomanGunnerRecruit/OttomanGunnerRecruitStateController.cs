@@ -12,6 +12,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public GameObject targetPlayerUnit;
     public GameObject rootGameObject;
     public LayerMask targetLayerMask;
+    public CapturePointByEnemy capturePointByEnemy;
+    public HouseList population;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
@@ -25,6 +27,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         Wall = GameObject.FindGameObjectWithTag("PalisadeGate");
         unitStat = GetComponentInParent<UnitStat>();
         rootGameObject = transform.root.gameObject;
+        capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
     }
 
     private void Start()

@@ -8,5 +8,6 @@ public abstract class OttomanGunnerRecruitBaseState
     public abstract void UpdateState(OttomanGunnerRecruitStateController otmGunner);
     public abstract void OnTriggerStay(OttomanGunnerRecruitStateController otmGunner, Collider coll);
     public abstract void OnTriggerExit(OttomanGunnerRecruitStateController otmGunner, Collider coll);
+    public abstract void ExitState(OttomanGunnerRecruitStateController otmGunner);
 
 }

@@ -57,6 +57,13 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
             otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState); // switch to idel state
         }
         #endregion
+
+        #region Switch to ExitState
+        if (otmRecruit.unitStat.unitHP <= 0)
+        {
+            ExitState(otmRecruit);
+        }
+        #endregion
     }
     public override void OnTriggerStay(OttomanRecruitStateController otmRecruit, Collider coll)
     {
@@ -75,5 +82,12 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
     {
         UnitStat recieverStat = hit.collider.GetComponent<UnitStat>();
         recieverStat.unitHP = recieverStat.unitHP - (otmRecruit.unitStat.unitDamage - recieverStat.unitRangedArmor); // HP of reciever = HP of reciever - Damage from attacker  - Ranged Armor of reciever
+    }
+
+    public override void ExitState(OttomanRecruitStateController otmRecruit)
+    {
+        Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
+        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject); // Delete Villager from the game
     }
 }

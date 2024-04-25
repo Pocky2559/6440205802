@@ -48,6 +48,13 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         {
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
         }
+
+        #region Switch to ExitState
+        if (otmGunner.unitStat.unitHP <= 0)
+        {
+            ExitState(otmGunner);
+        }
+        #endregion
     }
 
     public override void OnTriggerStay(OttomanGunnerRecruitStateController otmGunner, Collider coll)
@@ -83,5 +90,11 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     {
         UnitStat recieverStat = hit.collider.GetComponent<UnitStat>();
         recieverStat.unitHP = recieverStat.unitHP - (otmGunner.unitStat.unitDamage - recieverStat.unitRangedArmor); // HP of reciever = HP of reciever - Damage from attacker  - Ranged Armor of reciever
+    }
+    public override void ExitState(OttomanGunnerRecruitStateController otmGunner)
+    {
+        Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy); //Decrease population
+        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject); // Delete Villager from the game
     }
 }

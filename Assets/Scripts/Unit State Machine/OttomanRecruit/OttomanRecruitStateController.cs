@@ -13,6 +13,8 @@ public class OttomanRecruitStateController : MonoBehaviour
     public GameObject targetPlayerUnit;
     public LayerMask targetLayerMask;
     public GameObject rootGameObject;
+    public CapturePointByEnemy capturePointByEnemy;
+    public HouseList population;
 
     OttomanRecruitBaseState currentState;
     public OtmRecruit_AttackWallState otmRecruit_AttackWallState = new();
@@ -26,7 +28,9 @@ public class OttomanRecruitStateController : MonoBehaviour
         //Component
         otmRecruitAgent = GetComponentInParent<NavMeshAgent>();
         unitStat = GetComponentInParent<UnitStat>();
-
+        capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
+        population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
+;
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;
     }
