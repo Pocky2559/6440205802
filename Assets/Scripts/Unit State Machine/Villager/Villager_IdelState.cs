@@ -8,6 +8,21 @@ public class Villager_IdelState : VillagerBaseState
     {
         // Enter IdelState
         villager.Villager.enabled = true;
+
+        if(villager.gatheringAmount > 0 ) //if villager carrying a resource
+        {
+            villager.villagerAnimator.SetBool("isWalking", false);
+            villager.basket.SetActive(true); //show basket
+            villager.rigBuilder.enabled = true; //make villager do hollding action
+
+        }
+
+        else
+        {
+            villager.villagerAnimator.SetBool("isWalking",false);
+            villager.basket.SetActive(false); //hide basket
+            villager.rigBuilder.enabled = false; //make villager stop hollding action
+        }
     }
     public override void UpdateState(VillagerStateController villager)
     {
@@ -21,7 +36,7 @@ public class Villager_IdelState : VillagerBaseState
             RaycastHit hit;
 
             #region Switch to moving state 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.groundLayerMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 Debug.Log("GroundRay hits " + hit.collider.name);
                 if (hit.collider.CompareTag("Ground")
@@ -40,7 +55,6 @@ public class Villager_IdelState : VillagerBaseState
             // If click on the resources, it will switch to "vil_GatheringState"
             if (Physics.Raycast(ray, out hit , Mathf.Infinity ,villager.resorcesLayerMask)) // if the ray hit the resources layermask
             {
-                Debug.Log("ResourcesRay hits " + hit.collider.name);
                 if (hit.collider.CompareTag("Wood")) // if ray hit the wood
                 {
                     villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
@@ -116,7 +130,14 @@ public class Villager_IdelState : VillagerBaseState
 
     public override void ExitState(VillagerStateController villager)
     {
+        //Play animation Villager_Death
+        villager.villagerAnimator.SetBool("isDead", true);
+        villager.basket.SetActive(false);
+        villager.rigBuilder.enabled = false;
+        //
+
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
+        villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
+        MonoBehaviour.Destroy(villager.gameObject, 4); // Delete Villager from the game
     }
 }

@@ -30,6 +30,7 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
             || target.CompareTag("Captain")
             || target.CompareTag("Kartouwe"))
         {
+            otmRecruit.targetPlayerUnitStat = coll.GetComponent<UnitStat>();
             otmRecruit.targetPlayerUnit = target.gameObject;
             otmRecruit.SwitchState(otmRecruit.otmRecruit_AttackPlayerUnitState);
         }

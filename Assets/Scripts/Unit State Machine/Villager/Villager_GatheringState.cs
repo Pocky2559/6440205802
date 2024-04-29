@@ -37,6 +37,11 @@ public class Villager_GatheringState : VillagerBaseState
         conditionMet = false;
         startGathering = false;
 
+        // Play animation Villager_Walking
+        villager.villagerAnimator.SetBool("isWalking", true);
+        villager.basket.SetActive(true); //show basket
+        villager.rigBuilder.enabled = true; //make villager do hollding action
+
         //Find the closest waypoint
         FindClosestWaypoint(villager);
         ////
@@ -81,6 +86,10 @@ public class Villager_GatheringState : VillagerBaseState
         {
             if (villager.Villager.remainingDistance <= 0) // Is villager reach the destination
             {
+                //Play animation Villager_Gathering
+                villager.villagerAnimator.SetBool("isReachResources", true);
+                villager.rigBuilder.enabled = false;// make hand can move 
+
                 villager.Villager.enabled = false; // villager will stop
                 villager.transform.LookAt(villager.targetResources.transform.position);
                 startGathering = true;
@@ -186,8 +195,14 @@ public class Villager_GatheringState : VillagerBaseState
             villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true); //make waypoint available
         }
 
+        //Play animation Villager_Death
+        villager.villagerAnimator.SetBool("isDead", true);
+        villager.basket.SetActive(false);
+        villager.rigBuilder.enabled = false;
+        //
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
+        villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
+        MonoBehaviour.Destroy(villager.gameObject, 4); // Delete Villager from the game
     }
 
     public void GatherResources(VillagerStateController villager)
@@ -273,17 +288,27 @@ public class Villager_GatheringState : VillagerBaseState
         #region Change target resources
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.resorcesLayerMask))
             {
+            
+
                 if (hit.collider.gameObject == villager.targetResources) // if select the same game object, it will have nothing happen.
                 {
-                   //Nothing happen
+                   ////Keep Playing animation Villager_Gathering
+                   //villager.villagerAnimator.SetBool("isReachResources", true);
+                   //villager.rigBuilder.enabled = false;
                 }
 
-                if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
+                else if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
                 {
                      if (villager.currentCarryingResource != "Wood") // if the new target resources not wood it will start new count
                      {
                         villager.gatheringAmount = 0;
                      }
+
+                     //Play animation Villager_Walking
+                     villager.villagerAnimator.SetBool("isReachResources", false);
+                     villager.rigBuilder.enabled = true;
+                     //
+
                      startGathering = false; // stop villager from gathering
                      villager.Villager.enabled = true;
                      villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
@@ -294,12 +319,18 @@ public class Villager_GatheringState : VillagerBaseState
                      FindClosestWaypoint(villager);
                 }
 
-                if (hit.collider.gameObject.CompareTag("Gold") && hit.collider.gameObject != villager.targetResources) // if select Gold and it not the same object that you clicked.
+                else if (hit.collider.gameObject.CompareTag("Gold") && hit.collider.gameObject != villager.targetResources) // if select Gold and it not the same object that you clicked.
                 {
                    if (villager.currentCarryingResource != "Gold") // if the new target resources not Gold it will start new count
                 {
                      villager.gatheringAmount = 0;
                    }
+
+                    //Play animation Villager_Walking
+                      villager.villagerAnimator.SetBool("isReachResources", false);
+                      villager.rigBuilder.enabled = true;
+                    //
+
                    startGathering = false;
                    villager.Villager.enabled = true;
                    villager.gatheringWaypointForGold= hit.collider.GetComponent<GatheringWaypointForGold>();
@@ -310,12 +341,16 @@ public class Villager_GatheringState : VillagerBaseState
                    FindClosestWaypoint(villager);
                 }
 
-                if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
+                else if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
                 {
                    if (villager.currentCarryingResource != "Stone") // if the new target resources not stone it will start new count
                    {
                      villager.gatheringAmount = 0;
                    }
+                   //Play animation Villager_Walking
+                     villager.villagerAnimator.SetBool("isReachResources", false);
+                     villager.rigBuilder.enabled = true;
+                   //
                    startGathering = false;
                    villager.Villager.enabled = true;
                    villager.gatheringWaypointForStone = hit.collider.GetComponent<GatheringWaypointForStone>();
@@ -326,12 +361,18 @@ public class Villager_GatheringState : VillagerBaseState
                    FindClosestWaypoint(villager);
                 } 
 
-            if (hit.collider.gameObject.CompareTag("Food") && hit.collider.gameObject != villager.targetResources) // if select food and it not the same object that you clicked.
+            else if (hit.collider.gameObject.CompareTag("Food") && hit.collider.gameObject != villager.targetResources) // if select food and it not the same object that you clicked.
             {
                 if (villager.currentCarryingResource != "Food") // if the new target resources not food it will start new count
                 {
                     villager.gatheringAmount = 0;
                 }
+
+                //Play animation Villager_Walking
+                villager.villagerAnimator.SetBool("isReachResources", false);
+                villager.rigBuilder.enabled = true;
+                //
+
                 startGathering = false;
                 villager.Villager.enabled = true;
                 villager.gatheringWaypointForFood = hit.collider.GetComponent<GatheringWaypointForFood>();
@@ -375,6 +416,7 @@ public class Villager_GatheringState : VillagerBaseState
                     {
                         villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
                     }
+                    villager.villagerAnimator.SetBool("isReachResources", false);
                     villager.Villager.enabled = true; //make NavMeshAgent active
                     villager.Villager.isStopped = false; // make villager can move
                     villager.currentCarryingResource = null;
@@ -536,7 +578,7 @@ public class Villager_GatheringState : VillagerBaseState
             }
 
             if (conditionMet == true)
-            {
+            { 
                 /// Finish Finding the waypoint
                 if (villager.gatheringWaypointForFood.waypoints[avaliableWaypoint] == true)
                 {

@@ -8,6 +8,7 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public NavMeshAgent otmGunnerAgent;
     public GameObject Wall;
     public UnitStat unitStat;
+    public UnitStat targetPlayerUnitStat;
     public LayerMask wallLayerMask;
     public GameObject targetPlayerUnit;
     public GameObject rootGameObject;

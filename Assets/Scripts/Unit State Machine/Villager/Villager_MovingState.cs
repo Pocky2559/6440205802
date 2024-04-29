@@ -7,11 +7,24 @@ public class Villager_MovingState : VillagerBaseState
     {
         villager.Villager.enabled = true;
         villager.Villager.isStopped= false;
+        if(villager.gatheringAmount > 0)
+        {
+            villager.villagerAnimator.SetBool("isWalking", true);
+            villager.basket.SetActive(true); //show basket
+            villager.rigBuilder.enabled = true; //make villager do hollding action
+        }
+
+        else
+        {
+            villager.villagerAnimator.SetBool("isWalking", true);
+            villager.basket.SetActive(false); //hide basket
+            villager.rigBuilder.enabled = false; //make villager stop hollding action
+        }
     }
     public override void UpdateState(VillagerStateController villager)
     {
         // Moving Logic Control by outside script name "UnitFormation"
-        Debug.Log("Moving State");
+
         if (villager.unitSelection.unitSelected.Contains(villager.gameObject) && Input.GetMouseButtonDown(1)) // if we select villager and right clicke
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -109,7 +122,15 @@ public class Villager_MovingState : VillagerBaseState
     }
     public override void ExitState(VillagerStateController villager)
     {
+        //Play animation Villager_Death
+        villager.Villager.isStopped = true;
+        villager.villagerAnimator.SetBool("isDead", true);
+        villager.basket.SetActive(false);
+        villager.rigBuilder.enabled = false;
+        //
+
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
+        villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
+        MonoBehaviour.Destroy(villager.gameObject, 4); // Delete Villager from the game
     }
 }

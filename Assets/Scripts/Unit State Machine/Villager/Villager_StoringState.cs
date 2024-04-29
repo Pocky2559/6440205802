@@ -12,6 +12,10 @@ public class Villager_StoringState : VillagerBaseState
         villager.Villager.enabled = true;
         villager.Villager.isStopped = false;
 
+        //Play animation Villager_Gathering
+        villager.villagerAnimator.SetBool("isReachResources", false);
+        villager.rigBuilder.enabled = true;// make hand can move 
+
         #region Auto find all storing points 
         GameObject[] lumberCamps = GameObject.FindGameObjectsWithTag("Wood Storage"); // all Lumber Camp in game
         GameObject[] townCenters = GameObject.FindGameObjectsWithTag("Town Center"); // all Town Center in game
@@ -202,6 +206,16 @@ public class Villager_StoringState : VillagerBaseState
         {
             if(villager.isStoringManual == false)
             {
+                //Play animation Villager_Storing
+                villager.rigBuilder.enabled = false;
+                villager.basket.SetActive(false);
+                villager.villagerAnimator.SetBool("isReachStoringPoint", true);
+
+                //Play animation Villager_Walking // Go back to walk
+                villager.villagerAnimator.SetBool("isReachStoringPoint", false);
+                villager.rigBuilder.enabled = true;
+                villager.basket.SetActive(true);
+
                 villager.resourcesStatus.ResourcesChange(villager.currentCarryingResource, villager.gatheringAmount);
                 villager.gatheringAmount = 0;
                 villager.SwitchState(villager.vil_GatheringState);
@@ -209,6 +223,16 @@ public class Villager_StoringState : VillagerBaseState
 
             if(villager.isStoringManual == true)
             {
+                //Play animation Villager_Storing
+                villager.rigBuilder.enabled = false;
+                villager.basket.SetActive(false);
+                villager.villagerAnimator.SetBool("isReachStoringPoint", true);
+                
+
+                //Play animation Villager_Walking // Go back to walk
+                villager.villagerAnimator.SetBool("isReachStoringPoint", false);
+                villager.rigBuilder.enabled = false;
+
                 villager.resourcesStatus.ResourcesChange(villager.currentCarryingResource, villager.gatheringAmount);
                 villager.gatheringAmount = 0;
                 villager.currentCarryingResource = null;
@@ -282,8 +306,16 @@ public class Villager_StoringState : VillagerBaseState
     }
     public override void ExitState(VillagerStateController villager)
     {
+        //Play animation Villager_Death
+        villager.Villager.isStopped = true;
+        villager.villagerAnimator.SetBool("isDead", true);
+        villager.basket.SetActive(false);
+        villager.rigBuilder.enabled = false;
+        //
+
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(villager.gameObject); // Delete Villager from the game
+        villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
+        MonoBehaviour.Destroy(villager.gameObject,4); // Delete Villager from the game
     }
 
     private GameObject FindClosestStoringPoint(Vector3 currentPosition, GameObject[] storingPoint)

@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class VillagerStateController : MonoBehaviour
 {
@@ -32,6 +34,10 @@ public class VillagerStateController : MonoBehaviour
     public GatheringWaypointForGold gatheringWaypointForGold;
     public GatheringWaypointForFood gatheringWaypointForFood;
     public GatheringWaypointForStone gatheringWaypointForStone;
+    public Animator villagerAnimator;
+    public GameObject basket;
+    public RigBuilder rigBuilder;
+    public Collider villagerCollider;
     
     //Upgrade 
     public EconomicUpgradeDatabase economicUpgradeDatabase;
@@ -58,6 +64,8 @@ public class VillagerStateController : MonoBehaviour
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         Villager = GetComponent<NavMeshAgent>();
         unitStat = GetComponent<UnitStat>();
+        villagerAnimator = GetComponent<Animator>();
+        villagerCollider = GetComponent<Collider>();    
 
         //Assign Rsources Gathering Capacity
         woodCarryingCapacity = villagerGatheringCapacity.villagerCapacity[0].woodCapacity;

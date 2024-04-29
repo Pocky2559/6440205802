@@ -12,7 +12,7 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
-        if(otmGunner.targetPlayerUnit != null)
+        if(otmGunner.targetPlayerUnitStat.unitHP > 0)
         {
             otmGunner.rootGameObject.transform.LookAt(otmGunner.targetPlayerUnit.transform.position);
 
@@ -29,7 +29,8 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
             }
             #endregion
         }
-        else
+        
+        if(otmGunner.targetPlayerUnitStat.unitHP <= 0) 
         {
             otmGunner.SwitchState(otmGunner.otmGunner_AttackWallState);
         }
@@ -51,7 +52,6 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
     {
         if (coll.CompareTag(otmGunner.targetPlayerUnit.tag))
         {
-            Debug.Log(otmGunner.targetPlayerUnit.tag);
             otmGunner.targetPlayerUnit = null;
             otmGunner.otmGunnerAgent.isStopped = false;
             otmGunner.SwitchState(otmGunner.otmGunner_AttackWallState);

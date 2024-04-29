@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
@@ -14,7 +13,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
-        if(otmRecruit.targetPlayerUnit!= null)
+        if(otmRecruit.targetPlayerUnitStat.unitHP > 0)
         {
             float distanceOfOttomanRecruitAndTargetPlayerUnit = Vector3.Distance(otmRecruit.otmRecruitAgent.transform.position, otmRecruit.targetPlayerUnit.transform.position); // the distance between Ottoman recruit and selected player unit
 
@@ -48,7 +47,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         }
 
         #region Switch to Capture point state
-        if (otmRecruit.targetPlayerUnit == null) // if the selected enemy is dead
+        if (otmRecruit.targetPlayerUnitStat.unitHP <= 0) // if the selected enemy is dead
         {
             otmRecruit.otmRecruitAgent.isStopped = false; // make the gunner stop
             otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.rootGameObject.transform.position);
@@ -72,10 +71,10 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 
     public override void OnTriggerExit(OttomanRecruitStateController otmRecruit, Collider coll)
     {
-       /* if (coll.CompareTag("Gunner") || coll.CompareTag("Landsknecht") || coll.CompareTag("Villager"))
-        {
-            otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState);
-        }*/
+       //if (coll.gameObject == otmRecruit.targetPlayerUnit.gameObject)
+       // {
+       //     otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState);
+       // }
     }
 
     public void TargetRecieveDamage(OttomanRecruitStateController otmRecruit, RaycastHit hit) // calculate reciever hp that recieve damage from attacker
