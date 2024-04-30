@@ -18,8 +18,14 @@ public class IdelState : GunnerBaseState
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit , Mathf.Infinity, gunner.groundLayerMask))
+            if(Physics.Raycast(ray, out hit , Mathf.Infinity ,gunner.groundLayerMask))
             {
+                if(hit.collider.CompareTag("Ground")
+                   && !hit.collider.CompareTag("OttomanRecruit")
+                   && !hit.collider.CompareTag("OttomanGunnerRecruit")
+                   && !hit.collider.CompareTag("MeleeJanissary")
+                   && !hit.collider.CompareTag("RangedJanissary")
+                   && !hit.collider.CompareTag("OttomanCannon"))
                 //Play animation Gunner_Walking
                 gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
                 //
@@ -35,6 +41,7 @@ public class IdelState : GunnerBaseState
                       || hit.collider.CompareTag("OttomanCannon")) // if right click on the enemy
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
+                    gunner.selectedEnemyStat = hit.collider.GetComponentInParent<UnitStat>();
                     Debug.Log("Switching from Idel State to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }
@@ -63,6 +70,8 @@ public class IdelState : GunnerBaseState
             //Play animation Gunner_Shooting
             gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
             //
+            gunner.selectedEnemyStat = coll.GetComponentInParent<UnitStat>();
+            gunner.selectedEnemy = coll.gameObject;
             gunner.SwitchState(gunner.shootingState); // switch to shooting state
         }
         #endregion

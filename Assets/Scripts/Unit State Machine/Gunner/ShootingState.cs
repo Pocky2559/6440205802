@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class ShootingState : GunnerBaseState
 {
-    GameObject targetEnemy;
     float lastShotTime = 0.0f;
+    AnimatorStateInfo stateInfo;
     public override void EnterState(GunnerStateController gunner)
     {
         gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
@@ -15,22 +15,41 @@ public class ShootingState : GunnerBaseState
     public override void UpdateState(GunnerStateController gunner)
     {
         #region Shooting Logic
-        if (targetEnemy != null) // if it has target enemy
+        if (gunner.selectedEnemy != null) // if it has target enemy
         {
-            gunner.transform.parent.LookAt(targetEnemy.transform); // make gunner face at target enemy
-
+            gunner.transform.parent.LookAt(gunner.selectedEnemy.transform); // make gunner face at target enemy
+                                                                            //Play animation Gunner_Shooting
             if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
-            {
+            {  
+                //Play animation Gunner_Shooting
+                gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+                gunner.rigBuilder.enabled = true;
+                gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
+                gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
+                //
                 RaycastHit hit;
-                if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.forward, out hit, 6.8f, gunner.targetLayerMask)) // cast ray
+                if (Physics.Raycast(gunner.Gun.transform.position,
+                                    (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized,
+                                    out hit,
+                                    Mathf.Infinity,
+                                    gunner.targetLayerMask)) // cast ray
                 {
                     Debug.Log("Cast Ray");
-                    Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 0.9f);
+                    Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.9f);
                     lastShotTime = Time.time;
-
                     TargetRecieveDamage(gunner, hit);
                 }
             }
+
+            //Play animation Gunner_Reload
+            if (gunner.gunnerAnimatorControlller.GetCurrentAnimatorStateInfo(0).IsName("Gunner_Shoot"))
+            {
+                gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", true);
+                gunner.rigBuilder.enabled = false;
+                gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 0.833999991f, 0.437000006f);
+                gunner.Gun.transform.localRotation = Quaternion.Euler(56.6684723f, 84.1026611f, 351.425751f);
+            }
+            //
         }
         #endregion
 
@@ -66,6 +85,19 @@ public class ShootingState : GunnerBaseState
         }
         #endregion
 
+        #region Switch to IdelState if enemy is dead
+        if(gunner.selectedEnemyStat.unitHP <= 0)
+        {
+            //Play Animation Gunner_Idel
+            gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
+            gunner.rigBuilder.enabled = true;
+            gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+            gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+            //
+            gunner.SwitchState(gunner.idelState);
+        }
+        #endregion
+
         #region Switch to ExitState
         if (gunner.unitStat.unitHP <= 0)
         {
@@ -82,25 +114,24 @@ public class ShootingState : GunnerBaseState
 
     public override void OnTriggerStay(GunnerStateController gunner, Collider coll)
     {
-        if (coll.CompareTag("OttomanRecruit")
-            || coll.CompareTag("OttomanGunnerRecruit")
-            || coll.CompareTag("MeleeJanissary")
-            || coll.CompareTag("RangedJanissary")
-            || coll.CompareTag("OttomanCannon")) // if enemy is in a detection area, gunner will start shooting at him
-        {
-            targetEnemy = coll.gameObject; // assign the target enemy game object
-        }
+        //if (coll.CompareTag("OttomanRecruit")
+        //    || coll.CompareTag("OttomanGunnerRecruit")
+        //    || coll.CompareTag("MeleeJanissary")
+        //    || coll.CompareTag("RangedJanissary")
+        //    || coll.CompareTag("OttomanCannon")
+        //    ) // if enemy is in a detection area, gunner will start shooting at him
+        //{
+        //    targetEnemy = coll.gameObject; // assign the target enemy game object
+        //}
     }
     public override void OnTriggerExit(GunnerStateController gunner, Collider coll)
     {
-        if (coll.CompareTag("OttomanRecruit")
-            || coll.CompareTag("OttomanGunnerRecruit")
-            || coll.CompareTag("MeleeJanissary")
-            || coll.CompareTag("RangedJanissary")
-            || coll.CompareTag("OttomanCannon")) // if enemy is outside of a detection area, gunner will enter idelState
+        #region Switch to IdelState if enemy out of ranged
+        if (gunner.selectedEnemy == coll.gameObject) // if enemy is outside of a detection area, gunner will enter idelState
         {
             gunner.SwitchState(gunner.idelState); // switch to idelState
         }
+        #endregion
     }
     public override void ExitState(GunnerStateController gunner)
     {

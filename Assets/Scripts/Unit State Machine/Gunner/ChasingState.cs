@@ -6,19 +6,29 @@ using UnityEngine.Analytics;
 public class ChasingState : GunnerBaseState
 {
     float lastShotTime = 0.0f;
+    float distanceOfGunnerAndTargetEnemy;
     public override void EnterState(GunnerStateController gunner)
     {
-        gunner.Gunner.SetDestination(gunner.selectedEnemy.transform.position);
+        //Play animation Gunner_Walking
+        gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
+       //
     }
     public override void UpdateState (GunnerStateController gunner)
     {
         #region Chasing Logic
         if (gunner.selectedEnemy != null)
         {
-            float distanceOfGunnerAndTargetEnemy = Vector3.Distance(gunner.Gunner.transform.position, gunner.selectedEnemy.transform.position); // the distance between gunner and selected enemy
+            distanceOfGunnerAndTargetEnemy = Vector3.Distance(gunner.transform.position, gunner.selectedEnemy.transform.position); // the distance between gunner and selected enemy
+            Debug.Log("Distance =" + distanceOfGunnerAndTargetEnemy);
+            Debug.Log("Attack Ranged = " + gunner.attackRange.radius);
+            Debug.Log("Enemy position = " + gunner.selectedEnemy.transform.localPosition);
 
-            if (distanceOfGunnerAndTargetEnemy <= 6.8f) // gunner.selectedEnemy.transorm means that game object is still exist in hierarchy
-            {
+
+            if (distanceOfGunnerAndTargetEnemy <= gunner.attackRange.radius * Mathf.Max(
+                gunner.transform.parent.localScale.x,
+                gunner.transform.parent.localScale.y,
+                gunner.transform.parent.localScale.z)) //if enemy is in ranged
+            {           
                 gunner.Gunner.isStopped = true;  // if the enemy reach firing range it will stop
 
                 #region Shoot
@@ -27,28 +37,56 @@ public class ChasingState : GunnerBaseState
                 if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(gunner.Gun.transform.position, -gunner.Gun.transform.forward , out hit, Mathf.Infinity, gunner.targetLayerMask)) // cast ray
+                    //Play animation Gunner_Shoot
+                    gunner.gunnerAnimatorControlller.SetBool("isFollowing", true);
+                    gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+                    gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
+                    gunner.rigBuilder.enabled = true;
+                    gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
+                    gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
+                    //
+                    if (Physics.Raycast(gunner.Gun.transform.position,
+                        (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized,
+                        out hit,
+                        Mathf.Infinity,
+                        gunner.targetLayerMask)) // cast ray
                     {
                         Debug.Log("Cast Ray");
-                        Debug.DrawRay(gunner.Gun.transform.position, -gunner.Gun.transform.forward * hit.distance, Color.red, 2);
+                        Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 2);
                         lastShotTime = Time.time;
 
                         TargetRecieveDamage(gunner, hit);
                     }
                 }
+
+                //Play animation Gunner_Reload
+                if (gunner.gunnerAnimatorControlller.GetCurrentAnimatorStateInfo(0).IsName("Gunner_Shoot"))
+                {
+                    gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", true);
+                    gunner.rigBuilder.enabled = false;
+                    gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 0.833999991f, 0.437000006f);
+                    gunner.Gun.transform.localRotation = Quaternion.Euler(56.6684723f, 84.1026611f, 351.425751f);
+                }
+                //
                 #endregion
             }
 
-            if (distanceOfGunnerAndTargetEnemy > 6.8f) // if the enemy is far than 9.8 f
+            if (distanceOfGunnerAndTargetEnemy > gunner.attackRange.radius * Mathf.Max(
+                gunner.transform.parent.localScale.x,
+                gunner.transform.parent.localScale.y,
+                gunner.transform.parent.localScale.z)) //if it out of attack ranged
             {
+                //Play animation Gunner_Wallking
+                gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
+                gunner.rigBuilder.enabled = true;
+                //
                 gunner.Gunner.isStopped = false;
                 gunner.Gunner.SetDestination(gunner.selectedEnemy.transform.position);
             }
-
         }
         #endregion
 
-        #region Switch to idel state or select new target enemy
+        #region Switch to Moving state or select new target enemy
         if (gunner.unitSelection.unitSelected.Contains(gunner.rootGameObject) && Input.GetMouseButtonDown(1)) // if Gunner was selected and we right click
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,7 +102,6 @@ public class ChasingState : GunnerBaseState
                     gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     gunner.selectedEnemy = null; // reset all selected enemy
                     Debug.Log("Switching from Chasing state to Moving state");
-                    //gunner.selectedPosition = hit.point;
                     gunner.SwitchState(gunner.movingState); // Switch to idel state
                 }
                 else // if it is enemy
@@ -76,8 +113,15 @@ public class ChasingState : GunnerBaseState
         #endregion
 
         #region Switch to idel state
-        if (gunner.selectedEnemy == null) // if the selected enemy is dead
+        if (gunner.selectedEnemy == null || gunner.selectedEnemyStat.unitHP <= 0) // if the selected enemy is dead or stop target it
         {
+            //Play animation Gunner_Idle
+            gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
+            gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
+            gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
+            gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+            gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+            ;            //
             gunner.Gunner.isStopped = false; // make the gunner stop
             gunner.Gunner.SetDestination(gunner.rootGameObject.transform.position);
             gunner.selectedEnemy = null; // set the selected enemy as null

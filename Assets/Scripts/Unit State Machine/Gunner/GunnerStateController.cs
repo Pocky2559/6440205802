@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class GunnerStateController : MonoBehaviour //attach this script to the DetectionArea game object
 {
@@ -19,6 +20,9 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public SphereCollider detectionArea;
     public HouseList population;
     public Animator gunnerAnimatorControlller;
+    public RigBuilder rigBuilder;
+    public UnitStat selectedEnemyStat;
+    public SphereCollider attackRange;
 
     GunnerBaseState currentState;
     public IdelState idelState = new();
@@ -37,6 +41,8 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
         detectionArea = GetComponent<SphereCollider>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         gunnerAnimatorControlller = GetComponentInParent<Animator>();
+        rigBuilder = GetComponentInParent<RigBuilder>();
+        attackRange = GetComponent<SphereCollider>();
 
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;

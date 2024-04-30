@@ -5,6 +5,14 @@ public class MovingState : GunnerBaseState
     public override void EnterState(GunnerStateController gunner)
     {
         gunner.Gunner.isStopped = false;
+        // Stop Reload animation while moving
+        gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", true);
+        gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
+        gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
+        gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+        gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
+        gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+        gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
     }
     public override void UpdateState(GunnerStateController gunner)
     {
@@ -27,6 +35,7 @@ public class MovingState : GunnerBaseState
                       || hit.collider.CompareTag("OttomanCannon")) // if right click on the enemy
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
+                    gunner.selectedEnemyStat = hit.collider.GetComponentInParent<UnitStat>();
                     Debug.Log("Switching from Moving state to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }

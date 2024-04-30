@@ -38,7 +38,6 @@ public class Villager_IdelState : VillagerBaseState
             #region Switch to moving state 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                Debug.Log("GroundRay hits " + hit.collider.name);
                 if (hit.collider.CompareTag("Ground")
                     && !hit.collider.CompareTag("Wood")
                     && !hit.collider.CompareTag("Food")
