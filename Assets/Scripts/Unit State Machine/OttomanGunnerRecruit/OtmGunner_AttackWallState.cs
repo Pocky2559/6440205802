@@ -66,6 +66,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
             || target.CompareTag("Captain")
             || target.CompareTag("Kartouwe"))
         {
+            otmGunner.targetPlayerUnitStat = coll.GetComponentInParent<UnitStat>();
             otmGunner.targetPlayerUnit = coll.gameObject;
             otmGunner.SwitchState(otmGunner.otmGunner_AttackPlayerUnitState);
         }

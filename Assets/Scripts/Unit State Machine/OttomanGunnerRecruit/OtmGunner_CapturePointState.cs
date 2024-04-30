@@ -28,7 +28,7 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
             || coll.CompareTag("Captain")
             || coll.CompareTag("Kartouwe"))
         {
-            otmGunner.targetPlayerUnitStat = coll.GetComponent<UnitStat>();
+            otmGunner.targetPlayerUnitStat = coll.GetComponentInParent<UnitStat>();
             otmGunner.targetPlayerUnit = coll.gameObject;
             otmGunner.SwitchState(otmGunner.otmGunner_AttackPlayerUnitState);
         }

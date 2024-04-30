@@ -9,7 +9,7 @@ public class ShootingState : GunnerBaseState
     float lastShotTime = 0.0f;
     public override void EnterState(GunnerStateController gunner)
     {
-        Debug.Log("Shooting Enter");
+        gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
     }
 
     public override void UpdateState(GunnerStateController gunner)

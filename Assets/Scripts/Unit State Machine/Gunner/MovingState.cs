@@ -43,8 +43,9 @@ public class MovingState : GunnerBaseState
         {
             if (Mathf.RoundToInt(gunner.Gunner.remainingDistance) == 0)
             {
-                Debug.Log("Switching from Moving state to Idel state");
-                Debug.Log("Remaining path gunner = " + Mathf.RoundToInt(gunner.Gunner.remainingDistance));
+                //Play animation Gunner_Idle
+                gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
+                //
                 gunner.SwitchState(gunner.idelState); // Switch to moving state
             }
         }

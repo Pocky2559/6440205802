@@ -7,7 +7,7 @@ public class IdelState : GunnerBaseState
 {
     public override void EnterState(GunnerStateController gunner)
     {
-        gunner.Gunner.isStopped = false;
+             gunner.Gunner.isStopped = false;
     }
 
     public override void UpdateState(GunnerStateController gunner)
@@ -20,7 +20,10 @@ public class IdelState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit , Mathf.Infinity, gunner.groundLayerMask))
             {
-               gunner.SwitchState(gunner.movingState);
+                //Play animation Gunner_Walking
+                gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
+                //
+                gunner.SwitchState(gunner.movingState);
             }
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -57,6 +60,9 @@ public class IdelState : GunnerBaseState
             || targetCollider.CompareTag("RangedJanissary")
             || targetCollider.CompareTag("OttomanCannon")) // if the enemy is in a detection area
         {
+            //Play animation Gunner_Shooting
+            gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
+            //
             gunner.SwitchState(gunner.shootingState); // switch to shooting state
         }
         #endregion
