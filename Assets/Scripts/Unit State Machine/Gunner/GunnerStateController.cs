@@ -23,6 +23,8 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public RigBuilder rigBuilder;
     public UnitStat selectedEnemyStat;
     public SphereCollider attackRange;
+    public bool isSelectEnemyManually;
+    public CapsuleCollider gunnerCollider;
 
     GunnerBaseState currentState;
     public IdelState idelState = new();
@@ -43,6 +45,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
         gunnerAnimatorControlller = GetComponentInParent<Animator>();
         rigBuilder = GetComponentInParent<RigBuilder>();
         attackRange = GetComponent<SphereCollider>();
+        gunnerCollider = GetComponentInParent<CapsuleCollider>();
 
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;

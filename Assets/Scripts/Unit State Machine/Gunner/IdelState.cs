@@ -7,7 +7,15 @@ public class IdelState : GunnerBaseState
 {
     public override void EnterState(GunnerStateController gunner)
     {
-             gunner.Gunner.isStopped = false;
+          gunner.Gunner.isStopped = false;
+        //Play animation Gunner_Idle
+        gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
+        gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
+        gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+        gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+        gunner.rigBuilder.enabled = true;
+        //gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", false);
+        //
     }
 
     public override void UpdateState(GunnerStateController gunner)
@@ -20,16 +28,15 @@ public class IdelState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit , Mathf.Infinity ,gunner.groundLayerMask))
             {
-                if(hit.collider.CompareTag("Ground")
+                if (hit.collider.CompareTag("Ground")
                    && !hit.collider.CompareTag("OttomanRecruit")
                    && !hit.collider.CompareTag("OttomanGunnerRecruit")
                    && !hit.collider.CompareTag("MeleeJanissary")
                    && !hit.collider.CompareTag("RangedJanissary")
                    && !hit.collider.CompareTag("OttomanCannon"))
-                //Play animation Gunner_Walking
-                gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
-                //
-                gunner.SwitchState(gunner.movingState);
+                {
+                   gunner.SwitchState(gunner.movingState);
+                }
             }
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity))
@@ -67,9 +74,6 @@ public class IdelState : GunnerBaseState
             || targetCollider.CompareTag("RangedJanissary")
             || targetCollider.CompareTag("OttomanCannon")) // if the enemy is in a detection area
         {
-            //Play animation Gunner_Shooting
-            gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
-            //
             gunner.selectedEnemyStat = coll.GetComponentInParent<UnitStat>();
             gunner.selectedEnemy = coll.gameObject;
             gunner.SwitchState(gunner.shootingState); // switch to shooting state
@@ -83,8 +87,15 @@ public class IdelState : GunnerBaseState
 
     public override void ExitState(GunnerStateController gunner)
     {
+        //Play animation Gunner_Death
+          gunner.Gunner.enabled = false;
+          gunner.gunnerAnimatorControlller.SetBool("isDead" ,true);
+          gunner.Gun.SetActive(false);
+          gunner.rigBuilder.enabled = false;
+          gunner.gunnerCollider.enabled = false;
+        //
         gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 
 }

@@ -9,24 +9,29 @@ public class ShootingState : GunnerBaseState
     AnimatorStateInfo stateInfo;
     public override void EnterState(GunnerStateController gunner)
     {
+        //Play animation Gunner_Shoot
+        gunner.gunnerAnimatorControlller.SetBool("isShooting",true);
+        gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
+        gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+        gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
+        gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", false);
+        gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
         gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
+        //
+
+        //Aiming Raotaion 
+        //gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
     }
 
     public override void UpdateState(GunnerStateController gunner)
     {
         #region Shooting Logic
-        if (gunner.selectedEnemy != null) // if it has target enemy
+        if (gunner.selectedEnemy != null && gunner.Gunner.enabled == true) // if it has target enemy
         {
             gunner.transform.parent.LookAt(gunner.selectedEnemy.transform); // make gunner face at target enemy
                                                                             //Play animation Gunner_Shooting
             if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
             {  
-                //Play animation Gunner_Shooting
-                gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
-                gunner.rigBuilder.enabled = true;
-                gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
-                gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
-                //
                 RaycastHit hit;
                 if (Physics.Raycast(gunner.Gun.transform.position,
                                     (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized,
@@ -34,8 +39,14 @@ public class ShootingState : GunnerBaseState
                                     Mathf.Infinity,
                                     gunner.targetLayerMask)) // cast ray
                 {
+                    //Play animation Gunner_Shoot and Reload
+                    gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+                    gunner.rigBuilder.enabled = true;
+                    gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
+                    gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
+                    //
                     Debug.Log("Cast Ray");
-                    Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.9f);
+                    Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
                     lastShotTime = Time.time;
                     TargetRecieveDamage(gunner, hit);
                 }
@@ -61,7 +72,12 @@ public class ShootingState : GunnerBaseState
 
             if(Physics.Raycast(ray, out hit, Mathf.Infinity, gunner.groundLayerMask))
             {
-                //gunner.selectedPosition = hit.point;
+               if (gunner.gunnerAnimatorControlller.GetCurrentAnimatorStateInfo(0).IsName("Gunner_Reload"))
+               {
+                    //Play animation Gunner_Walking
+                      gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", true);
+                    //
+               }
                 gunner.SwitchState(gunner.movingState);
             }
 
@@ -88,12 +104,12 @@ public class ShootingState : GunnerBaseState
         #region Switch to IdelState if enemy is dead
         if(gunner.selectedEnemyStat.unitHP <= 0)
         {
-            //Play Animation Gunner_Idel
-            gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
-            gunner.rigBuilder.enabled = true;
-            gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
-            gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
-            //
+            if (gunner.gunnerAnimatorControlller.GetCurrentAnimatorStateInfo(0).IsName("Gunner_Reload"))
+            {
+                //Play animation Gunner_Walking
+                gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", true);
+                //
+            }
             gunner.SwitchState(gunner.idelState);
         }
         #endregion
@@ -135,8 +151,15 @@ public class ShootingState : GunnerBaseState
     }
     public override void ExitState(GunnerStateController gunner)
     {
+        //Play animation Gunner_Death
+        gunner.Gunner.enabled = false;
+        gunner.gunnerAnimatorControlller.SetBool("isDead", true);
+        gunner.Gun.SetActive(false);
+        gunner.rigBuilder.enabled = false;
+        gunner.gunnerCollider.enabled = false;
+        //
         gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }
 

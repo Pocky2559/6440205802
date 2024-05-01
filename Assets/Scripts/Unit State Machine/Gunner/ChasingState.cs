@@ -9,20 +9,20 @@ public class ChasingState : GunnerBaseState
     float distanceOfGunnerAndTargetEnemy;
     public override void EnterState(GunnerStateController gunner)
     {
-        //Play animation Gunner_Walking
-        gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
-       //
+        //Play Animation Gunner_Walking
+          gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
+          gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
+          gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
+          gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
+          gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", false);
+        //
     }
     public override void UpdateState (GunnerStateController gunner)
     {
         #region Chasing Logic
-        if (gunner.selectedEnemy != null)
+        if (gunner.selectedEnemy != null && gunner.Gunner.enabled == true)
         {
             distanceOfGunnerAndTargetEnemy = Vector3.Distance(gunner.transform.position, gunner.selectedEnemy.transform.position); // the distance between gunner and selected enemy
-            Debug.Log("Distance =" + distanceOfGunnerAndTargetEnemy);
-            Debug.Log("Attack Ranged = " + gunner.attackRange.radius);
-            Debug.Log("Enemy position = " + gunner.selectedEnemy.transform.localPosition);
-
 
             if (distanceOfGunnerAndTargetEnemy <= gunner.attackRange.radius * Mathf.Max(
                 gunner.transform.parent.localScale.x,
@@ -37,24 +37,25 @@ public class ChasingState : GunnerBaseState
                 if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    //Play animation Gunner_Shoot
-                    gunner.gunnerAnimatorControlller.SetBool("isFollowing", true);
-                    gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
-                    gunner.gunnerAnimatorControlller.SetBool("isShooting", true);
-                    gunner.rigBuilder.enabled = true;
-                    gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
-                    gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
-                    //
+                   
                     if (Physics.Raycast(gunner.Gun.transform.position,
                         (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized,
                         out hit,
                         Mathf.Infinity,
                         gunner.targetLayerMask)) // cast ray
                     {
-                        Debug.Log("Cast Ray");
-                        Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 2);
-                        lastShotTime = Time.time;
+                        //Play animation Shooting
+                          gunner.gunnerAnimatorControlller.SetBool("isFollowing", true);
+                          gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
+                        gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
+                          gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
+                          gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
+                          gunner.rigBuilder.enabled = true;
+                        //
 
+                        Debug.Log("Cast Ray");
+                        Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
+                        lastShotTime = Time.time;
                         TargetRecieveDamage(gunner, hit);
                     }
                 }
@@ -76,9 +77,14 @@ public class ChasingState : GunnerBaseState
                 gunner.transform.parent.localScale.y,
                 gunner.transform.parent.localScale.z)) //if it out of attack ranged
             {
-                //Play animation Gunner_Wallking
+                //Play animation Gunner_Walking
                 gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
-                gunner.rigBuilder.enabled = true;
+                if (gunner.gunnerAnimatorControlller.GetCurrentAnimatorStateInfo(0).IsName("Gunner_Reload"))
+                {
+                    gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", true);
+                }
+                gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+                gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
                 //
                 gunner.Gunner.isStopped = false;
                 gunner.Gunner.SetDestination(gunner.selectedEnemy.transform.position);
@@ -93,12 +99,16 @@ public class ChasingState : GunnerBaseState
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
-                if (!(hit.collider.CompareTag("OttomanRecruit")
+                if (hit.collider.CompareTag("Ground")
+                    && !(hit.collider.CompareTag("OttomanRecruit")
                       || hit.collider.CompareTag("OttomanGunnerRecruit")
                       || hit.collider.CompareTag("MeleeJanissary")
                       || hit.collider.CompareTag("RangedJanissary")
                       || hit.collider.CompareTag("OttomanCannon"))) // if it is something else that not Enemy
                 {
+                    //Play animation Gunner_Walking
+                    gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", true);
+                    //
                     gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     gunner.selectedEnemy = null; // reset all selected enemy
                     Debug.Log("Switching from Chasing state to Moving state");
@@ -113,15 +123,12 @@ public class ChasingState : GunnerBaseState
         #endregion
 
         #region Switch to idel state
-        if (gunner.selectedEnemy == null || gunner.selectedEnemyStat.unitHP <= 0) // if the selected enemy is dead or stop target it
+        if (gunner.selectedEnemyStat.unitHP <= 0) // if the selected enemy is dead or stop target it
         {
-            //Play animation Gunner_Idle
-            gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
-            gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
-            gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
-            gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
-            gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
-            ;            //
+           //Play animation Gunner_Idle
+             gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", true);
+           //
+
             gunner.Gunner.isStopped = false; // make the gunner stop
             gunner.Gunner.SetDestination(gunner.rootGameObject.transform.position);
             gunner.selectedEnemy = null; // set the selected enemy as null
@@ -154,7 +161,14 @@ public class ChasingState : GunnerBaseState
     }
     public override void ExitState(GunnerStateController gunner)
     {
+        //Play animation Gunner_Death
+        gunner.Gunner.enabled = false;
+        gunner.gunnerAnimatorControlller.SetBool("isDead", true);
+        gunner.Gun.SetActive(false);
+        gunner.rigBuilder.enabled = false;
+        gunner.gunnerCollider.enabled = false;
+        //
         gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(gunner.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(gunner.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }
