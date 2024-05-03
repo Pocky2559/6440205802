@@ -13,18 +13,24 @@ public class Landsk_Moving : LandsknetchBaseState
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
     {
+        Debug.Log("Land : Moving");
         #region Switch to Idel State
-        if( landsknetch.landsknetchAgent.pathPending == false) // if Unity finish calculating the path
+        if ( landsknetch.landsknetchAgent.pathPending == false) // if Unity finish calculating the path
         {
             if (Mathf.RoundToInt(landsknetch.landsknetchAgent.remainingDistance) == 0) //if remaining distance of landskn = 0
             {
-                Debug.Log("Switching from Moving state to Idel state");
+                //===================================
+                //Play animation Landsknecht_Idle
+                //===================================
+                landsknetch.landskAnimatorControlller.SetTrigger("Idle");
+                //-----------------------------------
+
                 landsknetch.SwitchState(landsknetch.land_IdelState); // Switch to moving state
             }
         }
         #endregion
 
-        #region Change moving
+        #region Change moving or Switch to Chasing State
         if (landsknetch.unitSelection.unitSelected.Contains(landsknetch.rootGameObject) && Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -34,6 +40,13 @@ public class Landsk_Moving : LandsknetchBaseState
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, landsknetch.targetLayerMask))
             {
+                //===================================
+                //Play animation Landsknecht_Walking
+                //===================================
+                landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                //-----------------------------------
+
+                landsknetch.enemyStat = hit.collider.GetComponent<UnitStat>();
                 landsknetch.targetEnemy = hit.collider.gameObject;
                 landsknetch.SwitchState(landsknetch.land_ChasingState);
             }

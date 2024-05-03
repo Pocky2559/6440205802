@@ -13,11 +13,11 @@ public class Landsk_Chasing : LandsknetchBaseState
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
-    {  
-        if (landsknetch.targetEnemy != null)
+    {
+        if (landsknetch.enemyStat.unitHP > 0 || landsknetch.targetEnemy != null)
         {
             float distanceOfLandsknetchAndTargetEnemy = Vector3.Distance(landsknetch.landsknetchAgent.transform.position, landsknetch.targetEnemy.transform.position);
-            if (distanceOfLandsknetchAndTargetEnemy <= 1.7f)
+            if (distanceOfLandsknetchAndTargetEnemy <= 1.5f) //if enemy is in ranged
             {
                 landsknetch.landsknetchAgent.isStopped = true;
 
@@ -26,33 +26,57 @@ public class Landsk_Chasing : LandsknetchBaseState
                 if (Time.time > lastShotTime + landsknetch.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;
-                    if (Physics.Raycast(landsknetch.transform.position, landsknetch.transform.forward, out hit, 2.0f, landsknetch.targetLayerMask)) // cast ray
+                    if (Physics.Raycast(
+                        landsknetch.transform.position,
+                        (landsknetch.targetEnemy.transform.position - landsknetch.transform.parent.position).normalized,
+                        out hit,
+                        2.0f,
+                        landsknetch.targetLayerMask)) // cast ray
                     {
-                        Debug.DrawRay(landsknetch.transform.position, landsknetch.transform.forward * hit.distance, Color.red, 0.9f);
+                        //===================================
+                        //Play animation Landsknecht_Attacking
+                        //===================================
+                        landsknetch.landskAnimatorControlller.ResetTrigger("Walk");
+                        landsknetch.landskAnimatorControlller.SetTrigger("Attack");
+                        //-----------------------------------
+
+                        Debug.DrawRay(landsknetch.transform.position, (landsknetch.targetEnemy.transform.position - landsknetch.transform.parent.position).normalized * hit.distance, Color.green, 0.9f);
                         lastShotTime = Time.time;
-                        Debug.Log("Attacking");
 
                         TargetRecieveDamage(landsknetch, hit);
                     }
                 }
                 #endregion
             }
-            if (distanceOfLandsknetchAndTargetEnemy > 1.7f) // if the enemy is far than 9.8 f
+            if (distanceOfLandsknetchAndTargetEnemy > 1.5f) // if the enemy is out of ranged
             {
+                //===================================
+                //Play animation Landsknecht_Walking
+                //===================================                
+                landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                //-----------------------------------
+
                 landsknetch.landsknetchAgent.isStopped = false;
                 landsknetch.landsknetchAgent.SetDestination(landsknetch.targetEnemy.transform.position);
             }
         }
 
-        if (landsknetch.targetEnemy == null)
+        if (landsknetch.enemyStat.unitHP <= 0 || landsknetch.targetEnemy == null)
         {
+            //===================================
+            //Play animation Landsknecht_Idle
+            //===================================
+            landsknetch.landskAnimatorControlller.ResetTrigger("Attack");
+            landsknetch.landskAnimatorControlller.SetTrigger("Idle");
+            //-----------------------------------
+
             landsknetch.landsknetchAgent.isStopped = false;
             landsknetch.targetEnemy = null;
             landsknetch.landsknetchAgent.SetDestination(landsknetch.rootGameObject.transform.position);
             landsknetch.SwitchState(landsknetch.land_IdelState);
         }
 
-        #region Switch to idel state or select new target enemy
+        #region Switch to Moving state or select new target enemy
         if (landsknetch.unitSelection.unitSelected.Contains(landsknetch.rootGameObject) && Input.GetMouseButtonDown(1)) // if Gunner was selected and we right click
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -65,6 +89,12 @@ public class Landsk_Chasing : LandsknetchBaseState
                       || hit.collider.CompareTag("RangedJanissary")
                       || hit.collider.CompareTag("OttomanCannon"))) // if it is something else that not Enemy
                 {
+                    //===================================
+                    //Play animation Landsknecht_Walking
+                    //===================================
+                    landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                    //-----------------------------------
+
                     landsknetch.landsknetchAgent.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     landsknetch.targetEnemy = null; // reset all selected enemy
                     Debug.Log("Switching from Chasing state to Moving state");
@@ -73,6 +103,12 @@ public class Landsk_Chasing : LandsknetchBaseState
                 }
                 else // if it is enemy
                 {
+                    //===================================
+                    //Play animation Landsknecht_Walking
+                    //===================================
+                    landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                    //-----------------------------------
+
                     landsknetch.targetEnemy = hit.collider.gameObject;
                 }
             }

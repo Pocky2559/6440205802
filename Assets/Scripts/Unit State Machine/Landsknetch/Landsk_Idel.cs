@@ -9,11 +9,13 @@ public class Landsk_Idel : LandsknetchBaseState
     {
         
         landsknetch.landsknetchAgent.isStopped = false;
-        Debug.Log("Landsk Idel Enter");
+        //===============================
+        //===============================
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
     {
+        Debug.Log("Land : Idle");
         #region Switch to Moving State
         if (landsknetch.unitSelection.unitSelected.Contains(landsknetch.rootGameObject) && Input.GetMouseButtonDown(1))
         {
@@ -22,14 +24,28 @@ public class Landsk_Idel : LandsknetchBaseState
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, landsknetch.groundLayerMask))
             {
-               landsknetch.selectedPosition = hit.point;
+                //===================================
+                //Play animation Landsknecht_Walking
+                //===================================
+                  landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                //-----------------------------------
+
+                landsknetch.selectedPosition = hit.point;
                landsknetch.SwitchState(landsknetch.land_MovingState);
+
             }
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, landsknetch.targetLayerMask))
             {
-               landsknetch.targetEnemy = hit.collider.gameObject;
-               landsknetch.SwitchState(landsknetch.land_ChasingState);
+                ////===================================
+                ////Play animation Landsknecht_Walking
+                ////===================================
+                //landsknetch.landskAnimatorControlller.SetTrigger("Walk");
+                ////-----------------------------------
+
+                landsknetch.enemyStat = hit.collider.GetComponent<UnitStat>();
+                landsknetch.targetEnemy = hit.collider.gameObject;
+                landsknetch.SwitchState(landsknetch.land_ChasingState);
             }
         }
         #endregion
@@ -52,6 +68,7 @@ public class Landsk_Idel : LandsknetchBaseState
             || targetCollider.CompareTag("RangedJanissary")
             || targetCollider.CompareTag("OttomanCannon")) // if the enemy is in a detection area
         {
+            landsknetch.enemyStat = targetCollider.GetComponent<UnitStat>();
             landsknetch.targetEnemy = coll.gameObject;
             landsknetch.SwitchState(landsknetch.land_ChasingState); // switch to chasing state
         }
