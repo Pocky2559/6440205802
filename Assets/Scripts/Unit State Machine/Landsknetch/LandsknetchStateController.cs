@@ -19,6 +19,9 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
     public HouseList population;
     public Animator landskAnimatorControlller;
     public UnitStat enemyStat;
+    public CapsuleCollider landskCollider;
+    public GameObject neutralSword;
+    public GameObject attackedSword;
 
     public Landsk_Idel land_IdelState = new();
     public Landsk_Moving land_MovingState = new();
@@ -36,6 +39,7 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
         rootGameObject = transform.root.gameObject;
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         landskAnimatorControlller = GetComponentInParent<Animator>();
+        landskCollider = GetComponentInParent<CapsuleCollider>();
     }
 
     private void Start()

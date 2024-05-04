@@ -9,8 +9,8 @@ public class Landsk_Idel : LandsknetchBaseState
     {
         
         landsknetch.landsknetchAgent.isStopped = false;
-        //===============================
-        //===============================
+        landsknetch.neutralSword.SetActive(true);
+        landsknetch.attackedSword.SetActive(false);
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
@@ -82,7 +82,14 @@ public class Landsk_Idel : LandsknetchBaseState
 
     public override void ExitState(LandsknetchStateController landsknecht)
     {
+        //===================================
+        //Play animation Landsknecht_Walking
+        //===================================
+        landsknecht.landskAnimatorControlller.SetTrigger("Death");
+        //-----------------------------------
+
+        landsknecht.landskCollider.enabled = false;
         landsknecht.population.PopulationChanges(-1 * landsknecht.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }

@@ -9,17 +9,19 @@ public class Landsk_Chasing : LandsknetchBaseState
     public override void EnterState(LandsknetchStateController landsknetch)
     {
         landsknetch.landsknetchAgent.isStopped = false;
-        landsknetch.landsknetchAgent.SetDestination(landsknetch.targetEnemy.transform.position);
+        
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
     {
-        if (landsknetch.enemyStat.unitHP > 0 || landsknetch.targetEnemy != null)
+        if ((landsknetch.enemyStat.unitHP > 0 || landsknetch.targetEnemy != null) && landsknetch.unitStat.unitHP > 0)
         {
             float distanceOfLandsknetchAndTargetEnemy = Vector3.Distance(landsknetch.landsknetchAgent.transform.position, landsknetch.targetEnemy.transform.position);
             if (distanceOfLandsknetchAndTargetEnemy <= 1.5f) //if enemy is in ranged
             {
                 landsknetch.landsknetchAgent.isStopped = true;
+                landsknetch.neutralSword.SetActive(false);
+                landsknetch.attackedSword.SetActive(true);
 
                 #region Attack
                 landsknetch.transform.parent.LookAt(landsknetch.targetEnemy.transform); // make Landsknetch face the enemy
@@ -48,8 +50,10 @@ public class Landsk_Chasing : LandsknetchBaseState
                 }
                 #endregion
             }
-            if (distanceOfLandsknetchAndTargetEnemy > 1.5f) // if the enemy is out of ranged
+            else if (distanceOfLandsknetchAndTargetEnemy > 1.5f) // if the enemy is out of ranged
             {
+                landsknetch.neutralSword.SetActive(true);
+                landsknetch.attackedSword.SetActive(false);
                 //===================================
                 //Play animation Landsknecht_Walking
                 //===================================                
@@ -141,8 +145,16 @@ public class Landsk_Chasing : LandsknetchBaseState
     }
 
     public override void ExitState(LandsknetchStateController landsknecht)
-    {
+    { 
+        //===================================
+        //Play animation Landsknecht_Walking
+        //===================================
+        landsknecht.landskAnimatorControlller.SetTrigger("Death");
+        //-----------------------------------
+
+        landsknecht.landsknetchAgent.isStopped = true;
+        landsknecht.landskCollider.enabled = false;
         landsknecht.population.PopulationChanges(-1 * landsknecht.unitStat.unitPopulation); //Decrease population
-        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(landsknecht.transform.parent.gameObject,4); // Delete Villager from the game
     }
 }
