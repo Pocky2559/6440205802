@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Analytics;
 using static UnityEngine.GraphicsBuffer;
@@ -6,6 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 {
     float lastShotTime = 0.0f;
+    float distanceOfOttomanRecruitAndTargetPlayerUnit;
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
         otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.targetPlayerUnit.transform.position);
@@ -13,13 +15,20 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
-        if(otmRecruit.targetPlayerUnitStat.unitHP > 0)
+        if(otmRecruit.targetPlayerUnitStat.unitHP > 0 && otmRecruit.unitStat.unitHP > 0)
         {
-            float distanceOfOttomanRecruitAndTargetPlayerUnit = Vector3.Distance(otmRecruit.otmRecruitAgent.transform.position, otmRecruit.targetPlayerUnit.transform.position); // the distance between Ottoman recruit and selected player unit
-
-            if (distanceOfOttomanRecruitAndTargetPlayerUnit <= 2.0f)
+            distanceOfOttomanRecruitAndTargetPlayerUnit = Vector3.Distance(otmRecruit.transform.parent.position, otmRecruit.targetPlayerUnit.transform.position); // the distance between Ottoman recruit and selected player unit
+            Debug.Log(distanceOfOttomanRecruitAndTargetPlayerUnit);
+            if (distanceOfOttomanRecruitAndTargetPlayerUnit <= 1f) // if enemy is in attack ranged
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;
+
+                //===================================
+                //Play animation otmRecruit_Attacking
+                //===================================
+                otmRecruit.otmRecruitAnimatorController.ResetTrigger("Walk");
+                otmRecruit.otmRecruitAnimatorController.SetBool("Attack", true);
+                //-----------------------------------
 
                 #region Attack
                 otmRecruit.transform.parent.LookAt(otmRecruit.targetPlayerUnit.transform.root); // make gunner face at target enemy
@@ -29,7 +38,6 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                     RaycastHit hit;
                     if (Physics.Raycast(otmRecruit.transform.position, (otmRecruit.targetPlayerUnit.transform.position - otmRecruit.transform.position).normalized, out hit, Mathf.Infinity, otmRecruit.targetLayerMask)) // cast ray
                     {
-                        Debug.Log("Cast Ray");
                         Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 2);
                         lastShotTime = Time.time;
 
@@ -39,8 +47,15 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                 #endregion
             }
 
-            if (distanceOfOttomanRecruitAndTargetPlayerUnit > 2.0f) // if the enemy is far than 9.8 f
+            else if (distanceOfOttomanRecruitAndTargetPlayerUnit > 1f) // if the enemy is out of attack ranged
             {
+                //===================================
+                //Play animation otmRecruit_Walking
+                //===================================
+                otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
+                otmRecruit.otmRecruitAnimatorController.SetBool("Attack", false);
+                //-----------------------------------
+
                 otmRecruit.otmRecruitAgent.isStopped = false;
                 otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.targetPlayerUnit.transform.position);
             }
@@ -49,10 +64,15 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         #region Switch to Capture point state
         if (otmRecruit.targetPlayerUnitStat.unitHP <= 0) // if the selected enemy is dead
         {
+            //===================================
+            //Play animation otmRecruit_Idle
+            //===================================
+            otmRecruit.otmRecruitAnimatorController.SetBool("Attack", false);
+            //-----------------------------------
+
             otmRecruit.otmRecruitAgent.isStopped = false; // make the gunner stop
             otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.rootGameObject.transform.position);
             otmRecruit.targetPlayerUnit = null; // set the selected enemy as null
-            Debug.Log("Switch from Chasing state to Idel state");
             otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState); // switch to idel state
         }
         #endregion
@@ -85,8 +105,16 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 
     public override void ExitState(OttomanRecruitStateController otmRecruit)
     {
+        //===============================
+        //Play animation otmRecruit_Death
+        //===============================
+        otmRecruit.otmRecruitAnimatorController.SetTrigger("Death");
+        //-------------------------------
+
+        otmRecruit.otmRecruitAgent.isStopped = true;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        colliderOfThisEnemy.enabled = false;
         otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
-        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }

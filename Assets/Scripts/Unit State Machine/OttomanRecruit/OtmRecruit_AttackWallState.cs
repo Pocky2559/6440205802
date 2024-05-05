@@ -11,13 +11,26 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
     float distanceOfEnemyAndWall;
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
+
         if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
         {
+            //===============================
+            //Play animation otmRecruit_Walking
+            //===============================
+            otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
+            //-------------------------------
+
             otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.Wall.transform.position);
         }
 
         else
         {
+            //===============================
+            //Play animation otmRecruit_Walking
+            //===============================
+            otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
+            //-------------------------------
+
             otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState);
         }
 
@@ -31,10 +44,14 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
             if (distanceOfEnemyAndWall <= 3)
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;
+                //===============================
+                //Play animation otmRecruit_Attacking
+                //===============================
+                otmRecruit.otmRecruitAnimatorController.SetTrigger("Attack");
+                //-------------------------------
 
                 if (Time.time > lastShotTime + otmRecruit.unitStat.unitAttackSpeed)
                 {
-                    Debug.Log("Starting to attack wall");
                     Attack(otmRecruit);
                     lastShotTime = Time.time;
                 }
@@ -42,6 +59,12 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
         }
         else
         {
+            //===============================
+            //Play animation otmRecruit_Walking
+            //===============================
+            otmRecruit.otmRecruitAnimatorController.ResetTrigger("Attack");
+            otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
+            //-------------------------------
             otmRecruit.SwitchState(otmRecruit.otmRecruit_CapturePointState);
         }
 
@@ -68,8 +91,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
         RaycastHit hit;
         if (Physics.Raycast(otmRecruit.transform.position, (otmRecruit.Wall.transform.position - otmRecruit.transform.position).normalized, out hit, Mathf.Infinity, otmRecruit.wallLayerMask))
         {
-            Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 0.9f);
-            Debug.Log("Attacking");
+            Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 0.1f);
             TargetRecieveDamage(otmRecruit, hit);
         }
     }
@@ -82,8 +104,16 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
 
     public override void ExitState(OttomanRecruitStateController otmRecruit)
     {
+        //===============================
+        //Play animation otmRecruit_Death
+        //===============================
+        otmRecruit.otmRecruitAnimatorController.SetTrigger("Death");
+        //-------------------------------
+
+        otmRecruit.otmRecruitAgent.isStopped = true;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        colliderOfThisEnemy.enabled = false;
         otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
-        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }

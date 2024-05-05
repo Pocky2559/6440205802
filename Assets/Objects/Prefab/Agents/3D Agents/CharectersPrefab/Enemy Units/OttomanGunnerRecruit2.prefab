@@ -955,6 +955,7 @@ MonoBehaviour:
   otmGunnerAgent: {fileID: 0}
   Wall: {fileID: 0}
   unitStat: {fileID: 0}
+  targetPlayerUnitStat: {fileID: 0}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -963,6 +964,8 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  capturePointByEnemy: {fileID: 0}
+  population: {fileID: 0}
 --- !u!1 &6529941418676137775
 GameObject:
   m_ObjectHideFlags: 0
