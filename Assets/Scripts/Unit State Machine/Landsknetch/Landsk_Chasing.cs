@@ -9,7 +9,6 @@ public class Landsk_Chasing : LandsknetchBaseState
     public override void EnterState(LandsknetchStateController landsknetch)
     {
         landsknetch.landsknetchAgent.isStopped = false;
-        
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
@@ -17,7 +16,7 @@ public class Landsk_Chasing : LandsknetchBaseState
         if ((landsknetch.enemyStat.unitHP > 0 || landsknetch.targetEnemy != null) && landsknetch.unitStat.unitHP > 0)
         {
             float distanceOfLandsknetchAndTargetEnemy = Vector3.Distance(landsknetch.landsknetchAgent.transform.position, landsknetch.targetEnemy.transform.position);
-            if (distanceOfLandsknetchAndTargetEnemy <= 1.5f) //if enemy is in ranged
+            if (distanceOfLandsknetchAndTargetEnemy <= 1f) //if enemy is in ranged
             {
                 landsknetch.landsknetchAgent.isStopped = true;
                 landsknetch.neutralSword.SetActive(false);
@@ -29,10 +28,10 @@ public class Landsk_Chasing : LandsknetchBaseState
                 {
                     RaycastHit hit;
                     if (Physics.Raycast(
-                        landsknetch.transform.position,
+                        landsknetch.transform.parent.position,
                         (landsknetch.targetEnemy.transform.position - landsknetch.transform.parent.position).normalized,
                         out hit,
-                        2.0f,
+                        Mathf.Infinity,
                         landsknetch.targetLayerMask)) // cast ray
                     {
                         //===================================
@@ -50,7 +49,7 @@ public class Landsk_Chasing : LandsknetchBaseState
                 }
                 #endregion
             }
-            else if (distanceOfLandsknetchAndTargetEnemy > 1.5f) // if the enemy is out of ranged
+            else if (distanceOfLandsknetchAndTargetEnemy > 1f) // if the enemy is out of ranged
             {
                 landsknetch.neutralSword.SetActive(true);
                 landsknetch.attackedSword.SetActive(false);
@@ -71,6 +70,7 @@ public class Landsk_Chasing : LandsknetchBaseState
             //Play animation Landsknecht_Idle
             //===================================
             landsknetch.landskAnimatorControlller.ResetTrigger("Attack");
+            landsknetch.landskAnimatorControlller.ResetTrigger("Walk");
             landsknetch.landskAnimatorControlller.SetTrigger("Idle");
             //-----------------------------------
 
