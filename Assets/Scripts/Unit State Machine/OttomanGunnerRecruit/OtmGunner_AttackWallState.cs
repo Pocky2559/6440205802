@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 {
@@ -10,12 +11,26 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     {
         if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
         {
+            //=============================
+            //Gun Holding Position
+            //=============================
+            otmGunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+            otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+            //-------------------------------------------------------------------------------------------
+
             otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
             otmGunner.rootGameObject.transform.LookAt(otmGunner.Wall.transform.position);
         }
 
         else
         {
+            //=============================
+            //Gun Holding Position
+            //=============================
+            otmGunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+            otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+            //-------------------------------------------------------------------------------------------
+
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
         }
 
@@ -23,7 +38,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
-        if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
+        if (otmGunner.Wall != null && otmGunner.unitStat.unitHP > 0) // if wall is still there
         {
             distanceOfEnemyAndWall = Vector3.Distance(otmGunner.otmGunnerAgent.transform.position, otmGunner.Wall.transform.position);
             if (distanceOfEnemyAndWall <= 5)
@@ -32,20 +47,50 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 
                 if (Time.time > lastShotTime + otmGunner.unitStat.unitAttackSpeed)
                 {
+                    //=============================
+                    //Play animation otmGunner_Shoot
+                    //=============================
+                    otmGunner.otmGunnerAnimatorController.ResetTrigger("Walk");
+                    otmGunner.otmGunnerAnimatorController.SetTrigger("Shoot");
+                    otmGunner.rigBuilder.enabled = true;
+                    //-------------------------------------------------------
+
+                    //=============
+                    //Aiming a gun
+                    //=============
+                    otmGunner.Gun.transform.localPosition = new Vector3(0.31400001f, 1.41400003f, 0.160999998f); //Position
+                    otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 177.078262f, 359.583221f); //Rotation
+                    //----------------------------------------------------------------------------------------------------------
+
                     Attack(otmGunner);
                     lastShotTime = Time.time;
-                }
+            }
+
+                //Play animation Gunner_Reload
+            else if (otmGunner.otmGunnerAnimatorController.GetCurrentAnimatorStateInfo(0).IsName("OtmGunner_Shoot"))
+            {
+               otmGunner.rigBuilder.enabled = false;
+               otmGunner.otmGunnerAnimatorController.SetTrigger("Reload");
+               otmGunner.Gun.transform.localPosition = new Vector3(0.425000012f, 0.88499999f, 0.593999982f); //Position
+               otmGunner.Gun.transform.localRotation = Quaternion.Euler(67.0930557f, 92.2190628f, 273.481873f); //Rotation
+            }
             }
 
             else
             {
+                //=============================
+                //Play animation otmGunner_Walking
+                //=============================
+                otmGunner.otmGunnerAnimatorController.SetTrigger("Walk");
+                //-------------------------------------------------------
+
                 otmGunner.otmGunnerAgent.isStopped = false;
                 otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
             }
         }
 
-        else
-        {
+        else if(otmGunner.Wall == null)
+        {         
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
         }
 
@@ -94,8 +139,18 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     }
     public override void ExitState(OttomanGunnerRecruitStateController otmGunner)
     {
+        //=============================
+        //Play animation otmGunner_Death
+        //=============================
+        otmGunner.otmGunnerAnimatorController.SetTrigger("Death");
+        otmGunner.rigBuilder.enabled = false;
+        otmGunner.Gun.SetActive(false);
+        otmGunner.otmGunnerAgent.isStopped = true;
+        //-------------------------------------------------------
+
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy
+        colliderOfThisEnemy.enabled = false;
         otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy); //Decrease population
-        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject); // Delete Villager from the game
+        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject, 4f); // Delete Ottoman Gunner from the game
     }
 }

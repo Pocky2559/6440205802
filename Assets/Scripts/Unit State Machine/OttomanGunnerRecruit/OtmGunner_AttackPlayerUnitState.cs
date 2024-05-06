@@ -19,6 +19,21 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
             #region Shooting at player
             if (Time.time > lastShotTime + otmGunner.unitStat.unitAttackSpeed)
             {
+                //=============================
+                //Play animation otmGunner_Shoot
+                //=============================
+                otmGunner.otmGunnerAnimatorController.ResetTrigger("Walk");
+                otmGunner.otmGunnerAnimatorController.SetTrigger("Shoot");
+                otmGunner.rigBuilder.enabled = true;
+                //-------------------------------------------------------
+
+                //=============
+                //Aiming a gun
+                //=============
+                otmGunner.Gun.transform.localPosition = new Vector3(0.31400001f, 1.41400003f, 0.160999998f); //Position
+                otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 177.078262f, 359.583221f); //Rotation
+                //----------------------------------------------------------------------------------------------------------
+
                 RaycastHit hit;
                 if (Physics.Raycast(otmGunner.transform.position, otmGunner.transform.forward, out hit, Mathf.Infinity, otmGunner.targetLayerMask)) // cast ray
                 {
@@ -26,6 +41,15 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
                     lastShotTime = Time.time;
                     TargetRecieveDamage(otmGunner, hit);
                 }
+            }
+
+            //Play animation Gunner_Reload
+            else if (otmGunner.otmGunnerAnimatorController.GetCurrentAnimatorStateInfo(0).IsName("OtmGunner_Shoot"))
+            {
+                otmGunner.rigBuilder.enabled = false;
+                otmGunner.otmGunnerAnimatorController.SetTrigger("Reload");
+                otmGunner.Gun.transform.localPosition = new Vector3(0.425000012f, 0.88499999f, 0.593999982f); //Position
+                otmGunner.Gun.transform.localRotation = Quaternion.Euler(67.0930557f, 92.2190628f, 273.481873f); //Rotation
             }
             #endregion
         }
@@ -64,8 +88,18 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
     }
     public override void ExitState(OttomanGunnerRecruitStateController otmGunner)
     {
+        //=============================
+        //Play animation otmGunner_Death
+        //=============================
+        otmGunner.otmGunnerAnimatorController.SetTrigger("Death");
+        otmGunner.rigBuilder.enabled = false;
+        otmGunner.Gun.SetActive(false);
+        otmGunner.otmGunnerAgent.isStopped = true;
+        //-------------------------------------------------------
+
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy
-        otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
-        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject); // Delete Villager from the game
+        colliderOfThisEnemy.enabled = false;
+        otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy); //Decrease population
+        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject, 4f); // Delete Ottoman Gunner from the game
     }
 }

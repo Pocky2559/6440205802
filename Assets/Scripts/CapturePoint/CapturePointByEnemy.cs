@@ -17,7 +17,6 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
             || enemy.CompareTag("OttomanCannon"))
         {
             IsEnemyInPoint = true;
-            Debug.Log(enemy.name);
         }
     }
 

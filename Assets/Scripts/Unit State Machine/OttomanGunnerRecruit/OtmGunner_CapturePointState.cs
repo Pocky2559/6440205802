@@ -6,6 +6,20 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
 {
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
+        //=============================
+        //Play animation otmGunner_Walking
+        //=============================
+        otmGunner.otmGunnerAnimatorController.SetTrigger("Walk");
+        otmGunner.rigBuilder.enabled = true;
+        //-------------------------------------------------------
+
+        //=============================
+        //Gun Holding Position
+        //=============================
+        otmGunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
+        otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
+        //-------------------------------------------------------------------------------------------
+
         otmGunner.otmGunnerAgent.isStopped = false;
         otmGunner.otmGunnerAgent.SetDestination(GameObject.FindGameObjectWithTag("CapturedPoint").transform.position);
     }
@@ -40,8 +54,18 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
     }
     public override void ExitState(OttomanGunnerRecruitStateController otmGunner)
     {
+        //=============================
+        //Play animation otmGunner_Death
+        //=============================
+        otmGunner.otmGunnerAnimatorController.SetTrigger("Death");
+        otmGunner.rigBuilder.enabled = false;
+        otmGunner.Gun.SetActive(false);
+        otmGunner.otmGunnerAgent.isStopped = true;
+        //-------------------------------------------------------
+
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy
-        otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
-        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject); // Delete Villager from the game
+        colliderOfThisEnemy.enabled = false;
+        otmGunner.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy); //Decrease population
+        MonoBehaviour.Destroy(otmGunner.transform.parent.gameObject, 4f); // Delete Ottoman Gunner from the game
     }
 }

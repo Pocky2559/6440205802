@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 
 public class OttomanGunnerRecruitStateController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public LayerMask targetLayerMask;
     public CapturePointByEnemy capturePointByEnemy;
     public HouseList population;
+    public GameObject Gun;
+    public Animator otmGunnerAnimatorController;
+    public RigBuilder rigBuilder;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
@@ -30,6 +34,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         rootGameObject = transform.root.gameObject;
         capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
+        otmGunnerAnimatorController = GetComponentInParent<Animator>();
+        rigBuilder = GetComponentInParent<RigBuilder>();
     }
 
     private void Start()

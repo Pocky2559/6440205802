@@ -204,7 +204,6 @@ public class UnitStat : MonoBehaviour
                 GameObject TargetObject = unitDatabase.unitDetails[unitDatabaseIndex].unitPrefab;
                 Collider colliderOfGameObject = TargetObject.GetComponent<Collider>();
                 capturePointByEnemy.OnTriggerExit(colliderOfGameObject);
-                Destroy(gameObject);
             }
             else
             {
