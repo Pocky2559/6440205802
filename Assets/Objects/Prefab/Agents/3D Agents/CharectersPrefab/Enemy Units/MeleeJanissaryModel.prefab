@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 1414344443632896214}
   - component: {fileID: 4445913806882323987}
   - component: {fileID: 8086578672757245250}
+  - component: {fileID: 1838229919237157892}
   m_Layer: 9
   m_Name: MeleeJanissaryModel
   m_TagString: MeleeJanissary
@@ -177,6 +178,27 @@ MonoBehaviour:
   unitMeleeArmor: 0
   unitRangedArmor: 0
   unitPopulation: 0
+--- !u!95 &1838229919237157892
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718742622349108304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0389a7f146e4654c965b67fc495e612, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1276316311335778831
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +478,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.0015534234, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5374525752666370980}
   m_Father: {fileID: 7008392821880585802}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -833,6 +856,7 @@ MonoBehaviour:
   Wall: {fileID: 0}
   otmRecruitAgent: {fileID: 0}
   unitStat: {fileID: 0}
+  targetPlayerUnitStat: {fileID: 0}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 4096
@@ -841,6 +865,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   rootGameObject: {fileID: 0}
+  capturePointByEnemy: {fileID: 0}
+  otmRecruitAnimatorController: {fileID: 0}
 --- !u!135 &5605730476185711966
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1313,3 +1339,77 @@ Transform:
   m_Father: {fileID: 6092062496893572987}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6123820229026702338
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9198964162201177450}
+    m_Modifications:
+    - target: {fileID: 1522735726252428572, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_Name
+      value: OttomanSword
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0051696505
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0051696515
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0051696515
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.00055
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00191
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.49284163
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5122717
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4788387
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5151682
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.663
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 89.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -93.19
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+--- !u!4 &5374525752666370980 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2191573788735494054, guid: 43d23a7439b1e7b4eb01bfb51728ee4c, type: 3}
+  m_PrefabInstance: {fileID: 6123820229026702338}
+  m_PrefabAsset: {fileID: 0}
