@@ -8,6 +8,7 @@ public class UnitFormation : MonoBehaviour
 {
     public UnitSelection unitSelection;
     public LayerMask wallLayerMask;
+    public LayerMask blockingLayerMask;
     public NavMeshAgent unit;
     public List<Vector3> unitFormationPosition;
     
@@ -22,25 +23,26 @@ public class UnitFormation : MonoBehaviour
 
             #region Move on terrain
 
-            //Multiple Selection
-            if (unitSelection != null 
-                && unitSelection.unitSelected.Count > 1
-                && Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                   for(int i = 0; i < unitSelection.unitSelected.Count; i++) // for loop to check that in unitSelected List Is there any null object?
-                   {
-                      if (unitSelection.unitSelected[i] == null) // if it have
-                      {
-                        unitSelection.unitSelected.Remove(unitSelection.unitSelected[i]); // Remove that null object out from List to make the formation calculation work correctly
-                      }
-                   }
-                   Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5f);
-                   if (hit.collider.CompareTag("Ground")
-                        && !hit.collider.CompareTag("Wood")
-                        && !hit.collider.CompareTag("Food")
-                        && !hit.collider.CompareTag("Gold")
-                        && !hit.collider.CompareTag("Stone"))
-                   {                     
+            if (unitSelection != null
+                      && unitSelection.unitSelected.Count > 1
+                       && Physics.Raycast(ray, out hit, Mathf.Infinity)
+               )                 
+            {
+                  for (int i = 0; i < unitSelection.unitSelected.Count; i++) // for loop to check that in unitSelected List Is there any null object?
+                  {
+                     if (unitSelection.unitSelected[i] == null) // if it have
+                     {
+                            unitSelection.unitSelected.Remove(unitSelection.unitSelected[i]); // Remove that null object out from List to make the formation calculation work correctly
+                     }
+                  }  
+                  Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5f);
+                if (hit.collider.CompareTag("Ground")
+                    && !hit.collider.CompareTag("Wood")
+                    && !hit.collider.CompareTag("Food")
+                    && !hit.collider.CompareTag("Gold")
+                    && !hit.collider.CompareTag("Stone")
+                    && !hit.collider.CompareTag("Blocking"))
+                  {
                         leaderPosition = hit.point;
 
                         for (int i = 0; i < unitSelection.unitSelected.Count; i++)
@@ -57,11 +59,11 @@ public class UnitFormation : MonoBehaviour
                                 unitFormationPosition.Add(leaderPosition + new Vector3(col, 0, row));
                             }
                         }
-                      MoveFormationUnit();
-                   }
-                }
-            
-                #endregion
+                        MoveFormationUnit();
+                  }
+                
+                #endregion       
+            }    
 
             #region Move on wall
             if (unitSelection != null
