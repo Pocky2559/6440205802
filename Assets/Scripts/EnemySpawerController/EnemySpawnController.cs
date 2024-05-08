@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 
-public class EnemySpawnController : MonoBehaviour
+public class EnemySpawnController : MonoBehaviour 
 {
     public GameObject EnemySpawnPoint1;
     public GameObject EnemySpawnPoint2;
@@ -17,78 +17,366 @@ public class EnemySpawnController : MonoBehaviour
     public UnitDatabaseSO unitDatabase;
 
     public WaveTimer waveTimer;
-    public float remainingTime;
+    public int waveNumber;
+    public float timeInWave;
+    public float globalWaveTime;
 
-    public bool IsWave1Begin;
-    private bool isSpawnAt0Second;
-    private bool isSpawnAt15Second;
-    private bool isSpawnAt30Second;
-    private bool isSpawnAt50Second;
+    private bool IsSubWaveFinised;
+   
 
     private void Awake()
     {
-        isSpawnAt0Second = true;
-        isSpawnAt15Second = true;
-        isSpawnAt30Second = true;
-        isSpawnAt50Second = true;
+        timeInWave = 0;
+        globalWaveTime = 0;
+        IsSubWaveFinised = false;
     }
     private void Update()
     {
-        #region Spawning at 0 S
-        if (waveTimer.remainingTime <= 0)
+        if (waveTimer.remainingTime <= 0) // Wave Time run out
         {
-            IsWave1Begin = true;
+            //===============================================
+            //Start count global wave time
+            //===============================================
+            globalWaveTime = globalWaveTime + Time.deltaTime;
+            //-----------------------------------------------
 
-            if (IsWave1Begin == true)
-            {
-                remainingTime = remainingTime + Time.deltaTime;
-
-                if (Mathf.FloorToInt(remainingTime) == 0 && isSpawnAt0Second == true)
+             #region Wave 1
+                        
+             //=============
+             //Sub-Wave 1-1
+             //=============
+             if (Mathf.FloorToInt(globalWaveTime) == 0)
+             {
+                if(IsSubWaveFinised == false)
                 {
-                    //Spawn Ottoman Recruit
+                  timeInWave = 60;
+
+                  // Ottoman Recruit x3
+                  Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                  Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                  Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                  IsSubWaveFinised = true;
+                }
+             }
+            //------------- End sub Wave 1 if global time = 30 seconds
+
+            //=============
+            //Sub-Wave 1-2
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 30) 
+            {
+                if (IsSubWaveFinised == true)
+                {
+                   // Ottoman Recruit x2
+                   Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                   Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                   IsSubWaveFinised = false;
+                }
+            }
+            //------------- End Wave 1 if global time = 60 seconds
+            #endregion
+
+             #region Wave 2
+
+            //=============
+            //Sub-Wave 2-1
+            //=============
+            if (Mathf.FloorToInt(globalWaveTime) == 60)
+            {
+                if(IsSubWaveFinised == false)
+                {
+                    timeInWave = 90;
+
+                    //Ottoman Recruit x3
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
-                    //
-
-                    isSpawnAt0Second = false;
-                }
-
-                if (Mathf.FloorToInt(remainingTime) == 15 && isSpawnAt15Second == true)
-                {
-                    //Spwan Ottoman Recruit
-                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
-                    //
-
-                    //Spawn Ottoman Gunner Recruit
-                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
-                    //
-
-                    isSpawnAt15Second = false;
-                }
-
-                if (Mathf.FloorToInt(remainingTime) == 30 && isSpawnAt30Second == true)
-                {
-                    //Spawn Ottoman Gunner Recruit
-                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
-                    //
-
-                    isSpawnAt30Second = false;
-                }
-
-                if (Mathf.FloorToInt(remainingTime) == 50 && isSpawnAt50Second == true)
-                {
-                    //Spwan Ottoman Recruit
-                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
-                    //
-
-                    isSpawnAt50Second = false;
+                    IsSubWaveFinised = true;
                 }
             }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 2-2
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 75)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 2-3
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 90)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 2-4
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 120)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x3
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 2-5
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 135)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+            #endregion
+
+             #region Wave 3
+
+            //=============
+            //Sub-Wave 3-1
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 150)
+            {
+                timeInWave = 90;
+
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x4
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint4.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 3-2
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 170)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x2
+                    //Ottoman Gunner Recruit x3
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 3-3
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 200)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Gunner Recruit x3
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 3-4
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 225)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+            #endregion
+
+             #region Wave 4
+
+            //=============
+            //Sub-Wave 4-1
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 240)
+            {
+                timeInWave = 90;
+
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x5
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint4.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 4-2
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 255)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x3
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 4-3
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 280)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Gunner Recruit x3
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 4-4
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 310)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x3
+                    //Ottoman Gunner Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+            #endregion
+
+             #region Wave 5 (Final Wave)
+
+            //=============
+            //Sub-Wave 5-1
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 330)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x4
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint4.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 5-2
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 345)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Gunner Recruit x3
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 5-3
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 370)
+            {
+                if (IsSubWaveFinised == true)
+                {
+                    //Ottoman Recruit x3
+                    //Ottoman Gunner Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = false;
+                }
+            }
+            //---------------------------------------
+
+            //=============
+            //Sub-Wave 5-4
+            //=============
+            else if (Mathf.FloorToInt(globalWaveTime) == 390)
+            {
+                if (IsSubWaveFinised == false)
+                {
+                    //Ottoman Recruit x3
+                    //Ottoman Gunner Recruit x2
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[6].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    IsSubWaveFinised = true;
+                }
+            }
+            //---------------------------------------
+            #endregion
+
         }
-        #endregion
     }
 }

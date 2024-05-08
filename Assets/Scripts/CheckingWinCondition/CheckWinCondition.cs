@@ -11,21 +11,21 @@ public class CheckWinCondition : MonoBehaviour
     public bool resultDecistion = false;
     private void Update()
     {
-        if (enemy.remainingTime > 50 && resultDecistion == false) // if after all the enemy has spawned 
-        {
-            if (GameObject.FindGameObjectWithTag("OttomanRecruit") == null
-                && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null
-                && GameObject.FindGameObjectWithTag("MeleeJanissary") == null
-                && GameObject.FindGameObjectWithTag("RangedJanissary") == null
-                && GameObject.FindGameObjectWithTag("OttomanCannon") == null) // check if there is no any enemy in the game alive so player win the game
-            {
-                WinUI.SetActive(true);
-            } 
-        }
+        //if (enemy.remainingTime > 50 && resultDecistion == false) // if after all the enemy has spawned 
+        //{
+        //    if (GameObject.FindGameObjectWithTag("OttomanRecruit") == null
+        //        && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null
+        //        && GameObject.FindGameObjectWithTag("MeleeJanissary") == null
+        //        && GameObject.FindGameObjectWithTag("RangedJanissary") == null
+        //        && GameObject.FindGameObjectWithTag("OttomanCannon") == null) // check if there is no any enemy in the game alive so player win the game
+        //    {
+        //        WinUI.SetActive(true);
+        //    } 
+        //}
 
-        if (enemyCapturePoint.remainingTime <= 0 && resultDecistion == false)
-        {
-            LostUI.SetActive(true);
-        }
+        //if (enemyCapturePoint.remainingTime <= 0 && resultDecistion == false)
+        //{
+        //    LostUI.SetActive(true);
+        //}
     }
 }
