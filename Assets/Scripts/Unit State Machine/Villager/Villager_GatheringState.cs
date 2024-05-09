@@ -396,8 +396,8 @@ public class Villager_GatheringState : VillagerBaseState
                     && !hit.collider.CompareTag("Food")
                     && !hit.collider.CompareTag("Gold")
                     && !hit.collider.CompareTag("Stone"))
-                {
-                    if(villager.currentCarryingResource == "Wood")
+                {              
+                    if (villager.currentCarryingResource == "Wood")
                     {
                         villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
                     }

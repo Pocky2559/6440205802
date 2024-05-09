@@ -35,20 +35,12 @@ public class HouseList : MonoBehaviour // X/number
 
     private void Update()
     {
-        //if(IsCalculatePopAtBeginning == false)
-        //{
-        //    CalculatePopulationAtBeginning();
-        //    IsCalculatePopAtBeginning = true;
-        //}
-
-        
+        currentPopulation = listOfUnits.unitList.Count;
         currentPopulationText.text = string.Format("{0}/{1}", currentPopulation, currentHouseCapacity);
     }
 
     private void CalculatePopulationAtBeginning()
     {
-        currentPopulation = listOfUnits.unitList.Count;
         currentHouseCapacity = houseCapacityAssign * houseList.Count;
     }
-
 }

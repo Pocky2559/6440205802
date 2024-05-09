@@ -18,21 +18,25 @@ public class EnemySpawnController : MonoBehaviour
 
     public WaveTimer waveTimer;
     public int waveNumber;
+    public int maximumWave;
     public float timeInWave;
     public float globalWaveTime;
 
     private bool IsSubWaveFinised;
+    public bool IsWaveBegin;
    
 
     private void Awake()
     {
-        timeInWave = 0;
+        //timeInWave = 300; //time before first wave
         globalWaveTime = 0;
+        maximumWave = 5;
         IsSubWaveFinised = false;
+        IsWaveBegin = false;
     }
     private void Update()
     {
-        if (waveTimer.remainingTime <= 0) // Wave Time run out
+        if (IsWaveBegin == true) // Wave Time run out
         {
             //===============================================
             //Start count global wave time
@@ -50,6 +54,8 @@ public class EnemySpawnController : MonoBehaviour
                 if(IsSubWaveFinised == false)
                 {
                   timeInWave = 60;
+                  waveTimer.remainingTime = timeInWave;
+                  waveNumber = 1;
 
                   // Ottoman Recruit x3
                   Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -86,6 +92,8 @@ public class EnemySpawnController : MonoBehaviour
                 if(IsSubWaveFinised == false)
                 {
                     timeInWave = 90;
+                    waveTimer.remainingTime = timeInWave;
+                    waveNumber = 2;
 
                     //Ottoman Recruit x3
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -166,6 +174,8 @@ public class EnemySpawnController : MonoBehaviour
             else if (Mathf.FloorToInt(globalWaveTime) == 150)
             {
                 timeInWave = 90;
+                waveTimer.remainingTime = timeInWave;
+                waveNumber = 3;
 
                 if (IsSubWaveFinised == true)
                 {
@@ -237,6 +247,8 @@ public class EnemySpawnController : MonoBehaviour
             else if (Mathf.FloorToInt(globalWaveTime) == 240)
             {
                 timeInWave = 90;
+                waveTimer.remainingTime = timeInWave;
+                waveNumber = 4;
 
                 if (IsSubWaveFinised == true)
                 {
@@ -310,6 +322,7 @@ public class EnemySpawnController : MonoBehaviour
             //=============
             else if (Mathf.FloorToInt(globalWaveTime) == 330)
             {
+                waveNumber = 5;
                 if (IsSubWaveFinised == true)
                 {
                     //Ottoman Recruit x4
@@ -376,7 +389,6 @@ public class EnemySpawnController : MonoBehaviour
             }
             //---------------------------------------
             #endregion
-
         }
     }
 }
