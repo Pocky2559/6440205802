@@ -23,16 +23,16 @@ public class PlacementSystem : MonoBehaviour
     public BuildingResourcesSpend buildingResourcesSpend;
     public TargetSelected targetSelected;
     public HouseList listOfHouse;
+    private PreSelection preSelection;
 
     //this method recieve the Game Object from class PreviewSystem
     public void PlaceObjectState(GameObject gameOBJ)
     {
         //Assign Game Object
-       gameObj = gameOBJ;
+        gameObj = gameOBJ;
         // refGameObject = GameObject.FindGameObjectWithTag(database.objects[selectObject.ID].Name); //Find Game Object in hierachy with ID from class SelectObject
         refGameObject = database.objects[selectObject.ID].Prefab;
         refGameObjectName = database.objects[selectObject.ID].Name;
-
 
        if(gameObj != null)
         { 
@@ -55,6 +55,11 @@ public class PlacementSystem : MonoBehaviour
              meshRenderer.material = originMaterial;
              refGameObject = Instantiate(refGameObject, grid.CellToWorld(currentPosGrid), Quaternion.identity); //clone object
              refGameObject.AddComponent<TargetSelected>(); // add this compent for select and look details of this building
+
+             //Add Component PreSelection and assign its value
+             refGameObject.AddComponent<PreSelection>();
+             preSelection = refGameObject.GetComponent<PreSelection>();
+             preSelection.preSelectionIndicator = refGameObject.transform.GetChild(0).gameObject;
         }
 
         if (canItPlace == true && refGameObjectName == "House" && listOfHouse.currentHouseCapacity <= 200)

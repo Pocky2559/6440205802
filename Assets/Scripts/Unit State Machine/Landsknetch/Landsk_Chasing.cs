@@ -64,7 +64,7 @@ public class Landsk_Chasing : LandsknetchBaseState
             }
         }
 
-        if (landsknetch.enemyStat.unitHP <= 0 || landsknetch.targetEnemy == null)
+        if (landsknetch.enemyStat.unitHP <= 0 /*|| landsknetch.targetEnemy == null*/)
         {
             //===================================
             //Play animation Landsknecht_Idle

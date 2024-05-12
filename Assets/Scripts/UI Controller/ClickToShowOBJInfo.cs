@@ -83,6 +83,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         townCenterUI.SetActive(true);
+                        hit.collider.transform.GetChild(1).gameObject.SetActive(true);
                         #endregion
 
                         #region Hide UI
