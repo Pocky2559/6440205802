@@ -47,7 +47,8 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public GameObject windMillUI;
     public GameObject barrackUI;
     public GameObject artillaryUI;
-    
+    private GameObject buildingSelectionIndicator;
+
 
     private void Start()
     {
@@ -76,14 +77,20 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Town Center"))
                     {
+                        if(buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         produceVillager = hit.collider.GetComponent<TownCenter_ProduceVillager>();
                         produceVillagerButton.onClick.RemoveAllListeners();
                         produceVillagerButton.onClick.AddListener(produceVillager.AddVillagerQue);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         townCenterUI.SetActive(true);
-                        hit.collider.transform.GetChild(1).gameObject.SetActive(true);
+                        buildingSelectionIndicator.SetActive(true);
                         #endregion
 
                         #region Hide UI
@@ -98,9 +105,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("House"))
                     {
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         houseUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         
                         #endregion
 
@@ -116,9 +130,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Wood Storage"))
                     {
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         lumberCampUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         #endregion
 
                         #region Hide UI 
@@ -133,9 +154,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Gold Stone Storage"))
                     {
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         miningCartUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         
                         #endregion
 
@@ -151,9 +179,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Food Storage"))
                     {
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         windMillUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         #endregion
 
                         #region Hide UI
@@ -182,9 +217,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         produceCaptainButton.onClick.RemoveAllListeners();
                         produceCaptainButton.onClick.AddListener(produceMilitary.AddCaptainQue);
 
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         barrackUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         #endregion
 
                         #region Hide UI
@@ -199,9 +241,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Artillary"))
                     {
+                        if (buildingSelectionIndicator != null)
+                        {
+                            buildingSelectionIndicator.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         artillaryUI.SetActive(true);
+                        buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        buildingSelectionIndicator.SetActive(true);
                         #endregion
 
                         #region Hide UI
@@ -214,6 +263,22 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         
                         #endregion
                     }
+                }
+            }
+            else
+            {
+                townCenterUI.SetActive(false);
+                houseUI.SetActive(false);
+                lumberCampUI.SetActive(false);
+                miningCartUI.SetActive(false);
+                windMillUI.SetActive(false);
+                barrackUI.SetActive(false);
+                artillaryUI.SetActive(false);
+
+                if(buildingSelectionIndicator != null)
+                {
+                    buildingSelectionIndicator.SetActive(false);
+                    buildingSelectionIndicator = null;
                 }
             }
         }
