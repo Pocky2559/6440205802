@@ -82,7 +82,6 @@ public class PlacementSystem : MonoBehaviour
     public void PlaceObjectStatus(int token)
     {
         placeToken = token;
-        Debug.Log("Token " + placeToken);
     }
 
     // this method use for find the current position reference from the mouse position

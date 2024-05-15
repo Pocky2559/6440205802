@@ -15,6 +15,8 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     public bool isFoodGatheringSpeedUpgrade;
     public bool isFoodGatheringCapacityUpgrade;
+
+    
     
     public Button woodGatheringSpeedButton;
     public Button woodGatheringCapacityButton;
@@ -26,14 +28,26 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
 
     //Town Center
     public bool isTownCenterUpgrade;
-
     public Button townCenterUpgradeButton;
+    //
+
+    //Barrack
+    public bool isBarrackAttackUpgrade;
+    public bool isBarrackDefenseUpgrade;
+    public Button barrackUpgradeAttackButton;
+    public Button barrackUpgradeDefenseButton;
+    //
+
+    //Artillery Shop
+    public bool isArtilleryUpgrade;
+    public Button artilleryUpgradeButton;
     //
 
     public ResourcesStatus resourcesStatus;
     public EconomicUpgradeDatabase economicUpgradeDatabase;
     public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
-
+    public BarrackUpgradeDatabase barrackUpgradeDatabase;
+    public ArtilleryShopUpgradeDatabase artilleryShopUpgradeDatabase;
     private void Awake()
     {
         
@@ -201,6 +215,52 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
         if (resourcesStatus.gold_Amount < townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost)
         {
             Debug.Log("Not enough gold");
+        }
+    }
+    #endregion
+
+    #region Barrack Upgrade
+    public void UpgradeBarrackAttackPower()
+    {
+        if (resourcesStatus.gold_Amount >= barrackUpgradeDatabase.upgradeAttackGoldCost)
+        {
+            if (isBarrackAttackUpgrade == false)
+            {
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - barrackUpgradeDatabase.upgradeAttackGoldCost;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                isBarrackAttackUpgrade = true;
+                barrackUpgradeAttackButton.enabled = false;
+            }
+        }
+    }
+
+    public void UpgradeBarrackDefense()
+    {
+        if (resourcesStatus.gold_Amount >= barrackUpgradeDatabase.upgradeDefenseGoldCost)
+        {
+            if(isBarrackDefenseUpgrade == false)
+            {
+                resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - barrackUpgradeDatabase.upgradeDefenseGoldCost;
+                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+                isBarrackDefenseUpgrade = true;
+                barrackUpgradeDefenseButton.enabled = false;
+            }
+        }
+    }
+    #endregion
+
+    #region Artillery Shop Upgrade
+    public void UpgradeArtillery()
+    {
+        if(resourcesStatus.gold_Amount >= artilleryShopUpgradeDatabase.upgradeAttackCost)
+        {
+            if(isArtilleryUpgrade == false)
+            {
+               resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - artilleryShopUpgradeDatabase.upgradeAttackCost;
+               resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+               isArtilleryUpgrade = true;
+               artilleryUpgradeButton.enabled = false;
+            }
         }
     }
     #endregion

@@ -8,11 +8,17 @@ public class PreSelection : MonoBehaviour
 
     private void OnMouseOver()
     {
-        preSelectionIndicator.SetActive(true);
+        if (preSelectionIndicator != null)
+        {
+           preSelectionIndicator.SetActive(true);
+        }
     }
 
     private void OnMouseExit()
     {
-        preSelectionIndicator.SetActive(false);
+        if(preSelectionIndicator != null)
+        {
+          preSelectionIndicator.SetActive(false);
+        }
     }
 }

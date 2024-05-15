@@ -265,7 +265,8 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                     }
                 }
             }
-            else
+            else if( Physics.Raycast(ray ,out hit, Mathf.Infinity, Ground)
+                     && !EventSystem.current.IsPointerOverGameObject())
             {
                 townCenterUI.SetActive(false);
                 houseUI.SetActive(false);
