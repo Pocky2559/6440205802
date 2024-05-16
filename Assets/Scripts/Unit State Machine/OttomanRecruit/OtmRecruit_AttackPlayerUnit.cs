@@ -18,7 +18,6 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         if(otmRecruit.targetPlayerUnitStat.unitHP > 0 && otmRecruit.unitStat.unitHP > 0)
         {
             distanceOfOttomanRecruitAndTargetPlayerUnit = Vector3.Distance(otmRecruit.transform.parent.position, otmRecruit.targetPlayerUnit.transform.position); // the distance between Ottoman recruit and selected player unit
-            Debug.Log(distanceOfOttomanRecruitAndTargetPlayerUnit);
             if (distanceOfOttomanRecruitAndTargetPlayerUnit <= 1f) // if enemy is in attack ranged
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;
