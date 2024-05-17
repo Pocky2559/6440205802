@@ -41,7 +41,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
         if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
         {
             distanceOfEnemyAndWall = Vector3.Distance(otmRecruit.otmRecruitAgent.transform.position, otmRecruit.Wall.transform.position);
-            if (distanceOfEnemyAndWall <= 3)
+            if (distanceOfEnemyAndWall <= 2)
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;
                 //===============================
