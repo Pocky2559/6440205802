@@ -31,6 +31,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public GameObject selectedObject;
     public GameObject buildingUIDetails;
     public Vector3 selectedObjectPosition;
+    public GameObject selectedGameObj;
 
     public PreviewSystem previewSystem;
     public ObjectData data;
@@ -72,7 +73,8 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                 if (hit.collider.GetComponent<TargetSelected>() != null)
                 {
                     selectedObject = hit.collider.gameObject;
-                    selectedObjectPosition = hit.transform.position;
+                    //selectedObjectPosition = hit.transform.position;
+                    
                     data = selectedObject.GetComponent<ObjectData>();
 
                     if (hit.collider.CompareTag("Town Center"))
@@ -86,6 +88,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         produceVillagerButton.onClick.RemoveAllListeners();
                         produceVillagerButton.onClick.AddListener(produceVillager.AddVillagerQue);
                         buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
+                        selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
@@ -203,6 +206,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Barrack"))
                     {
+                        //selectedObjectPosition = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().transform.position;
+                        selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
+
                         // These control UI clicking to train a troop
                         //Gunnner
                         produceMilitary = hit.collider.GetComponent<Barrack_Producing>();

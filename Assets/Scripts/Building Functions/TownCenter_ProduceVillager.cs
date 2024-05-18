@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering.PostProcessing;
+
 
 public class TownCenter_ProduceVillager : MonoBehaviour
 {
@@ -13,17 +15,19 @@ public class TownCenter_ProduceVillager : MonoBehaviour
     private GameObject clickToShowOBJInfoAssign;
     private GameObject upgradeStatusAssign;
     private GameObject resourcesStatusAssign;
-    
+  
     public ResourcesStatus resourcesStatus;
     public UpgradeStatus upgradeStatus;
     public UnitDatabaseSO unitDatabase;
     public ClickToShowOBJInfo clickToShowOBJInfo;
     public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
-    
-    public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
+
+    // public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
+    public Dictionary<string, GameObject> positionsToSpawn = new Dictionary<string, GameObject>();
     public List<string> uniqueKeys;
     public List<GameObject> villagersQue;
-    public HouseList population; 
+    public HouseList population;
+    public PositionToSpawnUnit positionToSpawnUnit;
 
     public void Awake()
     {
@@ -37,6 +41,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
         upgradeStatus = upgradeStatusAssign.GetComponent<UpgradeStatus>();
         resourcesStatus= resourcesStatusAssign.GetComponent<ResourcesStatus>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
+        positionToSpawnUnit = GetComponentInChildren<PositionToSpawnUnit>();
     }
     public void AddVillagerQue() //if click button to train villager
     {
@@ -45,7 +50,8 @@ public class TownCenter_ProduceVillager : MonoBehaviour
             GameObject newPrefabVillager = unitDatabase.unitDetails[0].unitPrefab;
 
             uniqueKey = Guid.NewGuid().ToString();
-            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            //positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             villagersQue.Add(newPrefabVillager);
             uniqueKeys.Add(uniqueKey);
 
@@ -72,7 +78,9 @@ public class TownCenter_ProduceVillager : MonoBehaviour
                     // Check if the prefab has a stored spawn position
                     if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
                     {
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]].transform.position;
+                        positionToSpawnUnit.roundNumber++;
                         Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
                         villagersQue.Remove(villagerPrefab);
                         lastTrainingTime = Time.time;
@@ -97,7 +105,9 @@ public class TownCenter_ProduceVillager : MonoBehaviour
                     // Check if the prefab has a stored spawn position
                     if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
                     {
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]].transform.position;
+                        positionToSpawnUnit.roundNumber++;
                         Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
                         villagersQue.Remove(villagerPrefab);
                         lastTrainingTime = Time.time;

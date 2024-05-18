@@ -15,10 +15,12 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     public string uniqueKey;
     public List<string> uniqueKeys;
     public int troopNumber = 0;
-    public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
+    //public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
+    public Dictionary<string, GameObject> positionsToSpawn = new Dictionary<string, GameObject>();
     private GameObject clickToShowOBJInfoAssign;
     private GameObject resourcesStatusAssign;
     public HouseList population;
+    public PositionToSpawnUnit positionToSpawnUnit;
 
     private void Awake()
     {
@@ -30,6 +32,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         clickToShowOBJInfo = clickToShowOBJInfoAssign.GetComponent<ClickToShowOBJInfo>();
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
+        positionToSpawnUnit = GetComponentInChildren<PositionToSpawnUnit>();
     }
 
     public void AddGunnerQue()
@@ -40,7 +43,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         {
             militaryQue.Add(unitDatabase.unitDetails[1].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
-            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            //positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
 
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[1].foodCost;
@@ -58,7 +62,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         {
             militaryQue.Add(unitDatabase.unitDetails[2].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
-            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            // positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
 
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[2].foodCost;
@@ -76,7 +81,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         {
             militaryQue.Add(unitDatabase.unitDetails[3].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
-            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            //positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
 
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[3].foodCost;
@@ -97,7 +103,9 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                 {
                     if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
                     {
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
+                        positionToSpawnUnit.roundNumber++;
                         Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
                         militaryQue.Remove(militaryQue[troopNumber]);
                         lastTrainingTime = Time.time;
@@ -115,7 +123,9 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                 {
                     if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
                     {
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
+                        positionToSpawnUnit.roundNumber++;
                         Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
                         militaryQue.Remove(militaryQue[troopNumber]);
                         lastTrainingTime = Time.time;
@@ -133,7 +143,9 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                 {
                     if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
                     {
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
+                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
+                        positionToSpawnUnit.roundNumber++;
                         Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
                         militaryQue.Remove(militaryQue[troopNumber]);
                         lastTrainingTime = Time.time;
