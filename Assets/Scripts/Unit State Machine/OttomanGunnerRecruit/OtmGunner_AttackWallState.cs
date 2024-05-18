@@ -9,7 +9,8 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     float distanceOfEnemyAndWall;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
-        if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
+        otmGunner.attackRange.radius = otmGunner.originAttackRange;
+        if (otmGunner.Wall != null) // if wall is still there
         {
             //=============================
             //Gun Holding Position
@@ -20,6 +21,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 
             otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
             otmGunner.rootGameObject.transform.LookAt(otmGunner.Wall.transform.position);
+            otmGunner.attackRange.radius += 3.5f;
         }
 
         else
@@ -32,8 +34,8 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
             //-------------------------------------------------------------------------------------------
 
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
+            otmGunner.attackRange.radius = otmGunner.originAttackRange;
         }
-
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
@@ -41,8 +43,12 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         if (otmGunner.Wall != null && otmGunner.unitStat.unitHP > 0) // if wall is still there
         {
             distanceOfEnemyAndWall = Vector3.Distance(otmGunner.otmGunnerAgent.transform.position, otmGunner.Wall.transform.position);
-            if (distanceOfEnemyAndWall <= 5)
+            if (distanceOfEnemyAndWall <= 4)
             {
+                Vector3 positionToAim = otmGunner.Wall.transform.position;
+                positionToAim.y = otmGunner.transform.parent.position.y;
+                otmGunner.transform.parent.LookAt(positionToAim);
+
                 otmGunner.otmGunnerAgent.isStopped = true;
 
                 if (Time.time > lastShotTime + otmGunner.unitStat.unitAttackSpeed)
@@ -90,7 +96,8 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         }
 
         else if(otmGunner.Wall == null)
-        {         
+        {
+            otmGunner.attackRange.radius = otmGunner.originAttackRange;
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
         }
 
@@ -125,9 +132,13 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     public void Attack(OttomanGunnerRecruitStateController otmGunner)
     {
         RaycastHit hit;
-        if (Physics.Raycast(otmGunner.transform.position, otmGunner.transform.forward, out hit, Mathf.Infinity, otmGunner.wallLayerMask))
+        if (Physics.Raycast(otmGunner.transform.position,
+            (otmGunner.Wall.transform.position - otmGunner.transform.parent.position).normalized,
+            out hit,
+            Mathf.Infinity,
+            otmGunner.wallLayerMask))
         {
-            Debug.DrawRay(otmGunner.transform.position, otmGunner.transform.forward * hit.distance, Color.red, 0.9f);
+            Debug.DrawRay(otmGunner.transform.position, (otmGunner.Wall.transform.position - otmGunner.transform.parent.position).normalized * hit.distance, Color.red, 0.9f);
             TargetRecieveDamage(otmGunner, hit);
         }
     }

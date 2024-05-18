@@ -15,10 +15,10 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
-        if(otmRecruit.targetPlayerUnitStat.unitHP > 0 && otmRecruit.unitStat.unitHP > 0)
+        if (otmRecruit.targetPlayerUnitStat.unitHP > 0  && otmRecruit.unitStat.unitHP > 0)
         {
             distanceOfOttomanRecruitAndTargetPlayerUnit = Vector3.Distance(otmRecruit.transform.parent.position, otmRecruit.targetPlayerUnit.transform.position); // the distance between Ottoman recruit and selected player unit
-            if (distanceOfOttomanRecruitAndTargetPlayerUnit <= 1f) // if enemy is in attack ranged
+            if (distanceOfOttomanRecruitAndTargetPlayerUnit <= 1.5f) // if enemy is in attack ranged
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;
 
@@ -30,7 +30,9 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                 //-----------------------------------
 
                 #region Attack
-                otmRecruit.transform.parent.LookAt(otmRecruit.targetPlayerUnit.transform.root); // make gunner face at target enemy
+                Vector3 positionToAim = otmRecruit.targetPlayerUnit.transform.position;
+                positionToAim.y = otmRecruit.transform.parent.position.y;
+                otmRecruit.transform.parent.LookAt(positionToAim); // make gunner face at target enemy
 
                 if (Time.time > lastShotTime + otmRecruit.unitStat.unitAttackSpeed)
                 {
@@ -46,7 +48,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                 #endregion
             }
 
-            else if (distanceOfOttomanRecruitAndTargetPlayerUnit > 1f) // if the enemy is out of attack ranged
+            else if (distanceOfOttomanRecruitAndTargetPlayerUnit > 1.5f) // if the enemy is out of attack ranged
             {
                 //===================================
                 //Play animation otmRecruit_Walking

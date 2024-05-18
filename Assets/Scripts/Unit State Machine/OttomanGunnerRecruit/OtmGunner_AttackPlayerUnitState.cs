@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
@@ -14,7 +15,9 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
     {
         if(otmGunner.targetPlayerUnitStat.unitHP > 0)
         {
-            otmGunner.rootGameObject.transform.LookAt(otmGunner.targetPlayerUnit.transform.position);
+            Vector3 positionToAim = otmGunner.targetPlayerUnit.transform.position;
+            positionToAim.y = otmGunner.transform.parent.position.y;
+            otmGunner.transform.parent.LookAt(positionToAim);
 
             #region Shooting at player
             if (Time.time > lastShotTime + otmGunner.unitStat.unitAttackSpeed)
@@ -35,9 +38,13 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
                 //----------------------------------------------------------------------------------------------------------
 
                 RaycastHit hit;
-                if (Physics.Raycast(otmGunner.transform.position, otmGunner.transform.forward, out hit, Mathf.Infinity, otmGunner.targetLayerMask)) // cast ray
+                if (Physics.Raycast(otmGunner.transform.position,
+                    (otmGunner.targetPlayerUnit.transform.position - otmGunner.transform.parent.position).normalized,
+                    out hit,
+                    Mathf.Infinity,
+                    otmGunner.targetLayerMask)) // cast ray
                 {
-                    Debug.DrawRay(otmGunner.transform.position, otmGunner.transform.forward * hit.distance, Color.red, 0.9f);
+                    Debug.DrawRay(otmGunner.transform.position, (otmGunner.targetPlayerUnit.transform.position - otmGunner.transform.parent.position).normalized * hit.distance, Color.red, 0.9f);
                     lastShotTime = Time.time;
                     TargetRecieveDamage(otmGunner, hit);
                 }

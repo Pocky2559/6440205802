@@ -32,7 +32,9 @@ public class ChasingState : GunnerBaseState
                 gunner.Gunner.isStopped = true;  // if the enemy reach firing range it will stop
 
                 #region Shoot
-                gunner.transform.parent.LookAt(gunner.selectedEnemy.transform.root); // make gunner face at target enemy
+                Vector3 positionToAim = gunner.selectedEnemy.transform.position;
+                positionToAim.y = gunner.transform.parent.position.y; //Freeze position y
+                gunner.transform.parent.LookAt(positionToAim); // make gunner face at target enemy
 
                 if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
                 {
@@ -47,7 +49,7 @@ public class ChasingState : GunnerBaseState
                         //Play animation Shooting
                           gunner.gunnerAnimatorControlller.SetBool("isFollowing", true);
                           gunner.gunnerAnimatorControlller.SetBool("isAmmoOut", false);
-                        gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
+                          gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
                           gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
                           gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
                           gunner.rigBuilder.enabled = true;
@@ -97,10 +99,9 @@ public class ChasingState : GunnerBaseState
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, gunner.groundLayerMask))
             {
-                if (hit.collider.CompareTag("Ground")
-                    && !(hit.collider.CompareTag("OttomanRecruit")
+                if ( !(hit.collider.CompareTag("OttomanRecruit")
                       || hit.collider.CompareTag("OttomanGunnerRecruit")
                       || hit.collider.CompareTag("MeleeJanissary")
                       || hit.collider.CompareTag("RangedJanissary")
@@ -114,10 +115,11 @@ public class ChasingState : GunnerBaseState
                     Debug.Log("Switching from Chasing state to Moving state");
                     gunner.SwitchState(gunner.movingState); // Switch to idel state
                 }
-                else // if it is enemy
-                {
-                    gunner.selectedEnemy = hit.collider.gameObject;
-                }
+            }
+
+            if(Physics.Raycast(ray, out hit, Mathf.Infinity, gunner.targetLayerMask))
+            {
+                gunner.selectedEnemy = hit.collider.gameObject;
             }
         }
         #endregion

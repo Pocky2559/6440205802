@@ -12,7 +12,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
 
-        if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
+        if (otmRecruit.Wall != null) // if wall is still there
         {
             //===============================
             //Play animation otmRecruit_Walking
@@ -38,9 +38,14 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
-        if (GameObject.FindGameObjectWithTag("PalisadeGate") != null) // if wall is still there
+        if (otmRecruit.Wall != null && otmRecruit.unitStat.unitHP > 0) // if wall is still there
         {
             distanceOfEnemyAndWall = Vector3.Distance(otmRecruit.otmRecruitAgent.transform.position, otmRecruit.Wall.transform.position);
+
+            Vector3 positionToAim = otmRecruit.Wall.transform.position;
+            positionToAim.y = otmRecruit.transform.parent.position.y;
+            otmRecruit.transform.parent.LookAt(positionToAim);
+
             if (distanceOfEnemyAndWall <= 2)
             {
                 otmRecruit.otmRecruitAgent.isStopped = true;

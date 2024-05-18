@@ -23,7 +23,10 @@ public class Landsk_Chasing : LandsknetchBaseState
                 landsknetch.attackedSword.SetActive(true);
 
                 #region Attack
-                landsknetch.transform.parent.LookAt(landsknetch.targetEnemy.transform); // make Landsknetch face the enemy
+                Vector3 positionToAim = landsknetch.targetEnemy.transform.position;
+                positionToAim.y = landsknetch.transform.parent.position.y; //Freeze position y
+                landsknetch.transform.parent.LookAt(positionToAim); // make Landsknetch face the enemy
+
                 if (Time.time > lastShotTime + landsknetch.unitStat.unitAttackSpeed)
                 {
                     RaycastHit hit;

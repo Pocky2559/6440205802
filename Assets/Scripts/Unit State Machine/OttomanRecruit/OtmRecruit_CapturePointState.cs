@@ -13,7 +13,7 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
         //-----------------------------------
 
         otmRecruit.otmRecruitAgent.isStopped = false;
-        otmRecruit.otmRecruitAgent.SetDestination(GameObject.FindGameObjectWithTag("CapturedPoint").transform.position);
+        otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.capturePointByEnemy.transform.position);
     }
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)

@@ -28,7 +28,9 @@ public class ShootingState : GunnerBaseState
         #region Shooting Logic
         if (gunner.selectedEnemy != null && gunner.Gunner.enabled == true) // if it has target enemy
         {
-            gunner.transform.parent.LookAt(gunner.selectedEnemy.transform); // make gunner face at target enemy
+            Vector3 positionToAim = gunner.selectedEnemy.transform.position;
+            positionToAim.y = gunner.transform.parent.position.y; //Freeze y position
+            gunner.transform.parent.LookAt(positionToAim); // make gunner face at target enemy
                                                                             //Play animation Gunner_Shooting
             if (Time.time > lastShotTime + gunner.unitStat.unitAttackSpeed)
             {  

@@ -19,6 +19,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public GameObject Gun;
     public Animator otmGunnerAnimatorController;
     public RigBuilder rigBuilder;
+    public SphereCollider attackRange;
+    public float originAttackRange;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
@@ -36,6 +38,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         otmGunnerAnimatorController = GetComponentInParent<Animator>();
         rigBuilder = GetComponentInParent<RigBuilder>();
+        attackRange = GetComponent<SphereCollider>();
+        originAttackRange = attackRange.radius;
     }
 
     private void Start()

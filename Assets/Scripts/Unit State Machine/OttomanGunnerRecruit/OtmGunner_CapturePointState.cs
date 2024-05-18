@@ -21,7 +21,7 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
         //-------------------------------------------------------------------------------------------
 
         otmGunner.otmGunnerAgent.isStopped = false;
-        otmGunner.otmGunnerAgent.SetDestination(GameObject.FindGameObjectWithTag("CapturedPoint").transform.position);
+        otmGunner.otmGunnerAgent.SetDestination(otmGunner.capturePointByEnemy.transform.position);
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
