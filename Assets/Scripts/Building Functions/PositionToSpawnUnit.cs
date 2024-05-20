@@ -20,7 +20,5 @@ public class PositionToSpawnUnit : MonoBehaviour
                 gameObject.transform.position = positionToSpawn[i].transform.position;
             }
         }
-
-        
     }
 }

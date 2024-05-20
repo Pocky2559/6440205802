@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
     /// Building Details UI
     public GameObject townCenterUI;
+    public Transform townCenterVilQueUI;
     public GameObject houseUI;
     public GameObject lumberCampUI;
     public GameObject miningCartUI;
@@ -49,7 +51,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     public GameObject barrackUI;
     public GameObject artillaryUI;
     private GameObject buildingSelectionIndicator;
-
+    public Image villagerQueImage;
 
     private void Start()
     {
@@ -84,11 +86,20 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             buildingSelectionIndicator.SetActive(false);
                         }
 
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
                         produceVillager = hit.collider.GetComponent<TownCenter_ProduceVillager>();
                         produceVillagerButton.onClick.RemoveAllListeners();
                         produceVillagerButton.onClick.AddListener(produceVillager.AddVillagerQue);
                         buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
                         selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
+
+                        produceVillager.queIconInstantiateTarget.gameObject.SetActive(true); //Show Que UI
+
+                        
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
@@ -111,6 +122,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         if (buildingSelectionIndicator != null)
                         {
                             buildingSelectionIndicator.SetActive(false);
+                        }
+
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
                         #region Show UI
@@ -138,6 +154,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             buildingSelectionIndicator.SetActive(false);
                         }
 
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         lumberCampUI.SetActive(true);
@@ -160,6 +181,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         if (buildingSelectionIndicator != null)
                         {
                             buildingSelectionIndicator.SetActive(false);
+                        }
+
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
                         #region Show UI
@@ -187,6 +213,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             buildingSelectionIndicator.SetActive(false);
                         }
 
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         windMillUI.SetActive(true);
@@ -206,6 +237,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Barrack"))
                     {
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
                         //selectedObjectPosition = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().transform.position;
                         selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
 
@@ -252,6 +288,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             buildingSelectionIndicator.SetActive(false);
                         }
 
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         artillaryUI.SetActive(true);
@@ -287,9 +328,15 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                     buildingSelectionIndicator.SetActive(false);
                     buildingSelectionIndicator = null;
                 }
+
+                if (produceVillager != null)
+                {
+                    produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                }
             }
         }
     }
+
     public void RemoveObject()
     {
         #region Remove Building
