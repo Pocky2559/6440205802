@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Barrack_Producing : MonoBehaviour // Attach this script to one game object
 {
@@ -22,6 +23,15 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     public HouseList population;
     public PositionToSpawnUnit positionToSpawnUnit;
 
+    //Que UI
+    public GameObject gunnerQueIcon;
+    public GameObject landskQueIcon;
+    public GameObject captainQueIcon;
+    public Transform queIconInstantiateTarget;
+    public List<GameObject> queIconList;
+    public Image queProgress;
+    private float elapsedTime = 0f;
+
     private void Awake()
     {
         // creat game object that contain component
@@ -33,6 +43,33 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         positionToSpawnUnit = GetComponentInChildren<PositionToSpawnUnit>();
+    }
+    public void AddQueIcon(string unitName)
+    {
+        if(unitName == "Gunner")
+        {
+            GameObject createQueIcon = Instantiate(gunnerQueIcon, queIconInstantiateTarget); //instantiate que icon
+            queIconList.Add(createQueIcon); //Add que icon into list
+        }
+
+        if(unitName == "Landsknecht")
+        {
+            GameObject createQueIcon = Instantiate(landskQueIcon, queIconInstantiateTarget); //instantiate que icon
+            queIconList.Add(createQueIcon); //Add que icon into list
+        }
+
+        if(unitName == "Captain")
+        {
+            GameObject createQueIcon = Instantiate(captainQueIcon, queIconInstantiateTarget); //instantiate que icon
+            queIconList.Add(createQueIcon); //Add que icon into list
+        }
+       
+    }
+
+    public void RemoveIcon()
+    {
+        Destroy(queIconList[0]);
+        queIconList.RemoveAt(0);
     }
 
     public void AddGunnerQue()
@@ -47,12 +84,16 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
 
+            AddQueIcon("Gunner");
+
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[1].foodCost;
             resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - unitDatabase.unitDetails[1].goldCost;
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
             resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
         }
     }
+
+    
 
     public void AddLandsknetchQue()
     {
@@ -65,6 +106,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             // positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
+
+            AddQueIcon("Landsknecht");
 
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[2].foodCost;
             resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - unitDatabase.unitDetails[2].goldCost;
@@ -85,6 +128,8 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
 
+            AddQueIcon("Captain");
+
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[3].foodCost;
             resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - unitDatabase.unitDetails[3].goldCost;
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
@@ -94,7 +139,17 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
 
     public void Update()
     {
-        if(militaryQue.Count > 0)
+        if (queIconInstantiateTarget.gameObject.activeSelf == false || militaryQue.Count == 0)
+        {
+            queProgress.gameObject.SetActive(false);
+        }
+
+        if (queIconInstantiateTarget.gameObject.activeSelf == true && militaryQue.Count > 0)
+        {
+            queProgress.gameObject.SetActive(true);
+        }
+
+        if (militaryQue.Count > 0)
         {
             // if training Gunner
             if(militaryQue[0].name == unitDatabase.unitDetails[1].unitPrefab.name)
@@ -112,7 +167,16 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                         positionsToSpawn.Remove(uniqueKeys[troopNumber]);
                         uniqueKeys.Remove(uniqueKeys[troopNumber]);
                         population.PopulationChanges(unitDatabase.unitDetails[1].population);
+
+                        RemoveIcon();
+                        elapsedTime = 0;
+                        queProgress.fillAmount = 1;
                     }
+                }
+                else
+                {
+                    elapsedTime = elapsedTime + Time.deltaTime;
+                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[1].trainingTime));
                 }
             }
 
@@ -132,7 +196,16 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                         positionsToSpawn.Remove(uniqueKeys[troopNumber]);
                         uniqueKeys.Remove(uniqueKeys[troopNumber]);
                         population.PopulationChanges(unitDatabase.unitDetails[2].population);
+
+                        RemoveIcon();
+                        elapsedTime = 0;
+                        queProgress.fillAmount = 1;
                     }
+                }
+                else
+                {
+                    elapsedTime = elapsedTime + Time.deltaTime;
+                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[2].trainingTime));
                 }
             }
 
@@ -152,7 +225,16 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                         positionsToSpawn.Remove(uniqueKeys[troopNumber]);
                         uniqueKeys.Remove(uniqueKeys[troopNumber]);
                         population.PopulationChanges(unitDatabase.unitDetails[3].population);
+
+                        RemoveIcon();
+                        elapsedTime = 0;
+                        queProgress.fillAmount = 1;
                     }
+                }
+                else
+                {
+                    elapsedTime = elapsedTime + Time.deltaTime;
+                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[3].trainingTime));
                 }
             }
         }

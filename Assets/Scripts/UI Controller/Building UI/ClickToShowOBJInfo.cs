@@ -91,6 +91,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
+                        }
+
                         produceVillager = hit.collider.GetComponent<TownCenter_ProduceVillager>();
                         produceVillagerButton.onClick.RemoveAllListeners();
                         produceVillagerButton.onClick.AddListener(produceVillager.AddVillagerQue);
@@ -129,6 +134,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         houseUI.SetActive(true);
@@ -159,6 +169,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         lumberCampUI.SetActive(true);
@@ -186,6 +201,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         if (produceVillager != null)
                         {
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
                         #region Show UI
@@ -218,6 +238,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
+                        }
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         windMillUI.SetActive(true);
@@ -237,9 +262,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Barrack"))
                     {
-                        if (produceVillager != null)
+                        if(produceMilitary!= null) //Hide Que UI
                         {
-                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
                         //selectedObjectPosition = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().transform.position;
@@ -259,9 +284,17 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         produceCaptainButton.onClick.RemoveAllListeners();
                         produceCaptainButton.onClick.AddListener(produceMilitary.AddCaptainQue);
 
+                        //Que Icon
+                        produceMilitary.queIconInstantiateTarget.gameObject.SetActive(true);
+
                         if (buildingSelectionIndicator != null)
                         {
                             buildingSelectionIndicator.SetActive(false);
+                        }
+
+                        if (produceVillager != null)
+                        {
+                            produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
                         }
 
                         #region Show UI
@@ -291,6 +324,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         if (produceVillager != null)
                         {
                             produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                        }
+
+                        if (produceMilitary != null) //Hide Que UI
+                        {
+                            produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
                         #region Show UI
@@ -332,6 +370,11 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                 if (produceVillager != null)
                 {
                     produceVillager.queIconInstantiateTarget.gameObject.SetActive(false); //Hide Que UI
+                }
+
+                if (produceMilitary != null) //Hide Que UI
+                {
+                    produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                 }
             }
         }
