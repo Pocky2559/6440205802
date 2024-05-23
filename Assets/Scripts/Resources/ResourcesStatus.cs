@@ -10,6 +10,7 @@ public class ResourcesStatus : MonoBehaviour // this script is contain about all
     public int gold_Amount;
     public int stone_Amount;
     public LevelResourcesDatabase levelResourcesDatabase;
+    public int levelNumber;
 
     public TMP_Text food_Text;
     public TMP_Text wood_Text;
@@ -18,10 +19,10 @@ public class ResourcesStatus : MonoBehaviour // this script is contain about all
 
     public void Awake()
     {
-        food_Amount = levelResourcesDatabase.levelData[1].foodAmount;
-        wood_Amount = levelResourcesDatabase.levelData[1].woodAmount;
-        gold_Amount = levelResourcesDatabase.levelData[1].goldAmount;
-        stone_Amount = levelResourcesDatabase.levelData[1].stoneAmount;
+        food_Amount = levelResourcesDatabase.levelData[levelNumber].foodAmount;
+        wood_Amount = levelResourcesDatabase.levelData[levelNumber].woodAmount;
+        gold_Amount = levelResourcesDatabase.levelData[levelNumber].goldAmount;
+        stone_Amount = levelResourcesDatabase.levelData[levelNumber].stoneAmount;
 
         food_Text.text = food_Amount.ToString();
         wood_Text.text = wood_Amount.ToString();

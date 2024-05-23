@@ -322,9 +322,12 @@ public class EnemySpawnController : MonoBehaviour
             //=============
             else if (Mathf.FloorToInt(globalWaveTime) == 330)
             {
-                waveNumber = 5;
                 if (IsSubWaveFinised == true)
                 {
+                    timeInWave = 60;
+                    waveTimer.remainingTime = timeInWave;
+                    waveNumber = 5;
+
                     //Ottoman Recruit x4
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);

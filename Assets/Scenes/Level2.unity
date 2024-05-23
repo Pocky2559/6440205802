@@ -162,6 +162,7 @@ MonoBehaviour:
   gold_Amount: 0
   stone_Amount: 0
   levelResourcesDatabase: {fileID: 11400000, guid: 765010fc4b338674ca46deb920c1717f, type: 2}
+  levelNumber: 2
   food_Text: {fileID: 2039097143}
   wood_Text: {fileID: 1591421545}
   gold_Text: {fileID: 1864268136}
@@ -20617,7 +20618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 682630083}
-  - component: {fileID: 682630082}
+  - component: {fileID: 682630084}
   m_Layer: 0
   m_Name: CheckWinCondition
   m_TagString: Untagged
@@ -20625,23 +20626,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &682630082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682630081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a07b765d3d53ee442a73e47d1be29167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 712562695}
-  enemyCapturePoint: {fileID: 453168591}
-  LostUI: {fileID: 1094542498}
-  WinUI: {fileID: 2021449640}
-  resultDecistion: 0
 --- !u!4 &682630083
 Transform:
   m_ObjectHideFlags: 0
@@ -20657,6 +20641,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &682630084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682630081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3695a669a29124ebbac31d6c659eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 712562695}
+  enemyCapturePoint: {fileID: 453168591}
+  LostUI: {fileID: 1094542498}
+  WinUI: {fileID: 2021449640}
+  resultDecistion: 0
 --- !u!4 &686850570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 481256, guid: 956bd2acf7aae244dac8fc20cf57858d, type: 3}
@@ -21165,7 +21166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 712562693}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee27efb320769943899e4ebff5fb7bd, type: 3}
+  m_Script: {fileID: 11500000, guid: e5984b7799b2df04cb4e8d9e679946e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   EnemySpawnPoint1: {fileID: 1942354424}
@@ -21177,10 +21178,10 @@ MonoBehaviour:
   EnemySpawnPoint7: {fileID: 1534452283}
   EnemySpawnPoint8: {fileID: 541641932}
   unitDatabase: {fileID: 11400000, guid: 9ab13563ef5ca7144a467baae2cab410, type: 2}
-  waveTimer: {fileID: 1854829299}
+  waveTimer: {fileID: 1854829301}
   waveNumber: 0
-  maximumWave: 0
-  timeInWave: 10
+  maximumWave: 5
+  timeInWave: 300
   globalWaveTime: 0
   IsWaveBegin: 0
 --- !u!4 &714392601 stripped
@@ -57406,7 +57407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1854829300}
-  - component: {fileID: 1854829299}
+  - component: {fileID: 1854829301}
   m_Layer: 0
   m_Name: TimerController
   m_TagString: Untagged
@@ -57414,22 +57415,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1854829299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854829298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a60e93bac166a49a425cccfb6ef8a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeText: {fileID: 753771412}
-  waveNumber: {fileID: 933645066}
-  remainingTime: 0
-  enemySpawnController: {fileID: 712562695}
 --- !u!4 &1854829300
 Transform:
   m_ObjectHideFlags: 0
@@ -57445,6 +57430,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854829301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854829298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c504f44cc1f2d84f9f2d8bcb23303bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 753771412}
+  waveNumber: {fileID: 933645066}
+  remainingTime: 0
+  enemySpawnController: {fileID: 712562695}
 --- !u!1 &1855489769
 GameObject:
   m_ObjectHideFlags: 0

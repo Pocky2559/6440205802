@@ -14,10 +14,7 @@ public class CheckWinCondition : MonoBehaviour //For Level 1
         if (enemy.globalWaveTime > 390) // if after all the enemy has spawned 
         {
             if (GameObject.FindGameObjectWithTag("OttomanRecruit") == null
-                && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null
-                && GameObject.FindGameObjectWithTag("MeleeJanissary") == null
-                && GameObject.FindGameObjectWithTag("RangedJanissary") == null
-                && GameObject.FindGameObjectWithTag("OttomanCannon") == null) // check if there is no any enemy in the game alive so player win the game
+                && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null) // check if there is no any enemy in the game alive so player win the game
             {
                 WinUI.SetActive(true);
             }
