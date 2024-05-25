@@ -87,7 +87,7 @@ public class EnemySpawnController : MonoBehaviour
             //=============
             //Sub-Wave 2-1
             //=============
-            if (Mathf.FloorToInt(globalWaveTime) == 60)
+            else if (Mathf.FloorToInt(globalWaveTime) == 60)
             {
                 if(IsSubWaveFinised == false)
                 {

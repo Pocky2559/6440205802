@@ -8,12 +8,15 @@ using UnityEngine.Analytics;
 public class Kartaune_ShootingState : KartauneBaseState
 {
     float lastShotTime = 0;
+    
     public override void EnterState(KartauneStateController kartaune)
     {
         // Kartaune Enter Shooting State
     }
     public override void UpdaterState(KartauneStateController kartaune)
     {
+        Debug.Log(kartaune.transform.parent.rotation.y);
+
        if(kartaune.targetEnemy != null)
        {
           Vector3 positionToAim = kartaune.targetEnemy.transform.position;
@@ -28,6 +31,11 @@ public class Kartaune_ShootingState : KartauneBaseState
           kartaune.SwitchState(kartaune.kartaune_IdelState);
        }
 
+        if (kartaune.transform.parent.rotation.y < 0.92) //Kartaune Should then rotate more than this value
+        {
+            kartaune.targetEnemy = null;
+            kartaune.SwitchState(kartaune.kartaune_IdelState);
+        }
         #region Switch to ExitState
         if (kartaune.unitStat.unitHP <= 0)
         {
