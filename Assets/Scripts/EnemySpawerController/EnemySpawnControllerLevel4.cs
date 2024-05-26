@@ -13,6 +13,15 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
     public GameObject EnemySpawnPoint7;
     public GameObject EnemySpawnPoint8;
 
+    public GameObject EnemySpawnPointExtra1;
+    public GameObject EnemySpawnPointExtra2;
+    public GameObject EnemySpawnPointExtra3;
+    public GameObject EnemySpawnPointExtra4;
+    public GameObject EnemySpawnPointExtra5;
+    public GameObject EnemySpawnPointExtra6;
+
+    public GameObject oldMedievalWall;
+
     public UnitDatabaseSO unitDatabase;
 
     public WaveTimerLevel4 waveTimer;
@@ -23,6 +32,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
 
     private bool IsSubWaveFinised;
     public bool IsWaveBegin;
+    public bool isExtraWaveBegin;
 
     private void Awake()
     {
@@ -506,10 +516,29 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                 }
             }
             #endregion
-
-            #region Extra Wave
-
-            #endregion
         }
+    }
+
+    public void BeginExtraWave()
+    {
+        #region Extra Wave
+        if (isExtraWaveBegin == true)
+        {
+            // Destroy Old Medieval Wall
+            Destroy(oldMedievalWall);
+
+
+            // Spawn Enemy
+            // Melee Janissary x4
+            // Ranged Janissary x2
+            Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPointExtra1.transform.position, Quaternion.identity);
+            Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPointExtra2.transform.position, Quaternion.identity);
+            Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPointExtra3.transform.position, Quaternion.identity);
+            Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPointExtra4.transform.position, Quaternion.identity);
+            Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPointExtra5.transform.position, Quaternion.identity);
+            Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPointExtra6.transform.position, Quaternion.identity);
+
+        }
+        #endregion
     }
 }
