@@ -8,8 +8,13 @@ public class CheckWinConditionLevel4 : MonoBehaviour
     public CapturePointByEnemy enemyCapturePoint;
     public GameObject LostUI;
     public GameObject WinUI;
-    public bool resultDecistion = false;
     public GameObject palisadeDoor;
+    private bool isLose;
+
+    private void Awake()
+    {
+        isLose = false;
+    }
     private void Update()
     {
         if (enemy.globalWaveTime > 730) // if after all the enemy has spawned 
@@ -20,7 +25,7 @@ public class CheckWinConditionLevel4 : MonoBehaviour
                 && GameObject.FindGameObjectWithTag("MeleeJanissary") == null
                 && GameObject.FindGameObjectWithTag("RangedJanissary") == null
                 && GameObject.FindGameObjectWithTag("OttomanCannon") == null
-               ) // check if there is no any enemy in the game alive so player win the game
+                ) // check if there is no any enemy in the game alive so player win the game
             {
                 enemy.isExtraWaveBegin = true;
 
@@ -37,15 +42,17 @@ public class CheckWinConditionLevel4 : MonoBehaviour
                 && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null
                 && GameObject.FindGameObjectWithTag("MeleeJanissary") == null
                 && GameObject.FindGameObjectWithTag("RangedJanissary") == null
-                && GameObject.FindGameObjectWithTag("OttomanCannon") == null) //if can eliminate all enemy in extra wave
+                && GameObject.FindGameObjectWithTag("OttomanCannon") == null
+                && isLose == false) //if can eliminate all enemy in extra wave
             {
                 WinUI.SetActive(true);
             }
         }
         
-        if (enemyCapturePoint.remainingTime <= 0 && resultDecistion == false)
+        if (enemyCapturePoint.remainingTime <= 0)
         {
             LostUI.SetActive(true);
+            isLose = true;
         }
     }
 }
