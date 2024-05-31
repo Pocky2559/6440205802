@@ -1364,7 +1364,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &79943761
@@ -1387,9 +1387,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '     Vienna is the large capital city of Austria in Europe. The city was
-    built by Roman. In the past, it was the capital city of the Holy Roman Empire
-    in Hubsburgs'' reign and Austro-Hungarian Empire.'
+  m_text: "     Although, the Ottomans and Austrain had fought for a long century
+    but in the end they were fighting in the same side as Central Power in World
+    War I. \n     Finally, the result of the war made these two great empire collapsed
+    together."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -16355,8 +16356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 712562695}
   enemyCapturePoint: {fileID: 453168591}
-  LostUI: {fileID: 0}
-  WinUI: {fileID: 0}
+  LostUI: {fileID: 1674221198}
+  WinUI: {fileID: 1733376810}
   palisadeDoor: {fileID: 1093584179}
 --- !u!114 &687383439 stripped
 MonoBehaviour:
@@ -19415,9 +19416,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Vienna
-
-'
+  m_text: World War I
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
