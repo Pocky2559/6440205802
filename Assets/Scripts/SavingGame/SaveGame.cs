@@ -23,9 +23,11 @@ public class SaveGame : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void SaveLevel4()
+    public void NewGame()
     {
-        PlayerPrefs.SetString("Level4", "Passed");
-        PlayerPrefs.Save();
+        PlayerPrefs.DeleteKey("Level1");
+        PlayerPrefs.DeleteKey("Level2");
+        PlayerPrefs.DeleteKey("Level3");
     }
+
 }

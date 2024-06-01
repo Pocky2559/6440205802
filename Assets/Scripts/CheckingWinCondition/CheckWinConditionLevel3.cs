@@ -9,9 +9,13 @@ public class CheckWinConditionLevel3 : MonoBehaviour
     public GameObject LostUI;
     public GameObject WinUI;
     private bool isLose;
+    [SerializeField] private SaveGame saveGame;
+    private bool isGameSave;
+
     private void Awake()
     {
         isLose = false;
+        isGameSave = false;
     }
     private void Update()
     {
@@ -24,6 +28,12 @@ public class CheckWinConditionLevel3 : MonoBehaviour
                 && isLose == false) // check if there is no any enemy in the game alive so player win the game
             {
                 WinUI.SetActive(true);
+
+                if (isGameSave == false)
+                {
+                    saveGame.SaveLevel3();
+                    isGameSave = true;
+                }
             }
         }
 

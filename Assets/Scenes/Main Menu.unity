@@ -1867,6 +1867,69 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &727382173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727382175}
+  - component: {fileID: 727382174}
+  - component: {fileID: 727382176}
+  m_Layer: 0
+  m_Name: SaveGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727382174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727382173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f985673465e34c2488371ae3283d2193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &727382175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727382173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1244.2737, y: 592.9269, z: -1.1711602}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &727382176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727382173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9c77f6e78bc1864ab53fbb33bd0e120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level2Button: {fileID: 1647175009}
+  level3Button: {fileID: 502711475}
+  level4Button: {fileID: 1644637624}
+  level2LockIcon: {fileID: 1679589773}
+  level3LockIcon: {fileID: 1672615911}
+  level4LockIcon: {fileID: 1369095503}
 --- !u!1 &748795541
 GameObject:
   m_ObjectHideFlags: 0
@@ -4613,7 +4676,7 @@ GameObject:
   - component: {fileID: 1369095506}
   - component: {fileID: 1369095505}
   m_Layer: 5
-  m_Name: Lock (2)
+  m_Name: LockLevel4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6898,7 +6961,7 @@ GameObject:
   - component: {fileID: 1672615914}
   - component: {fileID: 1672615913}
   m_Layer: 5
-  m_Name: Lock (1)
+  m_Name: LockLevel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6974,7 +7037,7 @@ GameObject:
   - component: {fileID: 1679589776}
   - component: {fileID: 1679589775}
   m_Layer: 5
-  m_Name: Lock
+  m_Name: LockLevel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8579,7 +8642,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2045299603}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 727382174}
+        m_TargetAssemblyTypeName: SaveGame, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1648506445}
+        m_TargetAssemblyTypeName: MainMenuSceneManagement, Assembly-CSharp
+        m_MethodName: ChooseScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2045299603
 MonoBehaviour:
   m_ObjectHideFlags: 0
