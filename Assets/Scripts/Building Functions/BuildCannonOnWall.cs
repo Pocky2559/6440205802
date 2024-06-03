@@ -18,7 +18,7 @@ public class BuildCannonOnWall : MonoBehaviour
     {
         if(resourcesStatus.food_Amount >= unitDatabase.unitDetails[4].foodCost
            && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[4].goldCost
-           && population.currentPopulation + unitDatabase.unitDetails[4].population <= population.currentHouseCapacity
+           && population.currentPopulation + unitDatabase.unitDetails[4].population <= population.currentPopulationCapacity
            && GameObject.FindGameObjectWithTag("Artillary") == true)
         {
             resourcesStatus.ResourcesChange("Food", -(unitDatabase.unitDetails[4].foodCost));

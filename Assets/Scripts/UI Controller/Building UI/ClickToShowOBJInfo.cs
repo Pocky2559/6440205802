@@ -386,7 +386,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
         if (selectedObject.CompareTag("House"))
         {
             listOfHouse.DeleteHouseFromList(selectedObject);
-            listOfHouse.currentHouseCapacity = listOfHouse.currentHouseCapacity - listOfHouse.houseCapacityAssign;
+            listOfHouse.currentPopulationCapacity = listOfHouse.currentPopulationCapacity - listOfHouse.houseCapacityAssign;
             Destroy(selectedObject);
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();

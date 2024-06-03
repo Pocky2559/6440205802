@@ -62,7 +62,7 @@ public class PlacementSystem : MonoBehaviour
              preSelection.preSelectionIndicator = refGameObject.transform.GetChild(0).gameObject;
         }
 
-        if (canItPlace == true && refGameObjectName == "House" && listOfHouse.currentHouseCapacity <= 200)
+        if (canItPlace == true && refGameObjectName == "House" && listOfHouse.currentPopulationCapacity <= 200)
         {
             listOfHouse.AddHouseToList(refGameObject);
         }
