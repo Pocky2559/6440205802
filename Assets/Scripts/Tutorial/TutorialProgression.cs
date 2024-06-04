@@ -101,6 +101,23 @@ public class TutorialProgression : MonoBehaviour
     }
     #endregion
 
+    #region Learn Build Hpuse
+    public void FinishLearnBuildHouse()
+    {
+       learnBuildHouseCheckIcon.SetActive(true);
+       StartCoroutine(CloseFinishLearnBuildHouse());
+    }
+
+    IEnumerator CloseFinishLearnBuildHouse()
+    {
+        yield return new WaitForSeconds(3);
+        learnBuildHouseCheckIcon.SetActive(true);
+        learnBuildHousePanel.SetActive(false);
+    }
+
+
+    #endregion
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && exitWelcomePanel == true && isExitWelcome == false) //if Skip learn pan cemera
@@ -134,8 +151,10 @@ public class TutorialProgression : MonoBehaviour
             isFinishLearnTrainVillager = true;
         }
 
-
-
-
+        else if (learnBuildHouse == true && isFinishLearnBuildHouse == false)
+        {
+            FinishLearnBuildHouse();
+            isFinishLearnBuildHouse = true;
+        }
     }
 }

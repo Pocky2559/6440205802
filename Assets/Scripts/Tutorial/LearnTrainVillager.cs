@@ -15,10 +15,7 @@ public class LearnTrainVillager : MonoBehaviour
 
     private void Update()
     {
-
-        missionTrainVillagerDetail.text = string.Format("{0} / {1}", unitSelection.unitList.Count -1, 4);
-
-        if(unitSelection.unitList.Count == 5 && tutorialProgression.learnTrainVilager == false)
+        if(unitSelection.unitList.Count == 5 && tutorialProgression.learnTrainVilager == false) //Mission Completed
         {
                 tutorialProgression.learnTrainVilager = true;
                 indicator.SetActive(false);
@@ -28,6 +25,8 @@ public class LearnTrainVillager : MonoBehaviour
 
         if(tutorialProgression.learnAboutTC == true && tutorialProgression.learnTrainVilager == false)
         {
+            missionTrainVillagerDetail.text = string.Format("{0} / {1}", unitSelection.unitList.Count -1, 4);
+
             if(townCenterUI.activeSelf == true) //if we select town center
             {
                 indicator.SetActive(false);
@@ -41,7 +40,5 @@ public class LearnTrainVillager : MonoBehaviour
                 adviceSelectFloatingUI.SetActive(true);
             }
         }
-
-
     }
 }
