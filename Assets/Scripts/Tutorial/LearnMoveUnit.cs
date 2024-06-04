@@ -10,6 +10,8 @@ public class LearnMoveUnit : MonoBehaviour
     [SerializeField] private GameObject moveTarget;
     [SerializeField] private float markerOffset;
     [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private GameObject adviceSelectFlotingUI;
+    [SerializeField] private GameObject adviceMoveFloatingUI;
 
     public void Update()
     {
@@ -21,13 +23,16 @@ public class LearnMoveUnit : MonoBehaviour
                 markerPosition.y = markerPosition.y + markerOffset;
                 moveIndicatorTutorial.transform.position = markerPosition;
                 moveIndicatorTutorial.SetActive(true);
+                adviceSelectFlotingUI.SetActive(true);
+                adviceMoveFloatingUI.SetActive(false);
             }
             else
             {
                 Vector3 markerPosition = moveTarget.transform.position;
                 markerPosition.y = markerPosition.y + markerOffset;
                 moveIndicatorTutorial.transform.position = markerPosition;
-                //moveIndicatorTutorial.SetActive(true);
+                adviceSelectFlotingUI.SetActive(false);
+                adviceMoveFloatingUI.SetActive(true);
             }
 
             if (unitSelection.unitSelected.Count > 0 && Input.GetMouseButtonDown(1))
@@ -39,6 +44,7 @@ public class LearnMoveUnit : MonoBehaviour
                 {
                     tutorialProgression.learnMoveUnit = true;
                     moveIndicatorTutorial.SetActive(false);
+                    adviceMoveFloatingUI.SetActive(false);
                 }
             }
         }

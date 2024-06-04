@@ -7,12 +7,17 @@ public class TutorialProgression : MonoBehaviour
     private bool isExitWelcome;
     private bool isFinishLearnMoveUnit;
     private bool isFinishLearnResourcesDetails;
+    private bool isFinishLearnAboutTC;
+    private bool isFinishLearnTrainVillager;
+    private bool isFinishLearnBuildHouse;
 
      public bool exitWelcomePanel;
      public bool learnPanCam;
      public bool learnMoveUnit;
      public bool learnResourcesDetails;
-    public bool learnAboutTC;
+     public bool learnAboutTC;
+     public bool learnTrainVilager;
+     public bool learnBuildHouse;
 
     [SerializeField] private GameObject welcomePanel;
 
@@ -24,6 +29,12 @@ public class TutorialProgression : MonoBehaviour
     [SerializeField] private GameObject learnResourcesDetailsPanel;
 
     [SerializeField] private GameObject learnAboutTCPanel;
+
+    [SerializeField] private GameObject learnTrainVillagerPanel;
+    [SerializeField] private GameObject learnTrainVillagerCheckIcon;
+
+    [SerializeField] private GameObject learnBuildHousePanel;
+    [SerializeField] private GameObject learnBuildHouseCheckIcon;
 
     private void Start()
     {
@@ -67,6 +78,29 @@ public class TutorialProgression : MonoBehaviour
         learnAboutTCPanel.SetActive(true);
     }
 
+    public void FinishLearnAboutTc()
+    {
+        learnAboutTC = true;
+        learnAboutTCPanel.SetActive(false);
+        learnTrainVillagerPanel.SetActive(true);
+    }
+
+    #region Learn Train Villager
+    public void FinishLearnTrainVillager()
+    {
+        learnTrainVillagerCheckIcon.SetActive(true);
+        StartCoroutine(CloseFinishLearnTrainVillager());
+    }
+
+    IEnumerator CloseFinishLearnTrainVillager()
+    {
+        yield return new WaitForSeconds(3);
+        learnTrainVillagerCheckIcon.SetActive(false);
+        learnTrainVillagerPanel.SetActive(false);
+        learnBuildHousePanel.SetActive(true);
+    }
+    #endregion
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && exitWelcomePanel == true && isExitWelcome == false) //if Skip learn pan cemera
@@ -76,20 +110,32 @@ public class TutorialProgression : MonoBehaviour
             isExitWelcome = true;
         }
 
-        if(learnMoveUnit == true && learnResourcesDetails == false && isFinishLearnMoveUnit == false) // if finish learn move unit
+        else if(learnMoveUnit == true && learnResourcesDetails == false && isFinishLearnMoveUnit == false) // if finish learn move unit
         {
             FinishLearnMoveUnit();
             isFinishLearnMoveUnit = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && learnMoveUnit == true && isFinishLearnResourcesDetails == false) //if Skip learn resources details
+        else if(Input.GetKeyDown(KeyCode.Space) && learnMoveUnit == true && isFinishLearnResourcesDetails == false) //if Skip learn resources details
         {
             FinishLearnResourcesDetails();
             isFinishLearnResourcesDetails = true;
         }
 
-        
+        else if (Input.GetKeyDown(KeyCode.Space) && learnResourcesDetails == true && isFinishLearnAboutTC == false) //if skip learn about tc
+        {
+            FinishLearnAboutTc();
+            isFinishLearnAboutTC = true;
+        }
 
-        
+        else if (learnTrainVilager == true && isFinishLearnTrainVillager == false)
+        {
+            FinishLearnTrainVillager();
+            isFinishLearnTrainVillager = true;
+        }
+
+
+
+
     }
 }

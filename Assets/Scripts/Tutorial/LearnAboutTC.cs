@@ -16,7 +16,6 @@ public class LearnAboutTC : MonoBehaviour
         {
             mainCamera.transform.localPosition = new Vector3(99.4000015f, -48, 108);
             indicator.transform.position = new Vector3(99.6699982f, 2.79999995f, 99.4800034f);
-            //indicator.transform.position = townCenterPos.position;
             indicator.SetActive(true);
             isPanFinish = true;
         }
