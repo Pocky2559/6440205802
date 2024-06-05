@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class TutorialProgression : MonoBehaviour
 {
+    [Header("isFinish Boolean")]
     private bool isExitWelcome;
     private bool isFinishLearnMoveUnit;
     private bool isFinishLearnResourcesDetails;
     private bool isFinishLearnAboutTC;
     private bool isFinishLearnTrainVillager;
     private bool isFinishLearnBuildHouse;
+    private bool isFinishLearnGatherFood;
+    private bool isFinishLearnEconomicBuilding;
 
+    [Header("Progression Boolean")]
      public bool exitWelcomePanel;
      public bool learnPanCam;
      public bool learnMoveUnit;
@@ -18,7 +22,10 @@ public class TutorialProgression : MonoBehaviour
      public bool learnAboutTC;
      public bool learnTrainVilager;
      public bool learnBuildHouse;
+     public bool learnGatherFood;
+     public bool learnEconomicBuilding;
 
+    [Header("Panels and Checl icons")]
     [SerializeField] private GameObject welcomePanel;
 
     [SerializeField] private GameObject learnPanCamPanel;
@@ -35,6 +42,12 @@ public class TutorialProgression : MonoBehaviour
 
     [SerializeField] private GameObject learnBuildHousePanel;
     [SerializeField] private GameObject learnBuildHouseCheckIcon;
+
+    [SerializeField] private GameObject learnGatherFoodPanel;
+    [SerializeField] private GameObject learnGatherFoodCheckIcon;
+
+    [SerializeField] private GameObject learnEconomicBuildingPanel;
+    [SerializeField] private GameObject learnEconomicBuildingCheckIcon;
 
     private void Start()
     {
@@ -111,11 +124,41 @@ public class TutorialProgression : MonoBehaviour
     IEnumerator CloseFinishLearnBuildHouse()
     {
         yield return new WaitForSeconds(3);
-        learnBuildHouseCheckIcon.SetActive(true);
+        learnBuildHouseCheckIcon.SetActive(false);
         learnBuildHousePanel.SetActive(false);
+        learnGatherFoodPanel.SetActive(true);
+    }
+    #endregion
+
+    #region Learn Gather Food
+    public void FinishLearnGatherFood()
+    {
+        learnGatherFoodCheckIcon.SetActive(true);
+        StartCoroutine(CloseFinishLearnGatherFood());
     }
 
+    IEnumerator CloseFinishLearnGatherFood()
+    {
+        yield return new WaitForSeconds(3);
+        learnGatherFoodCheckIcon.SetActive(false);
+        learnGatherFoodPanel.SetActive(false);
+        learnEconomicBuildingPanel.SetActive(true);
+    }
+    #endregion
 
+    #region FinishLearnEconomicBuilding
+    public void FinishLearnEconomicBuilding()
+    {
+        learnEconomicBuildingCheckIcon.SetActive(true);
+        StartCoroutine(CloseFinishLearnEconomicBuilding());
+    }
+
+    IEnumerator CloseFinishLearnEconomicBuilding()
+    {
+        yield return new WaitForSeconds(3);
+        learnEconomicBuildingCheckIcon.SetActive(false);
+        learnEconomicBuildingPanel.SetActive(false);
+    }
     #endregion
 
     private void Update()
@@ -155,6 +198,18 @@ public class TutorialProgression : MonoBehaviour
         {
             FinishLearnBuildHouse();
             isFinishLearnBuildHouse = true;
+        }
+
+        else if(learnGatherFood == true && isFinishLearnGatherFood == false)
+        {
+            FinishLearnGatherFood();
+            isFinishLearnGatherFood = true;
+        }
+
+        else if(learnEconomicBuilding == true && isFinishLearnEconomicBuilding == false)
+        {
+            FinishLearnEconomicBuilding();
+            isFinishLearnEconomicBuilding = true;
         }
     }
 }

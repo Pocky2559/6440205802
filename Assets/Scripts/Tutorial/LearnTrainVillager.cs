@@ -12,12 +12,14 @@ public class LearnTrainVillager : MonoBehaviour
     [SerializeField] private GameObject indicator;
     [SerializeField] private GameObject adviceSelectFloatingUI;
     [SerializeField] private TMP_Text missionTrainVillagerDetail;
+    [SerializeField] private GameObject checkIconMissionTrainVillager;
 
     private void Update()
     {
         if(unitSelection.unitList.Count == 5 && tutorialProgression.learnTrainVilager == false) //Mission Completed
         {
                 tutorialProgression.learnTrainVilager = true;
+                checkIconMissionTrainVillager.SetActive(true);
                 indicator.SetActive(false);
                 arrowIndicator.SetActive(false);
                 adviceSelectFloatingUI.SetActive(false);
