@@ -35,6 +35,12 @@ public class MainMenuSceneManagement : MonoBehaviour
             loadingScreen.SetActive(true);
             StartCoroutine(LoadScene1("IntroLevel4"));
         }
+
+        if (sceneName == "Tutorial")
+        {
+            loadingScreen.SetActive(true);
+            StartCoroutine(LoadScene1("Tutorial"));
+        }
     }
 
     public void ExitToDeskTop()

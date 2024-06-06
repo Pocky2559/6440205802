@@ -12,8 +12,21 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
         otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
         //-----------------------------------
 
-        otmRecruit.otmRecruitAgent.isStopped = false;
-        otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.capturePointByEnemy.transform.position);
+        if(otmRecruit.capturePointByEnemy != null)
+        {
+           otmRecruit.otmRecruitAgent.isStopped = false;
+           otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.capturePointByEnemy.transform.position);
+        }
+
+        else
+        {
+            //===================================
+            //Play animation otmRecruit_Idle
+            //===================================
+            otmRecruit.otmRecruitAnimatorController.SetTrigger("Idle");
+            //-----------------------------------
+        }
+
     }
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
@@ -56,7 +69,7 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
         otmRecruit.otmRecruitAgent.isStopped = true;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
         colliderOfThisEnemy.enabled = false;
-        otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
+        if(otmRecruit.capturePointByEnemy != null) otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
         MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }

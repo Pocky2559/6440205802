@@ -29,7 +29,7 @@ public class UnitStat : MonoBehaviour
     private void Awake()
     {
         statList = unitDatabase.unitDetails;
-        capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
+        if(GameObject.FindGameObjectWithTag("CapturedPoint") != null) capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         upgradeStatus = GameObject.FindGameObjectWithTag("UpgradeStatus").GetComponent<UpgradeStatus>();
         AssignDataForThisUnit();

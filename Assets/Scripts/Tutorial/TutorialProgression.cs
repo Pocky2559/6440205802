@@ -13,6 +13,7 @@ public class TutorialProgression : MonoBehaviour
     private bool isFinishLearnBuildHouse;
     private bool isFinishLearnGatherFood;
     private bool isFinishLearnEconomicBuilding;
+    private bool isFinishLearnBuildBarrack;
 
     [Header("Progression Boolean")]
      public bool exitWelcomePanel;
@@ -24,6 +25,7 @@ public class TutorialProgression : MonoBehaviour
      public bool learnBuildHouse;
      public bool learnGatherFood;
      public bool learnEconomicBuilding;
+     public bool learnBuildBarrack;
 
     [Header("Panels and Checl icons")]
     [SerializeField] private GameObject welcomePanel;
@@ -48,6 +50,11 @@ public class TutorialProgression : MonoBehaviour
 
     [SerializeField] private GameObject learnEconomicBuildingPanel;
     [SerializeField] private GameObject learnEconomicBuildingCheckIcon;
+
+    [SerializeField] private GameObject learnBuildBarrackPanel;
+    [SerializeField] private GameObject learnBuildBarrackCheckIcon;
+
+    [SerializeField] private GameObject finishTutorialPanel;
 
     private void Start()
     {
@@ -114,7 +121,7 @@ public class TutorialProgression : MonoBehaviour
     }
     #endregion
 
-    #region Learn Build Hpuse
+    #region Learn Build House
     public void FinishLearnBuildHouse()
     {
        learnBuildHouseCheckIcon.SetActive(true);
@@ -158,6 +165,23 @@ public class TutorialProgression : MonoBehaviour
         yield return new WaitForSeconds(3);
         learnEconomicBuildingCheckIcon.SetActive(false);
         learnEconomicBuildingPanel.SetActive(false);
+        learnBuildBarrackPanel.SetActive(true);
+    }
+    #endregion
+
+    #region Learn Build Barrack
+    public void FinishLearnBuildBarrack()
+    {
+        learnBuildBarrackCheckIcon.SetActive(true);
+        StartCoroutine(CloseFinishLearnBuildBarrack());
+    }
+
+    IEnumerator CloseFinishLearnBuildBarrack()
+    {
+        yield return new WaitForSeconds(3);
+        learnBuildBarrackCheckIcon.SetActive(false);
+        learnBuildBarrackPanel?.SetActive(false);
+        finishTutorialPanel.SetActive(true);
     }
     #endregion
 
@@ -210,6 +234,12 @@ public class TutorialProgression : MonoBehaviour
         {
             FinishLearnEconomicBuilding();
             isFinishLearnEconomicBuilding = true;
+        }
+
+        else if(learnBuildBarrack == true && isFinishLearnBuildBarrack == false)
+        {
+            FinishLearnBuildBarrack();
+            isFinishLearnBuildBarrack = true;
         }
     }
 }

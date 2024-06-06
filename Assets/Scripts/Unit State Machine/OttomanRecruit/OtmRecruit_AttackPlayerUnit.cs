@@ -115,7 +115,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         otmRecruit.otmRecruitAgent.isStopped = true;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
         colliderOfThisEnemy.enabled = false;
-        otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
+        if(otmRecruit.capturePointByEnemy != null) otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
         MonoBehaviour.Destroy(otmRecruit.transform.parent.gameObject, 4); // Delete Villager from the game
     }
 }

@@ -29,7 +29,7 @@ public class OttomanRecruitStateController : MonoBehaviour
         //Component
         otmRecruitAgent = GetComponentInParent<NavMeshAgent>();
         unitStat = GetComponentInParent<UnitStat>();
-        capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
+        if(GameObject.FindGameObjectWithTag("CapturedPoint") != null) capturePointByEnemy = GameObject.FindGameObjectWithTag("CapturedPoint").GetComponent<CapturePointByEnemy>();
         otmRecruitAnimatorController = GetComponentInParent<Animator>();
 ;
         //Find the root game object (because this script attach the child)
