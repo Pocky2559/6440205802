@@ -43,15 +43,24 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
     public Button artilleryUpgradeButton;
     //
 
+    //Check Icons
+    [SerializeField] private GameObject townCenterUpgradeCheckIcon;
+    [SerializeField] private GameObject lumberUpgradeSpeedCheckIcon;
+    [SerializeField] private GameObject lumberUpgradeCapacityCheckIcon;
+    [SerializeField] private GameObject miningUpgradeSpeedCheckIcon;
+    [SerializeField] private GameObject miningUpgradeCapacityCheckIcon;
+    [SerializeField] private GameObject windMillUpgradeSpeedCheckIcon;
+    [SerializeField] private GameObject windMillUpgradeCapacityCheckIcon;
+    [SerializeField] private GameObject barrackUpgradeArmorCheckIcon;
+    [SerializeField] private GameObject barrackUpgradeAttackCheckIcon;
+    [SerializeField] private GameObject artilleryUpgradeCheckIcon;
+ 
     public ResourcesStatus resourcesStatus;
     public EconomicUpgradeDatabase economicUpgradeDatabase;
     public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
     public BarrackUpgradeDatabase barrackUpgradeDatabase;
     public ArtilleryShopUpgradeDatabase artilleryShopUpgradeDatabase;
-    private void Awake()
-    {
-        
-    }
+    public BuildingFunctionNotify buildingFunctionNotify;
 
     #region Economic Upgrade
     public void UpgradeWoodGatheringSpeed() // Click upgrade wood gathering speed
@@ -64,16 +73,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 woodGatheringSpeedButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
+                lumberUpgradeSpeedCheckIcon.SetActive(true);
             }
         }
         
-        if(resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed)
+        else if(resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -87,16 +94,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringSpeed;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 woodGatheringCapacityButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
+                lumberUpgradeCapacityCheckIcon.SetActive(true);
             }
         }
 
-        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringCapacity)
+        else if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[0].goldCostForUpgradeGatheringCapacity)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -110,16 +115,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 goldAndStoneGatheringSpeedButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
-            }
+                miningUpgradeSpeedCheckIcon.SetActive(true);
+            }          
         }
 
-        if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed)
+        else if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringSpeed)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -133,16 +136,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringCapacity;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 goldAndStoneGatheringCapacityButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
-            }
+                miningUpgradeCapacityCheckIcon.SetActive(true);
+            }         
         }
 
         if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[1].goldCostForUpgradeGatheringCapacity)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -156,16 +157,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringSpeed;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 foodGatheringSpeedButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
+                windMillUpgradeSpeedCheckIcon.SetActive(true);
             }
         }
 
         if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringSpeed)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -179,16 +178,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringCapacity;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 foodGatheringCapacityButton.enabled = false;
-            }
-            else
-            {
-                Debug.Log("You have already upgrade");
+                windMillUpgradeCapacityCheckIcon.SetActive(true);
             }
         }
 
         if (resourcesStatus.gold_Amount < economicUpgradeDatabase.economicUpgrade[2].goldCostForUpgradeGatheringCapacity)
         {
-            Debug.Log("Not Enough Gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
     #endregion
@@ -204,17 +201,14 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost;
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 townCenterUpgradeButton.enabled = false;
-            }
-
-            else
-            {
-                Debug.Log("You have already upgrade");
+                townCenterUpgradeCheckIcon.SetActive(true);
             }
         }
 
-        if (resourcesStatus.gold_Amount < townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost)
+        else if (resourcesStatus.gold_Amount < townCenterUpgradeDatabase.townCenterUpgrades[0].upgradeCost)
         {
-            Debug.Log("Not enough gold");
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
     #endregion
@@ -230,7 +224,13 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 isBarrackAttackUpgrade = true;
                 barrackUpgradeAttackButton.enabled = false;
+                barrackUpgradeAttackCheckIcon.SetActive(true);
             }
+        }
+        else if(resourcesStatus.gold_Amount < barrackUpgradeDatabase.upgradeAttackGoldCost)
+        {
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
 
@@ -244,7 +244,13 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                 resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                 isBarrackDefenseUpgrade = true;
                 barrackUpgradeDefenseButton.enabled = false;
+                barrackUpgradeArmorCheckIcon.SetActive(true);
             }
+        }
+        else if ((resourcesStatus.gold_Amount < barrackUpgradeDatabase.upgradeDefenseGoldCost))
+        {
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
     #endregion
@@ -260,7 +266,13 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
                resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
                isArtilleryUpgrade = true;
                artilleryUpgradeButton.enabled = false;
+                artilleryUpgradeCheckIcon.SetActive(true);
             }
+        }
+        else if(resourcesStatus.gold_Amount < artilleryShopUpgradeDatabase.upgradeAttackCost)
+        {
+            //Notify Not enough resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
         }
     }
     #endregion

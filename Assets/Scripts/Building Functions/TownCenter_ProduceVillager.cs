@@ -21,6 +21,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
     public UnitDatabaseSO unitDatabase;
     public ClickToShowOBJInfo clickToShowOBJInfo;
     public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
+    public BuildingFunctionNotify buildingFunctionNotify;
 
     // public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> positionsToSpawn = new Dictionary<string, GameObject>();
@@ -49,6 +50,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
         resourcesStatus= resourcesStatusAssign.GetComponent<ResourcesStatus>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         positionToSpawnUnit = GetComponentInChildren<PositionToSpawnUnit>();
+        buildingFunctionNotify = GameObject.FindGameObjectWithTag("Notification").GetComponent<BuildingFunctionNotify>();
 
         //villagerQueCanvas.transform.position = positionOfQueUI.transform.position;
     }
@@ -71,9 +73,15 @@ public class TownCenter_ProduceVillager : MonoBehaviour
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
             // positionToSpawn = clickToShowOBJInfo.selectedObjectPosition;
         }
-        else
+        else if(resourcesStatus.food_Amount < 50)
         {
-            Debug.Log("Not Enough Food");
+            //Noity Not Enough Resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
+        }
+        else if(population.currentPopulation + unitDatabase.unitDetails[0].population >= population.currentPopulationCapacity)
+        {
+            //Need more houses
+            buildingFunctionNotify.NotifyNeedMoreHouses();
         }
     }
 

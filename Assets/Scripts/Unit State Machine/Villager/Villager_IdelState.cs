@@ -26,7 +26,6 @@ public class Villager_IdelState : VillagerBaseState
     }
     public override void UpdateState(VillagerStateController villager)
     {
-        Debug.Log("Idel State");
         // villager will stand still if they are idel
 
         // If we select villager and click right mouse button

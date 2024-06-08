@@ -26,7 +26,6 @@ public class HealthBarController : MonoBehaviour
         if(unitStat.unitHP == unitFullHP)
         {
            hideShowTargetGameObject.SetActive(false);
-           Debug.Log("current hp = full hp");
         }
         else
         {
