@@ -13,6 +13,7 @@ public class BuildCannonOnWall : MonoBehaviour
     public GameObject icon;
     public KartauneStateController kartauneStateController;
     public bool IsCannonDestroy;
+    [SerializeField] private GameObject kartauneBuildPanel;
 
     public void BuildCannon()
     {
@@ -30,6 +31,7 @@ public class BuildCannonOnWall : MonoBehaviour
             kartauneStateController.CannonOnWall(this);
             positionToPlace.SetActive(false);
             icon.SetActive(false);
+            kartauneBuildPanel.SetActive(false);
         }
     }
 }
