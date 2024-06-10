@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BuildingFunctionNotify : MonoBehaviour
 {
+    [Header("Fading Speed")]
     [SerializeField] private float fadeSpeed;
 
     [Header("Notify Not Enough Resources")]

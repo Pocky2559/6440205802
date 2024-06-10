@@ -19,6 +19,7 @@ public class PreviewSystem : MonoBehaviour
     public MeshRenderer meshRenderer;
     public GameObject gridVisualization;
     public Grid grid;
+    [SerializeField] private PlacementNotification placementNotification;
     public void CreatObjectPreview()
     {  
         //to prevent placing the Game Object when click the UI
@@ -26,6 +27,8 @@ public class PreviewSystem : MonoBehaviour
         {
            StopPreview();
         }
+
+        selectObject.isSelectBuilding = true;
 
         //clone gameObject reference by the id that recieve from class SelectObject
         gameObj = Instantiate(database.objects[selectObject.ID].Prefab);
@@ -54,7 +57,7 @@ public class PreviewSystem : MonoBehaviour
     {
         ShowValidPreview();
         placementSystem.PlaceObjectStatus(1);
-      
+        placementNotification.ShowIndicatorCanPlace(gameObj);
     }
      
     //This method was called by class DetectTrigger when it cannot detect any collision (OnTriggerExit)
@@ -62,6 +65,7 @@ public class PreviewSystem : MonoBehaviour
     {
         ShowInValidPreview();
         placementSystem.PlaceObjectStatus(0);
+        placementNotification.ShowIndicatorCannotPlace(gameObj);
     }
 
     //Show the material of Game Object as "validMaterial"
@@ -86,13 +90,12 @@ public class PreviewSystem : MonoBehaviour
             Vector3Int previewPosistion = grid.WorldToCell(placementSystem.currentPos);
             previewPosistion.y = previewPosistion.y + offset;
             gameObj.transform.position = grid.CellToWorld(previewPosistion);
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (Input.GetKeyDown(KeyCode.Mouse1)) // if right click stop preview
             {
                 placementSystem.PlaceObjectStatus(1);
                 StopPreview();
             }
         }
-        
     }
 
     // Destroy the Game Object and make Game Object at PlacementSystem is null
@@ -101,6 +104,9 @@ public class PreviewSystem : MonoBehaviour
         Destroy(gameObj);
         gridVisualization.SetActive(false);
         placementSystem.PlaceObjectState(null);
+        placementNotification.HideIndicator();
+        placementNotification.HideNeedMoreResources();
+        selectObject.isSelectBuilding = false;
     }
     
 }   

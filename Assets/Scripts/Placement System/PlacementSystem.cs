@@ -30,7 +30,6 @@ public class PlacementSystem : MonoBehaviour
     {
         //Assign Game Object
         gameObj = gameOBJ;
-        // refGameObject = GameObject.FindGameObjectWithTag(database.objects[selectObject.ID].Name); //Find Game Object in hierachy with ID from class SelectObject
         refGameObject = database.objects[selectObject.ID].Prefab;
         refGameObjectName = database.objects[selectObject.ID].Name;
 
@@ -68,17 +67,6 @@ public class PlacementSystem : MonoBehaviour
         }
     }
 
-    //make the Game Object in this class is null and destroy it
-    /* public void StopPlacement()
-     {
-        gameObj = null;
-        Destroy(gameObj);
-     }*/
-
-    // this method recieve value from class PreviewSystem to assign the value of the token
-    // ; token use for checking the state of placement that you can or cannot place the Game Object
-    // 1 = can place, 0 = cannot place
-
     public void PlaceObjectStatus(int token)
     {
         placeToken = token;
@@ -104,7 +92,6 @@ public class PlacementSystem : MonoBehaviour
         /// Checking the Game Object first, it cannot be null to prevent and error when place the Game Object/// 
         if (gameObj != null)
         {
-            
             ///if click left mouse button, the Game Object will be placed
             if (Input.GetMouseButtonDown(0) || placeToken == 0)
             {   
@@ -120,18 +107,8 @@ public class PlacementSystem : MonoBehaviour
                 {  
                     StartPlacement();
                     placeToken = 0;
-                    Debug.Log("StartPlace");
                 }
-                
-
-                /*if (Input.GetKeyDown(KeyCode.Mouse1)) 
-                {   
-                    placeToken = 1;
-                    StopPlacement();
-                }*/
             }
         } 
     }
-
-       
 }

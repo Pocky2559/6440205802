@@ -6,24 +6,27 @@ using UnityEngine.UI;
 
 public class Barrack_Producing : MonoBehaviour // Attach this script to one game object
 {
-    public float lastTrainingTime = 0.0f;
+    [Header("Required Component")]
     public UnitDatabaseSO unitDatabase;
     public ClickToShowOBJInfo clickToShowOBJInfo;
-
     public ResourcesStatus resourcesStatus;
-    public List<GameObject> militaryQue;
+    public HouseList population;
+    public PositionToSpawnUnit positionToSpawnUnit;
+    [SerializeField] private BuildingFunctionNotify buildingFunctionNotify;
 
-    public string uniqueKey;
+    [Header("Ques System")]
+    public List<GameObject> militaryQue;
     public List<string> uniqueKeys;
     public int troopNumber = 0;
-    //public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
+    public string uniqueKey;
     public Dictionary<string, GameObject> positionsToSpawn = new Dictionary<string, GameObject>();
     private GameObject clickToShowOBJInfoAssign;
     private GameObject resourcesStatusAssign;
-    public HouseList population;
-    public PositionToSpawnUnit positionToSpawnUnit;
 
-    //Que UI
+    [Header("Training Time")]
+    public float lastTrainingTime = 0.0f;
+
+    [Header("Que UI")]
     public GameObject gunnerQueIcon;
     public GameObject landskQueIcon;
     public GameObject captainQueIcon;
@@ -43,6 +46,7 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
         resourcesStatus = resourcesStatusAssign.GetComponent<ResourcesStatus>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         positionToSpawnUnit = GetComponentInChildren<PositionToSpawnUnit>();
+        buildingFunctionNotify = GameObject.FindGameObjectWithTag("Notification").GetComponent<BuildingFunctionNotify>();
     }
     public void AddQueIcon(string unitName)
     {
@@ -63,7 +67,6 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             GameObject createQueIcon = Instantiate(captainQueIcon, queIconInstantiateTarget); //instantiate que icon
             queIconList.Add(createQueIcon); //Add que icon into list
         }
-       
     }
 
     public void RemoveIcon()
@@ -91,9 +94,20 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
             resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
         }
-    }
 
-    
+        else if (resourcesStatus.food_Amount < unitDatabase.unitDetails[1].foodCost
+                 || resourcesStatus.gold_Amount < unitDatabase.unitDetails[1].goldCost) //if not enough resources
+        {
+            //Notify Not Enough Resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
+        }
+
+        else if (population.currentPopulation + unitDatabase.unitDetails[1].population > population.currentPopulationCapacity) //if not enough population capacity
+        {
+            //Noity Need More Houses
+            buildingFunctionNotify.NotifyNeedMoreHouses();
+        }
+    }
 
     public void AddLandsknetchQue()
     {
@@ -113,6 +127,19 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - unitDatabase.unitDetails[2].goldCost;
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
             resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+        }
+
+        else if (resourcesStatus.food_Amount < unitDatabase.unitDetails[2].foodCost
+                || resourcesStatus.gold_Amount < unitDatabase.unitDetails[2].goldCost)
+        {
+            //Noity Not Enough Resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
+        }
+
+        else if (population.currentPopulation + unitDatabase.unitDetails[2].population > population.currentPopulationCapacity)
+        {
+            //Notify Need More Houses
+            buildingFunctionNotify.NotifyNeedMoreHouses();
         }
     }
 
@@ -134,6 +161,19 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
             resourcesStatus.gold_Amount = resourcesStatus.gold_Amount - unitDatabase.unitDetails[3].goldCost;
             resourcesStatus.food_Text.text = resourcesStatus.food_Amount.ToString();
             resourcesStatus.gold_Text.text = resourcesStatus.gold_Amount.ToString();
+        }
+
+        else if (resourcesStatus.food_Amount < unitDatabase.unitDetails[3].foodCost
+                || resourcesStatus.gold_Amount < unitDatabase.unitDetails[3].goldCost)
+        {
+            //Notify Not Enough Resources
+            buildingFunctionNotify.NotifyNotEnoughResources();
+        }
+
+        else if (population.currentPopulation + unitDatabase.unitDetails[3].population > population.currentPopulationCapacity)
+        {
+            //Notify Need More Houses
+            buildingFunctionNotify.NotifyNeedMoreHouses();
         }
     }
 

@@ -14,7 +14,6 @@ public class BuildingResourcesSpend : MonoBehaviour // this script use to calcul
         {
             if(resourcesStatus.wood_Amount < buildingCost.buildingCostsData[0].woodRequire)
             {
-                Debug.Log("Need more resources");
                 placementSystem.canItPlace = false;
             }
             else

@@ -6,12 +6,16 @@ public class FloatingUI : MonoBehaviour
 {
     public Transform targetFloatingUI;
     public Vector3 uiOffsetPosition;
+    private Vector3 position;
 
     private void Update()
     {
-        Vector3 position = Camera.main.WorldToScreenPoint(targetFloatingUI.position + uiOffsetPosition);
+        if (targetFloatingUI!= null)
+        {
+           position = Camera.main.WorldToScreenPoint(targetFloatingUI.position + uiOffsetPosition);
+        }
 
-        if(transform.position != position)
+        if (transform.position != position)
         {
             transform.position = position;
         }

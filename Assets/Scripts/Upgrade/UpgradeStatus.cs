@@ -5,45 +5,32 @@ using UnityEngine.UI;
 
 public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrade you have already done.
 {
-
+    [Header("Boolean")]
     //Economic Building
     public bool isWoodGatheringSpeedUpgrade;
     public bool isWoodGatheringCapacityUpgrade;
-
     public bool isGoldStoneGatheringSpeedUpgrade;
     public bool isGoldStoneGatheringCapacityUpgrade;
-
     public bool isFoodGatheringSpeedUpgrade;
     public bool isFoodGatheringCapacityUpgrade;
+    public bool isTownCenterUpgrade;
+    public bool isBarrackAttackUpgrade;
+    public bool isBarrackDefenseUpgrade;
+    public bool isArtilleryUpgrade;
 
-    
-    
+    [Header("Buttons")]
     public Button woodGatheringSpeedButton;
     public Button woodGatheringCapacityButton;
     public Button goldAndStoneGatheringSpeedButton;
     public Button goldAndStoneGatheringCapacityButton;
     public Button foodGatheringSpeedButton;
     public Button foodGatheringCapacityButton;
-    //
-
-    //Town Center
-    public bool isTownCenterUpgrade;
     public Button townCenterUpgradeButton;
-    //
-
-    //Barrack
-    public bool isBarrackAttackUpgrade;
-    public bool isBarrackDefenseUpgrade;
     public Button barrackUpgradeAttackButton;
     public Button barrackUpgradeDefenseButton;
-    //
-
-    //Artillery Shop
-    public bool isArtilleryUpgrade;
     public Button artilleryUpgradeButton;
-    //
 
-    //Check Icons
+    [Header("Check Icons")]
     [SerializeField] private GameObject townCenterUpgradeCheckIcon;
     [SerializeField] private GameObject lumberUpgradeSpeedCheckIcon;
     [SerializeField] private GameObject lumberUpgradeCapacityCheckIcon;
@@ -54,7 +41,8 @@ public class UpgradeStatus : MonoBehaviour //this script use to tell what upgrad
     [SerializeField] private GameObject barrackUpgradeArmorCheckIcon;
     [SerializeField] private GameObject barrackUpgradeAttackCheckIcon;
     [SerializeField] private GameObject artilleryUpgradeCheckIcon;
- 
+
+    [Header("Required Components")]
     public ResourcesStatus resourcesStatus;
     public EconomicUpgradeDatabase economicUpgradeDatabase;
     public TownCenterUpgradeDatabase townCenterUpgradeDatabase;

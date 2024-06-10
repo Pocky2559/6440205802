@@ -8,6 +8,17 @@ using UnityEngine.UI;
 
 public class TownCenter_ProduceVillager : MonoBehaviour
 {
+    [Header("Required Component")]
+    public ResourcesStatus resourcesStatus;
+    public UpgradeStatus upgradeStatus;
+    public UnitDatabaseSO unitDatabase;
+    public ClickToShowOBJInfo clickToShowOBJInfo;
+    public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
+    public BuildingFunctionNotify buildingFunctionNotify;
+    public HouseList population;
+    public PositionToSpawnUnit positionToSpawnUnit;
+
+    [Header("Ques System")]
     public float lastTrainingTime = 0f;
     private int villagerNumber = 0;
     private string uniqueKey;
@@ -15,22 +26,11 @@ public class TownCenter_ProduceVillager : MonoBehaviour
     private GameObject clickToShowOBJInfoAssign;
     private GameObject upgradeStatusAssign;
     private GameObject resourcesStatusAssign;
-  
-    public ResourcesStatus resourcesStatus;
-    public UpgradeStatus upgradeStatus;
-    public UnitDatabaseSO unitDatabase;
-    public ClickToShowOBJInfo clickToShowOBJInfo;
-    public TownCenterUpgradeDatabase townCenterUpgradeDatabase;
-    public BuildingFunctionNotify buildingFunctionNotify;
-
-    // public Dictionary<string, Vector3> positionsToSpawn = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> positionsToSpawn = new Dictionary<string, GameObject>();
     public List<string> uniqueKeys;
     public List<GameObject> villagersQue;
-    public HouseList population;
-    public PositionToSpawnUnit positionToSpawnUnit;
 
-    //Que
+    [Header("Que UI")]
     public GameObject queIcon;
     public Transform queIconInstantiateTarget;
     public List<GameObject> queIconList;
