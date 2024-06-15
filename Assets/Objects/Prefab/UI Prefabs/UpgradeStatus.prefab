@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2526528563506431597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2526528563506431587}
+  - component: {fileID: 2526528563506431596}
+  m_Layer: 0
+  m_Name: UpgradeStatus
+  m_TagString: UpgradeStatus
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2526528563506431587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2526528563506431597}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 97.057785, y: -0.8140156, z: 26.699581}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2526528563506431596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2526528563506431597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f529379d13c357b40af01b6e0107eb96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isWoodGatheringSpeedUpgrade: 0
+  isWoodGatheringCapacityUpgrade: 0
+  isGoldStoneGatheringSpeedUpgrade: 0
+  isGoldStoneGatheringCapacityUpgrade: 0
+  isFoodGatheringSpeedUpgrade: 0
+  isFoodGatheringCapacityUpgrade: 0
+  isTownCenterUpgrade: 0
+  isBarrackAttackUpgrade: 0
+  isBarrackDefenseUpgrade: 0
+  isArtilleryUpgrade: 0
+  woodGatheringSpeedButton: {fileID: 0}
+  woodGatheringCapacityButton: {fileID: 0}
+  goldAndStoneGatheringSpeedButton: {fileID: 0}
+  goldAndStoneGatheringCapacityButton: {fileID: 0}
+  foodGatheringSpeedButton: {fileID: 0}
+  foodGatheringCapacityButton: {fileID: 0}
+  townCenterUpgradeButton: {fileID: 0}
+  barrackUpgradeAttackButton: {fileID: 0}
+  barrackUpgradeDefenseButton: {fileID: 0}
+  artilleryUpgradeButton: {fileID: 0}
+  townCenterUpgradeCheckIcon: {fileID: 0}
+  lumberUpgradeSpeedCheckIcon: {fileID: 0}
+  lumberUpgradeCapacityCheckIcon: {fileID: 0}
+  miningUpgradeSpeedCheckIcon: {fileID: 0}
+  miningUpgradeCapacityCheckIcon: {fileID: 0}
+  windMillUpgradeSpeedCheckIcon: {fileID: 0}
+  windMillUpgradeCapacityCheckIcon: {fileID: 0}
+  barrackUpgradeArmorCheckIcon: {fileID: 0}
+  barrackUpgradeAttackCheckIcon: {fileID: 0}
+  artilleryUpgradeCheckIcon: {fileID: 0}
+  resourcesStatus: {fileID: 0}
+  economicUpgradeDatabase: {fileID: 11400000, guid: 5e873c72fc72f7d4794b379eef1c692b, type: 2}
+  townCenterUpgradeDatabase: {fileID: 11400000, guid: 07c8874babbba834a8fa0529e4487e84, type: 2}
+  barrackUpgradeDatabase: {fileID: 11400000, guid: 55601b08478d18f41b1d46e58db90cf9, type: 2}
+  artilleryShopUpgradeDatabase: {fileID: 11400000, guid: 46b14998dc075a5489041bf95495db11, type: 2}
+  buildingFunctionNotify: {fileID: 0}
