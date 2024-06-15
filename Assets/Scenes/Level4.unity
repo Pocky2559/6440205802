@@ -522,7 +522,7 @@ PrefabInstance:
       objectReference: {fileID: 2090896167}
     - target: {fileID: 7929422366462350937, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: UpgradeGoldStoneGatheringSpeed
+      value: UpgradeFoodGatheringSpeed
       objectReference: {fileID: 0}
     - target: {fileID: 8628683334966948864, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4264,17 +4264,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4092730746449522, guid: 56c471fa60a91ff47aad2dc54e7d196a, type: 3}
   m_PrefabInstance: {fileID: 645496276}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &329688908 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 471376764845935589, guid: 98613193d4c355a479515d549d4f6348, type: 3}
-  m_PrefabInstance: {fileID: 22433469}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &329688910 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7929422366462350937, guid: 98613193d4c355a479515d549d4f6348, type: 3}
   m_PrefabInstance: {fileID: 22433469}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329688908}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -18730,6 +18725,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4296929895643056, guid: 6191d242d97347540a6f4263049bdfed, type: 3}
   m_PrefabInstance: {fileID: 1700448276}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1412169343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 666502716965340532, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1412193217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25963,7 +25963,7 @@ MonoBehaviour:
   lumberUpgradeCapacityCheckIcon: {fileID: 1277708792}
   miningUpgradeSpeedCheckIcon: {fileID: 462515441}
   miningUpgradeCapacityCheckIcon: {fileID: 1801325248}
-  windMillUpgradeSpeedCheckIcon: {fileID: 329688908}
+  windMillUpgradeSpeedCheckIcon: {fileID: 1412169343}
   windMillUpgradeCapacityCheckIcon: {fileID: 1216423572}
   barrackUpgradeArmorCheckIcon: {fileID: 345395625}
   barrackUpgradeAttackCheckIcon: {fileID: 597086515}
