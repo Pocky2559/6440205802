@@ -14,8 +14,6 @@ public class HideSubUI : MonoBehaviour
     private void Awake()
     {
         buttonName = GameObject.FindGameObjectWithTag(buttonName.name);
-        Debug.Log("Awake Running");
-
         if(buttonName != null )  BT = buttonName.GetComponent<Button>();
     }
     public void StartHiding(int signal) // signal = 1 means "clicked"

@@ -25,14 +25,12 @@ public class DetectTrigger : MonoBehaviour
    
     private void OnTriggerExit(Collider other)
     {
-            //Debug.Log(other);
             previewSystem.CanPlaceObjectStatus();      
     }
     private void OnTriggerStay(Collider other)
     {
         if(!other.CompareTag("Detection Area"))
         {
-            Debug.Log(other);
             previewSystem.CannotPlaceObjectStatus();
         }
     }
