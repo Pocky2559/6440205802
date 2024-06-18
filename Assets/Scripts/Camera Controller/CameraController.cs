@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
             cameraCurrentSpeed = speed;
         }
 
-        // Pan camera with mouse //
+        // Pan cameraDemo with mouse //
         //    // Left
         //  if(Input.mousePosition.x > 0 && Input.mousePosition.x < 60) 
         //    {

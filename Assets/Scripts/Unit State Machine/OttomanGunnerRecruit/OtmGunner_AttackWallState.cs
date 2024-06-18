@@ -69,6 +69,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
                     //----------------------------------------------------------------------------------------------------------
 
                     Attack(otmGunner);
+                    otmGunner.firearmsParticle.StartPlayParticle(otmGunner.firePoint.position);
                     lastShotTime = Time.time;
             }
 

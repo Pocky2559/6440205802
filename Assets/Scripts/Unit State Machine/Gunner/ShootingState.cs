@@ -47,7 +47,8 @@ public class ShootingState : GunnerBaseState
                     gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.19500005f, 0.437000006f);
                     gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
                     //
-                    Debug.Log("Cast Ray");
+
+                    gunner.firearmsParticle.StartPlayParticle(gunner.firePoint.transform.position);
                     Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
                     lastShotTime = Time.time;
                     TargetRecieveDamage(gunner, hit);

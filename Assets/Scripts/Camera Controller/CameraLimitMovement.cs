@@ -17,12 +17,12 @@ public class CameraLimitMovement : MonoBehaviour
 
         if(top.bounds.Contains(cameraPosition))
         {
-           mainCamera.transform.position += new Vector3(0,0,-cameraController.cameraCurrentSpeed); //the value should be same as speed of camera
+           mainCamera.transform.position += new Vector3(0,0,-cameraController.cameraCurrentSpeed); //the value should be same as speed of cameraDemo
         }
 
         if(bottom.bounds.Contains(cameraPosition))
         {
-           mainCamera.transform.position += new Vector3(0, 0, cameraController.cameraCurrentSpeed); //the value should be same as speed of camera
+           mainCamera.transform.position += new Vector3(0, 0, cameraController.cameraCurrentSpeed); //the value should be same as speed of cameraDemo
         }
 
         if(left.bounds.Contains(cameraPosition)) 

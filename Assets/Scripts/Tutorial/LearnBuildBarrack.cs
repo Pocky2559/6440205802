@@ -117,14 +117,14 @@ public class LearnBuildBarrack : MonoBehaviour
         if(isPanBack == false) //Start Pan Camera to enemy
         {
             mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.position, cameraEnemyPos, panSpeed * Time.deltaTime);
-            if (Vector3.Distance(mainCamera.transform.position, cameraEnemyPos) < cameraAndTargetDistance) //if reach camera reach enemy
+            if (Vector3.Distance(mainCamera.transform.position, cameraEnemyPos) < cameraAndTargetDistance) //if reach cameraDemo reach enemy
             {
                 StartCoroutine(StartPanCameraBack());
             }
         }
 
 
-        if(isPanBack == true && isStopPanning == false) //pan camera back to town center
+        if(isPanBack == true && isStopPanning == false) //pan cameraDemo back to town center
         {
             mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraOriginPos, panSpeed * Time.deltaTime);
             if (Vector3.Distance(mainCamera.transform.position, cameraOriginPos) < cameraAndTargetDistance) //if reach town center stop panning

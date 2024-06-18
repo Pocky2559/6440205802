@@ -55,7 +55,7 @@ public class ChasingState : GunnerBaseState
                           gunner.rigBuilder.enabled = true;
                         //
 
-                        Debug.Log("Cast Ray");
+                        gunner.firearmsParticle.StartPlayParticle(gunner.firePoint.transform.position);
                         Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
                         lastShotTime = Time.time;
                         TargetRecieveDamage(gunner, hit);

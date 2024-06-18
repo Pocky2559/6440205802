@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 /// <summary>
-/// A simple free camera to be added to a Unity game object.
+/// A simple free cameraDemo to be added to a Unity game object.
 /// 
 /// Keys:
 ///	wasd / arrows	- movement
@@ -20,12 +20,12 @@ using UnityEngine;
 public class FreeCam : MonoBehaviour
 {
     /// <summary>
-    /// Normal speed of camera movement.
+    /// Normal speed of cameraDemo movement.
     /// </summary>
     public float movementSpeed = 10f;
 
     /// <summary>
-    /// Speed of camera movement when shift is held down,
+    /// Speed of cameraDemo movement when shift is held down,
     /// </summary>
     public float fastMovementSpeed = 100f;
 
@@ -35,12 +35,12 @@ public class FreeCam : MonoBehaviour
     public float freeLookSensitivity = 3f;
 
     /// <summary>
-    /// Amount to zoom the camera when using the mouse wheel.
+    /// Amount to zoom the cameraDemo when using the mouse wheel.
     /// </summary>
     public float zoomSensitivity = 10f;
 
     /// <summary>
-    /// Amount to zoom the camera when using the mouse wheel (fast mode).
+    /// Amount to zoom the cameraDemo when using the mouse wheel (fast mode).
     /// </summary>
     public float fastZoomSensitivity = 50f;
 

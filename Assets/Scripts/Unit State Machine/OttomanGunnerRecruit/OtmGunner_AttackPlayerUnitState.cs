@@ -13,7 +13,7 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
-        if(otmGunner.targetPlayerUnitStat.unitHP > 0)
+        if (otmGunner.targetPlayerUnitStat.unitHP > 0 && otmGunner.unitStat.unitHP > 0)
         {
             Vector3 positionToAim = otmGunner.targetPlayerUnit.transform.position;
             positionToAim.y = otmGunner.transform.parent.position.y;
@@ -46,6 +46,7 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
                 {
                     Debug.DrawRay(otmGunner.transform.position, (otmGunner.targetPlayerUnit.transform.position - otmGunner.transform.parent.position).normalized * hit.distance, Color.red, 0.9f);
                     lastShotTime = Time.time;
+                    otmGunner.firearmsParticle.StartPlayParticle(otmGunner.firePoint.position);
                     TargetRecieveDamage(otmGunner, hit);
                 }
             }

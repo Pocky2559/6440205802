@@ -21,6 +21,8 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public RigBuilder rigBuilder;
     public SphereCollider attackRange;
     public float originAttackRange;
+    public FirearmsParticle firearmsParticle;
+    public Transform firePoint;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
@@ -40,6 +42,7 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
         rigBuilder = GetComponentInParent<RigBuilder>();
         attackRange = GetComponent<SphereCollider>();
         originAttackRange = attackRange.radius;
+        firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>();
     }
 
     private void Start()
