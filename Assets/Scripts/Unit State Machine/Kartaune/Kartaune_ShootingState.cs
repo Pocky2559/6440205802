@@ -15,8 +15,6 @@ public class Kartaune_ShootingState : KartauneBaseState
     }
     public override void UpdaterState(KartauneStateController kartaune)
     {
-        Debug.Log(kartaune.transform.parent.rotation.y);
-
        if(kartaune.targetEnemy != null)
        {
           Vector3 positionToAim = kartaune.targetEnemy.transform.position;
@@ -52,6 +50,7 @@ public class Kartaune_ShootingState : KartauneBaseState
             kartaune.cannonballFunc = cannonball.GetComponent<CannonBallFunction>();
             lastShotTime = Time.time;
             kartaune.cannonballFunc.AssignValueOfCannonball(cannonball, kartaune.targetEnemy.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
+            kartaune.firearmsParticle.StartPlayParticle(kartaune.firePoint.position); //Play Particle
         }
     }
 

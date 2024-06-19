@@ -17,6 +17,8 @@ public class OtmCannonStateController : MonoBehaviour
     public HouseList population;
     public UnitStat unitStat;
     public GameObject availableWaypoint;
+    public FirearmsParticle firearmsParticle;
+    public Transform firePoint;
 
     private OtmCannonBaseState currentState;
     public OtmCannon_AttackGateState otmCannon_AttackGateState = new();
@@ -34,6 +36,7 @@ public class OtmCannonStateController : MonoBehaviour
         unitStat = GetComponentInParent<UnitStat>();    
         isCannonReachDestination = false;
         availableWaypoint = null;
+        firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>(); 
     }
     private void Start()
     {

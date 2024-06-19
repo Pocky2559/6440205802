@@ -9,6 +9,12 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
     private bool isCannonballFiring;
     public float speed = 50f;
     public ExplosiveArea explosiveArea;
+    public CannonballExplodeParticle explodeParticle;
+
+    private void Awake()
+    {
+        explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
+    }
 
     public void AssignValueOfCannonball(GameObject ball, Vector3 enemyPosition)
     {   
@@ -38,6 +44,7 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
         {
             explosiveArea.enabled = true;
             Destroy(this.gameObject, 0.1f);
+            explodeParticle.StartPlayParticle(gameObject.transform.position);
         }
         else
         {

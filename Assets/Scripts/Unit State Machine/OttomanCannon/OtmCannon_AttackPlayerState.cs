@@ -20,6 +20,7 @@ public class OtmCannon_AttackPlayerState : OtmCannonBaseState
             positionToAim.y = otmCannon.transform.parent.position.y; //freeze y position
             otmCannon.transform.parent.LookAt(positionToAim);
             Attack(otmCannon);
+            
         }
         #region Switch to CaptureGround State
         else
@@ -57,6 +58,7 @@ public class OtmCannon_AttackPlayerState : OtmCannonBaseState
             otmCannon.cannonballFunc = cannonball.GetComponent<CannonBallEnemyFunc>();
             lastShotTime = Time.time;
             otmCannon.cannonballFunc.AssignValueOfCannonball(cannonball, otmCannon.targetPlayerUnit.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
+            otmCannon.firearmsParticle.StartPlayParticle(otmCannon.firePoint.position); //play particle
         }
     }
     public override void ExitState(OtmCannonStateController otmCannon)

@@ -436,6 +436,8 @@ MonoBehaviour:
   population: {fileID: 0}
   unitStat: {fileID: 0}
   availableWaypoint: {fileID: 0}
+  firearmsParticle: {fileID: 0}
+  firePoint: {fileID: 1282938690108573337}
 --- !u!1 &4309386911284301820
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +801,7 @@ Transform:
   - {fileID: 8991182376263025521}
   - {fileID: 1826760035596580021}
   - {fileID: 3512209543141841515}
+  - {fileID: 1282938690108573337}
   m_Father: {fileID: 1848447233359777318}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1266,3 +1269,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!1 &8825630158902189451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282938690108573337}
+  m_Layer: 9
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1282938690108573337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8825630158902189451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.106, y: 0.66, z: 1.295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5467585759292284119}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

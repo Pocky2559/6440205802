@@ -4196,6 +4196,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleController
       objectReference: {fileID: 0}
+    - target: {fileID: 9149643387932934281, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+      propertyPath: explodeParticle
+      value: 
+      objectReference: {fileID: 501710322}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
 --- !u!4 &281378594 stripped
@@ -6742,6 +6746,11 @@ MeshFilter:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8976625426782068340, guid: 708d3539960ba6e49b5f2c81ed4ef7f2, type: 3}
   m_PrefabInstance: {fileID: 1961033451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &501710322 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8550268340050148929, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+  m_PrefabInstance: {fileID: 273386823}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &503353420 stripped
 Transform:

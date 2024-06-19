@@ -12,6 +12,9 @@ public class KartauneStateController : MonoBehaviour
     public HouseList population;
     public UnitStat unitStat;
     public BuildCannonOnWall buildCannonOnWall;
+    public FirearmsParticle firearmsParticle;
+    public Transform firePoint;
+
     KartauneBaseState currentState;
     public Kartaune_IdelState kartaune_IdelState = new();
     public Kartaune_ShootingState kartaune_ShootingState = new();
@@ -20,6 +23,7 @@ public class KartauneStateController : MonoBehaviour
     {
         unitStat = GetComponentInParent<UnitStat>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
+        firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>(); 
     }
 
     private void Start()

@@ -9,6 +9,12 @@ public class CannonBallEnemyFunc : MonoBehaviour
     private bool isCannonballFiring;
     public float speed = 50f;
     public ExplosiveAreaEnemyCannonball explosiveArea;
+    public CannonballExplodeParticle explodeParticle;
+
+    private void Awake()
+    {
+        explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
+    }
 
     public void AssignValueOfCannonball(GameObject ball, Vector3 playerUnitPosition)
     {
@@ -44,6 +50,8 @@ public class CannonBallEnemyFunc : MonoBehaviour
         {
             explosiveArea.enabled = true;
             Destroy(this.gameObject, 0.1f);
+            explodeParticle.StartPlayParticle(gameObject.transform.position);
+            
         }
         else
         {
