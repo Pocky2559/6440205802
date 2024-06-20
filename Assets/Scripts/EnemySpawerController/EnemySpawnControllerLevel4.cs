@@ -34,6 +34,9 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
     public bool IsWaveBegin;
     public bool isExtraWaveBegin;
 
+    public GateWallExplode explodeParticle;
+    public Transform explodePoint;
+
     private void Awake()
     {
         //timeInWave = 300; //time before first wave
@@ -41,6 +44,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
         maximumWave = 7;
         IsSubWaveFinised = false;
         IsWaveBegin = false;
+        explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<GateWallExplode>();
     }
 
     private void Update()
@@ -526,7 +530,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
         {
             // Destroy Old Medieval Wall
             Destroy(oldMedievalWall);
-
+            explodeParticle.StartPlayParticle(explodePoint.position);
 
             // Spawn Enemy
             // Melee Janissary x4

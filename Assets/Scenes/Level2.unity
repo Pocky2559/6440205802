@@ -16139,6 +16139,11 @@ Transform:
   m_Father: {fileID: 790267436}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1180045406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5502266318045066740, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 1891095841}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1182193457
 GameObject:
   m_ObjectHideFlags: 0
@@ -16171,7 +16176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1963085512}
   loadingSlider: {fileID: 1963085510}
-  menuPanel: {fileID: 0}
+  menuPanel: {fileID: 1180045406}
 --- !u!4 &1182193459
 Transform:
   m_ObjectHideFlags: 0
@@ -25793,6 +25798,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GetIndexFromButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1182193458}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level2
+      objectReference: {fileID: 0}
     - target: {fileID: 5502266317272684950, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -25876,6 +25893,14 @@ PrefabInstance:
     - target: {fileID: 5502266318431797833, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502266318449437779, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1182193458}
+    - target: {fileID: 5502266318449437779, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 6503871102462053236, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_IsActive

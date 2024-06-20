@@ -356,6 +356,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1646757550}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502266317164467428, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level4
+      objectReference: {fileID: 0}
     - target: {fileID: 5502266317254979503, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -491,6 +503,14 @@ PrefabInstance:
     - target: {fileID: 5502266318431797833, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502266318449437779, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1646757550}
+    - target: {fileID: 5502266318449437779, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 7270406498254015203, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4792,6 +4812,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7761883997490590100, guid: cd849b3f7e339a746ae48cf8c3323828, type: 3}
   m_PrefabInstance: {fileID: 1301157122}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &374102107 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5502266318076293133, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &375851543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5268,6 +5293,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e334e6614ad50f749b0a37528784c614, type: 3}
+--- !u!1 &436904409 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5502266318045066740, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &440870160 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4463400019329302, guid: 83561575068bf2042a4f289885d89d2f, type: 3}
@@ -7900,6 +7930,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83561575068bf2042a4f289885d89d2f, type: 3}
+--- !u!1 &612240066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5502266317963070215, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &615584968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438175086517994562, guid: 8e0c85a49c0a4b041ab6dd242ddbdea2, type: 3}
@@ -8835,8 +8870,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy: {fileID: 712562695}
   enemyCapturePoint: {fileID: 453168591}
-  LostUI: {fileID: 0}
-  WinUI: {fileID: 0}
+  LostUI: {fileID: 374102107}
+  WinUI: {fileID: 612240066}
   palisadeDoor: {fileID: 1093584179}
 --- !u!1001 &687974266
 PrefabInstance:
@@ -9155,6 +9190,8 @@ MonoBehaviour:
   globalWaveTime: 0
   IsWaveBegin: 0
   isExtraWaveBegin: 0
+  explodeParticle: {fileID: 0}
+  explodePoint: {fileID: 1457382514}
 --- !u!1 &718709747
 GameObject:
   m_ObjectHideFlags: 0
@@ -9186,6 +9223,7 @@ Transform:
   - {fileID: 948693430}
   - {fileID: 1935711779}
   - {fileID: 152527756}
+  - {fileID: 1457382514}
   m_Father: {fileID: 2070143948}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18780,6 +18818,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleController
       objectReference: {fileID: 0}
+    - target: {fileID: 9149643387932934281, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+      propertyPath: explodeParticle
+      value: 
+      objectReference: {fileID: 1535654843}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
 --- !u!1 &1412169343 stripped
@@ -19229,6 +19271,37 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64cd66e3d91f41746892c3d07e49fc13, type: 3}
+--- !u!1 &1457382513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1457382514}
+  m_Layer: 0
+  m_Name: ExplodePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1457382514
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457382513}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 27.73, y: 51.3, z: -16.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 718709748}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1457439247
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20105,6 +20178,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534452283}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1535654843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8550268340050148929, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+  m_PrefabInstance: {fileID: 1407810297}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1536519087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7992715529498157145, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
@@ -21405,7 +21483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1286404113}
   loadingSlider: {fileID: 1286404111}
-  menuPanel: {fileID: 0}
+  menuPanel: {fileID: 436904409}
 --- !u!4 &1646757551
 Transform:
   m_ObjectHideFlags: 0
