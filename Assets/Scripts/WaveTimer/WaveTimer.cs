@@ -9,6 +9,7 @@ public class WaveTimer : MonoBehaviour
     public TMP_Text waveNumber;
     public float remainingTime;
     public EnemySpawnController enemySpawnController;
+    public ChangeMusicToDuringWave changeMusicToDuringWave;
 
     private void Start()
     {
@@ -31,6 +32,9 @@ public class WaveTimer : MonoBehaviour
             remainingTime = 0;
             timeText.text = string.Format("{0:00}:{1:00}", "00", "00");
             enemySpawnController.IsWaveBegin = true;
+            changeMusicToDuringWave.TransitionMusicToDuringWave();
         }
+
+        
     }
 }
