@@ -9,7 +9,7 @@ public class WaveTimer : MonoBehaviour
     public TMP_Text waveNumber;
     public float remainingTime;
     public EnemySpawnController enemySpawnController;
-    public ChangeMusicToDuringWave changeMusicToDuringWave;
+    public ChangeMusic changeMusicToDuringWave;
 
     private void Start()
     {
@@ -27,14 +27,12 @@ public class WaveTimer : MonoBehaviour
             waveNumber.text = string.Format("{0}/{1}", enemySpawnController.waveNumber, enemySpawnController.maximumWave);
         }
 
-        else if (enemySpawnController.timeInWave < 0)
+        else if (enemySpawnController.timeInWave <= 0 && enemySpawnController.IsWaveBegin == false)
         {
             remainingTime = 0;
             timeText.text = string.Format("{0:00}:{1:00}", "00", "00");
             enemySpawnController.IsWaveBegin = true;
             changeMusicToDuringWave.TransitionMusicToDuringWave();
         }
-
-        
     }
 }

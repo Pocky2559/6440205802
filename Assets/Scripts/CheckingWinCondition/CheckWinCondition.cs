@@ -11,6 +11,7 @@ public class CheckWinCondition : MonoBehaviour //For Level 1
     private bool isLose;
     [SerializeField] private SaveGame saveGame;
     private bool isGameSave;
+    [SerializeField] private ChangeMusic changeMusic;
 
     private void Awake()
     {
@@ -27,18 +28,21 @@ public class CheckWinCondition : MonoBehaviour //For Level 1
                 && isLose == false) // check if there is no any enemy in the game alive so player win the game
             {
                 WinUI.SetActive(true);
+               
 
                 if(isGameSave == false)
                 {
-                    saveGame.SaveLevel1();
+                    saveGame.SaveLevel1(); 
+                    changeMusic.TransitionMusicToVictoryTheme();
                     isGameSave = true;
                 }
             }
         }
 
-        if (enemyCapturePoint.remainingTime <= 0)
+        if (enemyCapturePoint.remainingTime <= 0 && isLose == false)
         {
             LostUI.SetActive(true);
+            changeMusic.TransitionMusicToLoseTheme();
             isLose = true;
         }
 
