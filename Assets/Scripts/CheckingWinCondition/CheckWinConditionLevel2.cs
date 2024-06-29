@@ -11,6 +11,7 @@ public class CheckWinConditionLevel2 : MonoBehaviour
     private bool isLose;
     [SerializeField] private SaveGame saveGame;
     private bool isGameSave;
+    [SerializeField] private ChangeMusic changeMusic;
 
     private void Awake()
     {
@@ -32,14 +33,17 @@ public class CheckWinConditionLevel2 : MonoBehaviour
                 {
                     saveGame.SaveLevel2();
                     isGameSave = true;
+                    changeMusic.TransitionMusicToVictoryTheme();
                 }
             }
         }
 
-        if (enemyCapturePoint.remainingTime <= 0)
+        if (enemyCapturePoint.remainingTime <= 0 && isLose == false)
         {
             LostUI.SetActive(true);
+            changeMusic.TransitionMusicToLoseTheme();
             isLose = true;
+            
         }
     }
 }

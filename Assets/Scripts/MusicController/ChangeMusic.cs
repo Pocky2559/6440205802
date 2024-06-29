@@ -23,7 +23,7 @@ public class ChangeMusic : MonoBehaviour
     {
         if(isPreWaveMusicStartFade == true && duringWaveMusic.volume <= 0.07)
         {
-            preWaveMusic.volume -= fadeSpeed1 * Time.deltaTime;
+            preWaveMusic.volume -= (fadeSpeed1 + 0.1f) * Time.deltaTime;
             duringWaveMusic.volume += fadeSpeed1 * Time.deltaTime;
         }
 

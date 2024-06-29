@@ -10,6 +10,7 @@ public class CheckWinConditionLevel4 : MonoBehaviour
     public GameObject WinUI;
     public GameObject palisadeDoor;
     private bool isLose;
+    [SerializeField] private ChangeMusic changeMusic;
 
     private void Awake()
     {
@@ -46,12 +47,15 @@ public class CheckWinConditionLevel4 : MonoBehaviour
                 && isLose == false) //if can eliminate all enemy in extra wave
             {
                 WinUI.SetActive(true);
+                changeMusic.TransitionMusicToVictoryTheme();
+                isLose = true;
             }
         }
         
-        if (enemyCapturePoint.remainingTime <= 0)
+        if (enemyCapturePoint.remainingTime <= 0 && isLose == false)
         {
             LostUI.SetActive(true);
+            changeMusic.TransitionMusicToLoseTheme();
             isLose = true;
         }
     }
