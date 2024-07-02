@@ -22,6 +22,7 @@ public class LandsknetchStateController : MonoBehaviour // Attach this to the De
     public CapsuleCollider landskCollider;
     public GameObject neutralSword;
     public GameObject attackedSword;
+    public SoundEffectController soundEffectController;
 
     public Landsk_Idel land_IdelState = new();
     public Landsk_Moving land_MovingState = new();

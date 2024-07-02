@@ -37,6 +37,9 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
                 otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 177.078262f, 359.583221f); //Rotation
                 //----------------------------------------------------------------------------------------------------------
 
+                // PLay GunFire Sound
+                otmGunner.soundEffectController.PlayGunFireSound();
+
                 RaycastHit hit;
                 if (Physics.Raycast(otmGunner.transform.position,
                     (otmGunner.targetPlayerUnit.transform.position - otmGunner.transform.parent.position).normalized,

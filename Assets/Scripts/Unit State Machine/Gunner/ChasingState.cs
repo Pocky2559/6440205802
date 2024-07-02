@@ -55,6 +55,9 @@ public class ChasingState : GunnerBaseState
                           gunner.rigBuilder.enabled = true;
                         //
 
+                        // Play GunFire Sound
+                        gunner.soundEffectController.PlayGunFireSound();
+
                         gunner.firearmsParticle.StartPlayParticle(gunner.firePoint.transform.position);
                         Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
                         lastShotTime = Time.time;

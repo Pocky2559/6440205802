@@ -12,6 +12,8 @@ public class SoundEffectDatabase : ScriptableObject
     public AudioClip gatheringSound;
     public AudioClip playerSwordHitSound;
     public AudioClip enemySwordHitSound;
+    public AudioClip cannonFireSound;
+    public AudioClip cannonballExplodeSound;
     public AudioClip storingSound;
     public AudioClip walkSound;
     

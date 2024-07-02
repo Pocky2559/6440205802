@@ -66,7 +66,9 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
                     //=============
                     otmGunner.Gun.transform.localPosition = new Vector3(0.31400001f, 1.41400003f, 0.160999998f); //Position
                     otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 177.078262f, 359.583221f); //Rotation
-                    //----------------------------------------------------------------------------------------------------------
+
+                    // PLay GunFire Sound
+                    otmGunner.soundEffectController.PlayGunFireSound();
 
                     Attack(otmGunner);
                     otmGunner.firearmsParticle.StartPlayParticle(otmGunner.firePoint.position);

@@ -44,10 +44,16 @@ public class Landsk_Chasing : LandsknetchBaseState
                         landsknetch.landskAnimatorControlller.SetTrigger("Attack");
                         //-----------------------------------
 
+                        //Play PlayerSwordHit Sound
+                        landsknetch.soundEffectController.PlayPlayerSwordHitSound();
+                        
+
                         Debug.DrawRay(landsknetch.transform.position, (landsknetch.targetEnemy.transform.position - landsknetch.transform.parent.position).normalized * hit.distance, Color.green, 0.9f);
                         lastShotTime = Time.time;
 
                         TargetRecieveDamage(landsknetch, hit);
+                        //Play PlayerSwordHit Sound
+                        landsknetch.soundEffectController.PlayPlayerSwordHitSound();
                     }
                 }
                 #endregion

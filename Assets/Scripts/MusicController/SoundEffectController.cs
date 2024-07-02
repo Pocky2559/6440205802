@@ -19,4 +19,10 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.Play();
     }
 
+    public void PlayPlayerSwordHitSound()
+    {
+        soundEffect.clip = soundEffectDatabase.playerSwordHitSound; 
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }

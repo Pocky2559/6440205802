@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunFireSound: {fileID: 8300000, guid: 713f071c0a622ea428650b0ca694aa31, type: 3}
   gatheringSound: {fileID: 0}
-  playerSwordHitSound: {fileID: 0}
+  playerSwordHitSound: {fileID: 8300000, guid: 556dc2212d61fbb42ab3fc0d8bee3349, type: 3}
   enemySwordHitSound: {fileID: 0}
+  cannonFireSound: {fileID: 0}
+  cannonballExplodeSound: {fileID: 0}
   storingSound: {fileID: 0}
   walkSound: {fileID: 0}
   unitDieSound: {fileID: 0}
@@ -29,3 +31,4 @@ MonoBehaviour:
   gateOpenSound: {fileID: 0}
   gateCloseSound: {fileID: 0}
   hornSound: {fileID: 0}
+  commandSound: {fileID: 0}

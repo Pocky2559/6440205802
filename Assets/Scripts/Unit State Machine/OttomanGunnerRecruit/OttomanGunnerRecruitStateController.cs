@@ -23,6 +23,7 @@ public class OttomanGunnerRecruitStateController : MonoBehaviour
     public float originAttackRange;
     public FirearmsParticle firearmsParticle;
     public Transform firePoint;
+    public SoundEffectController soundEffectController;
 
     OttomanGunnerRecruitBaseState currentState;
     public OtmGunner_AttackWallState otmGunner_AttackWallState = new();
