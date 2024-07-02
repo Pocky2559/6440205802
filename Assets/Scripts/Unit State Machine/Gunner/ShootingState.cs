@@ -48,6 +48,9 @@ public class ShootingState : GunnerBaseState
                     gunner.Gun.transform.localRotation = Quaternion.Euler(357.268799f, 186.659225f, 359.583252f);
                     //
 
+                    //Play Gun fire sound
+                    gunner.soundEffectController.PlayGunFireSound();
+
                     gunner.firearmsParticle.StartPlayParticle(gunner.firePoint.transform.position);
                     Debug.DrawRay(gunner.Gun.transform.position, (gunner.selectedEnemy.transform.position - gunner.transform.parent.position).normalized * hit.distance, Color.red, 0.2f);
                     lastShotTime = Time.time;

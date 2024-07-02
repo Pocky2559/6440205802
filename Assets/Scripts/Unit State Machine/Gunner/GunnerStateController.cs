@@ -27,6 +27,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
     public CapsuleCollider gunnerCollider;
     public FirearmsParticle firearmsParticle;
     public GameObject firePoint;
+    public SoundEffectController soundEffectController;
 
     GunnerBaseState currentState;
     public IdelState idelState = new();
@@ -49,7 +50,7 @@ public class GunnerStateController : MonoBehaviour //attach this script to the D
         attackRange = GetComponent<SphereCollider>();
         gunnerCollider = GetComponentInParent<CapsuleCollider>();
         firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>();
-
+       
         //Find the root game object (because this script attach the child)
         rootGameObject = transform.root.gameObject;
     }
