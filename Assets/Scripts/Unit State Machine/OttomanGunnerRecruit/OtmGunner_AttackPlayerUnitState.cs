@@ -6,6 +6,7 @@ using UnityEngine;
 public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
 {
     float lastShotTime = 0.0f;
+    bool isDead;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
         otmGunner.otmGunnerAgent.isStopped = true;
@@ -71,8 +72,10 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
         }
 
         #region Switch to ExitState
-        if (otmGunner.unitStat.unitHP <= 0)
+        if (otmGunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmGunner.soundEffectController.PlayUnitDiedSound();
             ExitState(otmGunner);
         }
         #endregion

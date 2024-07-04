@@ -16,6 +16,7 @@ public class OttomanRecruitStateController : MonoBehaviour
     public GameObject rootGameObject;
     public CapturePointByEnemy capturePointByEnemy;
     public Animator otmRecruitAnimatorController;
+    public SoundEffectController soundEffectController;
 
     OttomanRecruitBaseState currentState;
     public OtmRecruit_AttackWallState otmRecruit_AttackWallState = new();

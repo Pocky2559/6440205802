@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class IdelState : GunnerBaseState
 {
+    bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
           gunner.Gunner.isStopped = false;
@@ -16,6 +17,9 @@ public class IdelState : GunnerBaseState
         gunner.rigBuilder.enabled = true;
         //gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", false);
         //
+
+        //Stop all sound 
+        gunner.soundEffectController.StopPlaySound();
     }
 
     public override void UpdateState(GunnerStateController gunner)
@@ -57,8 +61,10 @@ public class IdelState : GunnerBaseState
         #endregion
 
         #region Switch to ExitState
-        if(gunner.unitStat.unitHP <= 0)
+        if(gunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            gunner.soundEffectController.PlayUnitDiedSound();//Play UnitDied Sound
             ExitState(gunner);
         }
         #endregion

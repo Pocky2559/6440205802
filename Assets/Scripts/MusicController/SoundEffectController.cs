@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundEffectController : MonoBehaviour
 {
-    [SerializeField] private AudioSource soundEffect;
-    [SerializeField] private SoundEffectDatabase soundEffectDatabase;
+    public AudioSource soundEffect;
+    public SoundEffectDatabase soundEffectDatabase;
 
     public void StopPlaySound()
     {
@@ -21,7 +21,21 @@ public class SoundEffectController : MonoBehaviour
 
     public void PlayPlayerSwordHitSound()
     {
-        soundEffect.clip = soundEffectDatabase.playerSwordHitSound; 
+        soundEffect.clip = soundEffectDatabase.SwordHitSound; 
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
+
+    public void PlayWalkingSound()
+    {
+        soundEffect.clip = soundEffectDatabase.walkSound;
+        soundEffect.loop = true;
+        soundEffect.Play();
+    }
+
+    public void PlayUnitDiedSound()
+    {
+        soundEffect.clip = soundEffectDatabase.unitDieSound;
         soundEffect.loop = false;
         soundEffect.Play();
     }

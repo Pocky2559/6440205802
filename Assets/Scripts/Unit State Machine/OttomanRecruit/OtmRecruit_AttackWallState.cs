@@ -9,6 +9,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
 {
     private float lastShotTime = 0.0f;
     float distanceOfEnemyAndWall;
+    bool isDead;
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
 
@@ -58,7 +59,21 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
                 if (Time.time > lastShotTime + otmRecruit.unitStat.unitAttackSpeed)
                 {
                     Attack(otmRecruit);
+
+                    //Play SwordHit Sound
+                    otmRecruit.soundEffectController.PlayPlayerSwordHitSound();
+
                     lastShotTime = Time.time;
+                }
+            }
+
+            else
+            {
+                //Play SwordHit Sound
+                // check Is AudioSource is playing walk sound to prevent it replay and cannot hearable
+                if (otmRecruit.soundEffectController.soundEffect.clip != otmRecruit.soundEffectController.soundEffectDatabase.walkSound)
+                {
+                    otmRecruit.soundEffectController.PlayWalkingSound();
                 }
             }
         }
@@ -74,8 +89,10 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
         }
 
         #region Switch to ExitState
-        if(otmRecruit.unitStat.unitHP <= 0)
+        if(otmRecruit.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmRecruit.soundEffectController.PlayUnitDiedSound(); //Play UnitDie Sound
             ExitState(otmRecruit);
         }
         #endregion

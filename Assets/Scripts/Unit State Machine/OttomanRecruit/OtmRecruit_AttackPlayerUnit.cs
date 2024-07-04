@@ -8,6 +8,8 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
 {
     float lastShotTime = 0.0f;
     float distanceOfOttomanRecruitAndTargetPlayerUnit;
+    bool isDead;
+
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
         otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.targetPlayerUnit.transform.position);
@@ -41,7 +43,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                     {
                         Debug.DrawRay(otmRecruit.transform.position, otmRecruit.transform.forward * hit.distance, Color.red, 2);
                         lastShotTime = Time.time;
-
+                        otmRecruit.soundEffectController.PlayPlayerSwordHitSound(); // Play SwordHit Sound
                         TargetRecieveDamage(otmRecruit, hit);
                     }
                 }
@@ -56,6 +58,11 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
                 otmRecruit.otmRecruitAnimatorController.SetTrigger("Walk");
                 otmRecruit.otmRecruitAnimatorController.SetBool("Attack", false);
                 //-----------------------------------
+
+                if (otmRecruit.soundEffectController.soundEffect.clip != otmRecruit.soundEffectController.soundEffectDatabase.walkSound)
+                {
+                    otmRecruit.soundEffectController.PlayWalkingSound();//Play Walking Sound
+                }
 
                 otmRecruit.otmRecruitAgent.isStopped = false;
                 otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.targetPlayerUnit.transform.position);
@@ -79,8 +86,10 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         #endregion
 
         #region Switch to ExitState
-        if (otmRecruit.unitStat.unitHP <= 0)
+        if (otmRecruit.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmRecruit.soundEffectController.PlayUnitDiedSound(); //Play UnitDie Sound
             ExitState(otmRecruit);
         }
         #endregion

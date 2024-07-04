@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
 {
+    bool isDead;
     public override void EnterState(OttomanRecruitStateController otmRecruit)
     {
         //===================================
@@ -27,13 +28,17 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
             //-----------------------------------
         }
 
+        otmRecruit.soundEffectController.StopPlaySound();//Stop Play Sound
+
     }
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
         #region Switch to ExitState
-        if (otmRecruit.unitStat.unitHP <= 0)
+        if (otmRecruit.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmRecruit.soundEffectController.PlayUnitDiedSound(); //Play UnitDie Sound
             ExitState(otmRecruit);
         }
         #endregion

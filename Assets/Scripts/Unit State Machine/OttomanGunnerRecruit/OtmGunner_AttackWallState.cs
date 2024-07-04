@@ -7,6 +7,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 {
     float lastShotTime = 0.0f;
     float distanceOfEnemyAndWall;
+    bool isDead;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
         otmGunner.attackRange.radius = otmGunner.originAttackRange;
@@ -36,6 +37,8 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
             otmGunner.attackRange.radius = otmGunner.originAttackRange;
         }
+
+        otmGunner.soundEffectController.StopPlaySound();//Stop all sound
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
@@ -93,6 +96,13 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
                 otmGunner.otmGunnerAnimatorController.SetTrigger("Walk");
                 //-------------------------------------------------------
 
+                //Play Walking Sound
+                // Check before playing if AudioSource is playing walksound it will not play again
+                if(otmGunner.soundEffectController.soundEffect.clip != otmGunner.soundEffectController.soundEffectDatabase.walkSound)
+                {
+                    otmGunner.soundEffectController.PlayWalkingSound();
+                }
+
                 otmGunner.otmGunnerAgent.isStopped = false;
                 otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
             }
@@ -105,8 +115,10 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         }
 
         #region Switch to ExitState
-        if (otmGunner.unitStat.unitHP <= 0)
+        if (otmGunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmGunner.soundEffectController.PlayUnitDiedSound();
             ExitState(otmGunner);
         }
         #endregion

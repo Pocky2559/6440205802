@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MovingState : GunnerBaseState
 {
+    bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
         gunner.Gunner.isStopped = false;
@@ -14,14 +15,15 @@ public class MovingState : GunnerBaseState
         gunner.rigBuilder.enabled = true;
         //gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", false);
 
+        //Play Walking Sound
+        gunner.soundEffectController.PlayWalkingSound();
+
             //Normal Holding Gun
             //gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
             //gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
     }
     public override void UpdateState(GunnerStateController gunner)
     {
-        Debug.Log("Gunner is moving");
-        
         #region Moving Logic & Chasing State
         if (gunner.unitSelection.unitSelected.Contains(gunner.rootGameObject) && Input.GetMouseButtonDown(1))
         {
@@ -56,14 +58,17 @@ public class MovingState : GunnerBaseState
         {
             if (Mathf.RoundToInt(gunner.Gunner.remainingDistance) == 0)
             {
+                //Stop Playing Sound
                 gunner.SwitchState(gunner.idelState); // Switch to moving state
             }
         }
         #endregion
 
         #region Switch to ExitState
-        if (gunner.unitStat.unitHP <= 0)
+        if (gunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            gunner.soundEffectController.PlayUnitDiedSound();// Play UnitDie Sound
             ExitState(gunner);
         }
         #endregion

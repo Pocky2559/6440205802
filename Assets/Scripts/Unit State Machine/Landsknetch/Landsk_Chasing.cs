@@ -6,6 +6,7 @@ using UnityEngine.Analytics;
 public class Landsk_Chasing : LandsknetchBaseState
 {
     private float lastShotTime = 0.0f;
+    bool isDead;
     public override void EnterState(LandsknetchStateController landsknetch)
     {
         landsknetch.landsknetchAgent.isStopped = false;
@@ -68,6 +69,13 @@ public class Landsk_Chasing : LandsknetchBaseState
                 landsknetch.landskAnimatorControlller.SetTrigger("Walk");
                 //-----------------------------------
 
+                //Play Walking Sound 
+                //Check before playing if AudioSource is playing walksound it will not play it again 
+                if(landsknetch.soundEffectController.soundEffect.clip != landsknetch.soundEffectController.soundEffectDatabase.walkSound)
+                {
+                    landsknetch.soundEffectController.PlayWalkingSound();//Play Walking Sound
+                }
+
                 landsknetch.landsknetchAgent.isStopped = false;
                 landsknetch.landsknetchAgent.SetDestination(landsknetch.targetEnemy.transform.position);
             }
@@ -129,8 +137,10 @@ public class Landsk_Chasing : LandsknetchBaseState
         #endregion
 
         #region Switch to ExitState
-        if (landsknetch.unitStat.unitHP <= 0)
+        if (landsknetch.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            landsknetch.soundEffectController.PlayUnitDiedSound(); //PLay UnitDie Sound
             ExitState(landsknetch);
         }
         #endregion

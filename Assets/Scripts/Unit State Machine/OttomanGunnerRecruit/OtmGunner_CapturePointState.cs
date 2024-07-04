@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
 {
+    bool isDead;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
         //=============================
@@ -27,8 +28,10 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
         #region Switch to ExitState
-        if (otmGunner.unitStat.unitHP <= 0)
+        if (otmGunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            otmGunner.soundEffectController.PlayUnitDiedSound(); //Play UnitDie Sound
             ExitState(otmGunner);
         }
         #endregion

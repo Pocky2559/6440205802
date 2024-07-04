@@ -10,8 +10,7 @@ public class SoundEffectDatabase : ScriptableObject
     [Header("NPC Sound Effects")]
     public AudioClip gunFireSound;
     public AudioClip gatheringSound;
-    public AudioClip playerSwordHitSound;
-    public AudioClip enemySwordHitSound;
+    public AudioClip SwordHitSound;
     public AudioClip cannonFireSound;
     public AudioClip cannonballExplodeSound;
     public AudioClip storingSound;

@@ -7,6 +7,7 @@ public class ShootingState : GunnerBaseState
 {
     float lastShotTime = 0.0f;
     AnimatorStateInfo stateInfo;
+    bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
         //Play animation Gunner_Shoot
@@ -121,8 +122,10 @@ public class ShootingState : GunnerBaseState
         #endregion
 
         #region Switch to ExitState
-        if (gunner.unitStat.unitHP <= 0)
+        if (gunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            gunner.soundEffectController.PlayUnitDiedSound();// Play UnitDie Sound
             ExitState(gunner);
         }
         #endregion

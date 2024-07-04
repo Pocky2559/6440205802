@@ -5,16 +5,17 @@ using UnityEngine.Analytics;
 
 public class Landsk_Moving : LandsknetchBaseState
 {
+    bool isDead;
     public override void EnterState(LandsknetchStateController landsknetch)
     {
         landsknetch.landsknetchAgent.isStopped = false;
         landsknetch.neutralSword.SetActive(true);
         landsknetch.attackedSword.SetActive(false);
+        landsknetch.soundEffectController.PlayWalkingSound();//Play Walking Sound
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
     {
-        Debug.Log("Land : Moving");
         #region Switch to Idel State
         if ( landsknetch.landsknetchAgent.pathPending == false) // if Unity finish calculating the path
         {
@@ -55,8 +56,10 @@ public class Landsk_Moving : LandsknetchBaseState
         #endregion
 
         #region Switch to ExitState
-        if (landsknetch.unitStat.unitHP <= 0)
+        if (landsknetch.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            landsknetch.soundEffectController.PlayUnitDiedSound(); // PLay UnitDie Sound
             ExitState(landsknetch);
         }
         #endregion

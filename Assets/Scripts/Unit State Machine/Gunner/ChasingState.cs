@@ -7,6 +7,7 @@ public class ChasingState : GunnerBaseState
 {
     float lastShotTime = 0.0f;
     float distanceOfGunnerAndTargetEnemy;
+    bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
         //Play Animation Gunner_Walking
@@ -91,6 +92,14 @@ public class ChasingState : GunnerBaseState
                 gunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
                 gunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
                 //
+
+                //Play Walking Sound
+                // check if AudioSource is playing walksound, it will not play it again
+                if (gunner.soundEffectController.soundEffect.clip != gunner.soundEffectController.soundEffectDatabase.walkSound)
+                {
+                    gunner.soundEffectController.PlayWalkingSound();//Play Walking Sound
+                }
+                
                 gunner.Gunner.isStopped = false;
                 gunner.Gunner.SetDestination(gunner.selectedEnemy.transform.position);
             }
@@ -143,8 +152,10 @@ public class ChasingState : GunnerBaseState
         #endregion
 
         #region Switch to ExitState
-        if (gunner.unitStat.unitHP <= 0)
+        if (gunner.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            gunner.soundEffectController.PlayUnitDiedSound();//PLay UnitDie Sound
             ExitState(gunner);
         }
         #endregion

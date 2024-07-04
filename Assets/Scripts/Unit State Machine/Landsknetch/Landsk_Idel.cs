@@ -5,17 +5,18 @@ using UnityEngine.Analytics;
 
 public class Landsk_Idel : LandsknetchBaseState
 {
+    bool isDead;
     public override void EnterState(LandsknetchStateController landsknetch)
     {
         
         landsknetch.landsknetchAgent.isStopped = false;
         landsknetch.neutralSword.SetActive(true);
         landsknetch.attackedSword.SetActive(false);
+        landsknetch.soundEffectController.StopPlaySound();//Stop All Sound
     }
 
     public override void UpdaterState(LandsknetchStateController landsknetch)
     {
-        Debug.Log("Land : Idle");
         #region Switch to Moving State
         if (landsknetch.unitSelection.unitSelected.Contains(landsknetch.rootGameObject) && Input.GetMouseButtonDown(1))
         {
@@ -51,8 +52,10 @@ public class Landsk_Idel : LandsknetchBaseState
         #endregion
 
         #region Switch to ExitState
-        if (landsknetch.unitStat.unitHP <= 0)
+        if (landsknetch.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
+            landsknetch.soundEffectController.PlayUnitDiedSound(); //Play UnitDie SOund
             ExitState(landsknetch);
         }
         #endregion
