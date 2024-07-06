@@ -8,7 +8,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float speed;
     public float cameraCurrentSpeed;
     void Start()
-    {  
+    {
+        
     }
     // Update is called once per frame
     void Update()
