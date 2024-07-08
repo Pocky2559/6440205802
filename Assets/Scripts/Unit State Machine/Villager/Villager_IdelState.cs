@@ -4,10 +4,15 @@ using static UnityEngine.UI.Image;
 
 public class Villager_IdelState : VillagerBaseState
 {
+    bool isDead;
+
     public override void EnterState(VillagerStateController villager)
     {
         // Enter IdelState
         villager.Villager.enabled = true;
+
+        //Stop All Sound
+        villager.soundEffectController.StopPlaySound();
 
         if(villager.gatheringAmount > 0 ) //if villager carrying a resource
         {
@@ -119,8 +124,9 @@ public class Villager_IdelState : VillagerBaseState
         }
 
         #region Switch to Exit State
-        if (villager.unitStat.unitHP <= 0)
+        if (villager.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
             ExitState(villager);
         }
         #endregion
@@ -133,6 +139,9 @@ public class Villager_IdelState : VillagerBaseState
         villager.basket.SetActive(false);
         villager.rigBuilder.enabled = false;
         //
+
+        //Play UnitDie Sound
+        villager.soundEffectController.PlayUnitDiedSound();
 
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
         villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit

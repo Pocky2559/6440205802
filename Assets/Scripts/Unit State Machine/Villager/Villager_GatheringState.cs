@@ -29,6 +29,11 @@ public class Villager_GatheringState : VillagerBaseState
     private bool isFoodGatheringCapacityUpgrade;
     private bool isAlreadyUpgradeFoodCapacity;
 
+    //Boolean
+    private bool isDead;
+    private bool isSoundPlay;
+    private bool isStopLooping;
+
     public override void EnterState(VillagerStateController villager)
     {
         villager.Villager.isStopped = false;
@@ -36,6 +41,8 @@ public class Villager_GatheringState : VillagerBaseState
         avaliableWaypoint = null;
         conditionMet = false;
         startGathering = false;
+        isSoundPlay = false;
+        isStopLooping = false;  
 
         // Play animation Villager_Walking
         villager.villagerAnimator.SetBool("isWalking", true);
@@ -98,7 +105,15 @@ public class Villager_GatheringState : VillagerBaseState
 
         if (startGathering == true) // start gathering if startGathering = true
         {
+            isSoundPlay = true;
             GatherResources(villager);
+        }
+
+        if (isSoundPlay == true && isStopLooping == false) // Manage sound to play one time
+        {
+            //Play Gathering Sound
+            villager.soundEffectController.PlayGatheringSound();
+            isStopLooping = true;
         }
             
         #endregion
@@ -166,8 +181,9 @@ public class Villager_GatheringState : VillagerBaseState
         #endregion
 
         #region Switch to Exit State
-        if (villager.unitStat.unitHP <= 0)
+        if (villager.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
             ExitState(villager);
         }
         #endregion
@@ -200,6 +216,12 @@ public class Villager_GatheringState : VillagerBaseState
         villager.basket.SetActive(false);
         villager.rigBuilder.enabled = false;
         //
+
+        //Play UnitDie Sound
+        villager.soundEffectController.PlayUnitDiedSound();
+
+        villager.Villager.isStopped = true; // Make Villager cannot move
+        startGathering = false; // Stop Gathering Resources
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
         villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
         MonoBehaviour.Destroy(villager.gameObject, 4); // Delete Villager from the game

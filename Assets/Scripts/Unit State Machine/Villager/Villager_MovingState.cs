@@ -3,10 +3,15 @@ using UnityEngine.Analytics;
 
 public class Villager_MovingState : VillagerBaseState
 {
+    bool isDead;
+
     public override void EnterState(VillagerStateController villager)
     {
         villager.Villager.enabled = true;
         villager.Villager.isStopped= false;
+        //Play WalkSound 
+        villager.soundEffectController.PlayWalkingSound();
+
         if(villager.gatheringAmount > 0)
         {
             villager.villagerAnimator.SetBool("isWalking", true);
@@ -114,8 +119,9 @@ public class Villager_MovingState : VillagerBaseState
         #endregion
 
         #region Switch to Exit State
-        if (villager.unitStat.unitHP <= 0)
+        if (villager.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
             ExitState(villager);
         }
         #endregion
@@ -128,6 +134,9 @@ public class Villager_MovingState : VillagerBaseState
         villager.basket.SetActive(false);
         villager.rigBuilder.enabled = false;
         //
+
+        //Play UnitDie Sound
+        villager.soundEffectController.PlayUnitDiedSound();
 
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
         villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit

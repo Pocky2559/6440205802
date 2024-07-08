@@ -38,6 +38,7 @@ public class VillagerStateController : MonoBehaviour
     public GameObject basket;
     public RigBuilder rigBuilder;
     public Collider villagerCollider;
+    public SoundEffectController soundEffectController;
     
     //Upgrade 
     public EconomicUpgradeDatabase economicUpgradeDatabase;

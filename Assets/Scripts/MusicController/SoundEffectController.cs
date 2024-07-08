@@ -39,4 +39,18 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = false;
         soundEffect.Play();
     }
+
+    public void PlayGatheringSound()
+    {
+        soundEffect.clip = soundEffectDatabase.gatheringSound;
+        soundEffect.loop = true;
+        soundEffect.Play();
+    }
+
+    public void PlayStoringSound()
+    {
+        soundEffect.clip = soundEffectDatabase.storingSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }

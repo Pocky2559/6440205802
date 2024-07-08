@@ -3,9 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Villager_StoringState : VillagerBaseState
 {
+    bool isDead;
+    bool isSoundPlay;
+    bool isStopLooping;
+
     public override void EnterState(VillagerStateController villager)
     {
         // Enter MovingState
@@ -15,6 +20,9 @@ public class Villager_StoringState : VillagerBaseState
         //Play animation Villager_Gathering
         villager.villagerAnimator.SetBool("isReachResources", false);
         villager.rigBuilder.enabled = true;// make hand can move 
+
+        //Play Walking Sound
+        villager.soundEffectController.PlayWalkingSound();
 
         #region Auto find all storing points 
         GameObject[] lumberCamps = GameObject.FindGameObjectsWithTag("Wood Storage"); // all Lumber Camp in game
@@ -202,9 +210,19 @@ public class Villager_StoringState : VillagerBaseState
     {
         #region If villager reach the storing point Switch to //"vil_GatheringState" // Switch to Idel State
 
-        if(villager.Villager.remainingDistance < 1)
+        if(villager.Villager.remainingDistance < 0.5f)
         {
-            if(villager.isStoringManual == false)
+            isSoundPlay = true;
+
+            if (isSoundPlay == true && isStopLooping == false)
+            {
+                //Play Storing Sound
+                villager.soundEffectController.PlayGatheringSound();
+                isStopLooping = true;
+            }
+
+
+            if (villager.isStoringManual == false)
             {
                 //Play animation Villager_Storing
                 villager.rigBuilder.enabled = false;
@@ -298,8 +316,9 @@ public class Villager_StoringState : VillagerBaseState
         #endregion
 
         #region Switch to Exit State
-        if (villager.unitStat.unitHP <= 0)
+        if (villager.unitStat.unitHP <= 0 && isDead == false)
         {
+            isDead = true;
             ExitState(villager);
         }
         #endregion
@@ -312,6 +331,9 @@ public class Villager_StoringState : VillagerBaseState
         villager.basket.SetActive(false);
         villager.rigBuilder.enabled = false;
         //
+
+        //Play UnitDie Sound
+        villager.soundEffectController.PlayUnitDiedSound();
 
         villager.population.PopulationChanges(-1 * villager.unitStat.unitPopulation); //Decrease population
         villager.villagerCollider.enabled = false; // disable collider to stop enemy detect this unit
