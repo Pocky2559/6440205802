@@ -14,6 +14,8 @@ public class KartauneStateController : MonoBehaviour
     public BuildCannonOnWall buildCannonOnWall;
     public FirearmsParticle firearmsParticle;
     public Transform firePoint;
+    public SoundEffectController soundEffectController;
+    public UnitStat targetEnemyStat;
 
     KartauneBaseState currentState;
     public Kartaune_IdelState kartaune_IdelState = new();

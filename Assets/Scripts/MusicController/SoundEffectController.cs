@@ -53,4 +53,18 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = false;
         soundEffect.Play();
     }
+
+    public void PlayCannonFiringSound()
+    {
+        soundEffect.clip = soundEffectDatabase.cannonFireSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
+
+    public void PlayCannonballExplodeSound()
+    {
+        soundEffect.clip = soundEffectDatabase.cannonballExplodeSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }

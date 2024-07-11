@@ -15,7 +15,7 @@ public class Kartaune_ShootingState : KartauneBaseState
     }
     public override void UpdaterState(KartauneStateController kartaune)
     {
-       if(kartaune.targetEnemy != null)
+       if(kartaune.targetEnemy != null && kartaune.targetEnemyStat.unitHP > 0)
        {
           Vector3 positionToAim = kartaune.targetEnemy.transform.position;
           positionToAim.y = kartaune.transform.parent.position.y; //freeze y position
@@ -23,7 +23,7 @@ public class Kartaune_ShootingState : KartauneBaseState
           Shooting(kartaune);
        }
 
-       if (kartaune.targetEnemy == null || kartaune.targetEnemy.activeSelf == false)
+       else if (kartaune.targetEnemy == null || kartaune.targetEnemyStat.unitHP <= 0) // if target enemy died
        {
           kartaune.targetEnemy = null;
           kartaune.SwitchState(kartaune.kartaune_IdelState);
@@ -51,6 +51,7 @@ public class Kartaune_ShootingState : KartauneBaseState
             lastShotTime = Time.time;
             kartaune.cannonballFunc.AssignValueOfCannonball(cannonball, kartaune.targetEnemy.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
             kartaune.firearmsParticle.StartPlayParticle(kartaune.firePoint.position); //Play Particle
+            kartaune.soundEffectController.PlayCannonFiringSound();//Play CannonFiring Sound
         }
     }
 

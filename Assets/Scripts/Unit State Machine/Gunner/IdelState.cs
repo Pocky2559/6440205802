@@ -18,8 +18,8 @@ public class IdelState : GunnerBaseState
         //gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", false);
         //
 
-        //Stop all sound 
-        gunner.soundEffectController.StopPlaySound();
+        ////Stop all sound 
+        //gunner.soundEffectController.StopPlaySound();
     }
 
     public override void UpdateState(GunnerStateController gunner)

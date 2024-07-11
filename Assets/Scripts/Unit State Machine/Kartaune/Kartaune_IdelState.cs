@@ -28,6 +28,7 @@ public class Kartaune_IdelState : KartauneBaseState
            || coll.CompareTag("OttomanCannon"))
         {
             kartaune.targetEnemy = coll.gameObject;
+            kartaune.targetEnemyStat = coll.GetComponent<UnitStat>();
             kartaune.SwitchState(kartaune.kartaune_ShootingState);
         }
     }
