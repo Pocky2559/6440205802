@@ -19,6 +19,7 @@ public class OtmCannonStateController : MonoBehaviour
     public GameObject availableWaypoint;
     public FirearmsParticle firearmsParticle;
     public Transform firePoint;
+    public SoundEffectController soundEffectController;
 
     private OtmCannonBaseState currentState;
     public OtmCannon_AttackGateState otmCannon_AttackGateState = new();

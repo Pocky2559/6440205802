@@ -10,14 +10,11 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
     public float speed = 50f;
     public ExplosiveArea explosiveArea;
     public CannonballExplodeParticle explodeParticle;
-    bool isExplode;
     [SerializeField] private SoundEffectController soundController;
-    private MeshRenderer cannonBallMesh;
 
     private void Awake()
     {
         explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
-        cannonBallMesh = GetComponent<MeshRenderer>();  
     }
 
     public void AssignValueOfCannonball(GameObject ball, Vector3 enemyPosition)
@@ -49,9 +46,8 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
            || other.CompareTag("MeleeJanissary")
            || other.CompareTag("RangedJanissary")
            || other.CompareTag("OttomanCannon")
-           & isExplode == false)
+           )
         {
-            isExplode = true;
             explosiveArea.enabled = true;
             explodeParticle.StartPlayParticle(this.transform.position);
             GameObject explodeSound = Instantiate(soundController.gameObject);
@@ -59,7 +55,6 @@ public class CannonBallFunction : MonoBehaviour // Working with ExplosiveArea sc
             AudioSource audioSource = soundEffectController.GetComponent<AudioSource>();
             audioSource.enabled = true;
             soundEffectController.PlayCannonballExplodeSound();
-            
             
             Destroy(explodeSound,3);
             Destroy(this.gameObject);

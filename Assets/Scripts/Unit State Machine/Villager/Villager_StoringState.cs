@@ -13,9 +13,12 @@ public class Villager_StoringState : VillagerBaseState
 
     public override void EnterState(VillagerStateController villager)
     {
-        // Enter MovingState
-        villager.Villager.enabled = true;
-        villager.Villager.isStopped = false;
+        if(villager.unitStat.unitHP > 0)
+        {
+            villager.Villager.enabled = true;
+            villager.Villager.isStopped = false;
+        }
+        
 
         //Play animation Villager_Gathering
         villager.villagerAnimator.SetBool("isReachResources", false);

@@ -8,7 +8,8 @@ public class IdelState : GunnerBaseState
     bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
-          gunner.Gunner.isStopped = false;
+        gunner.Gunner.isStopped = true;
+
         //Play animation Gunner_Idle
         gunner.gunnerAnimatorControlller.SetBool("isWalking", false);
         gunner.gunnerAnimatorControlller.SetBool("isShooting", false);
@@ -53,7 +54,6 @@ public class IdelState : GunnerBaseState
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
                     gunner.selectedEnemyStat = hit.collider.GetComponentInParent<UnitStat>();
-                    Debug.Log("Switching from Idel State to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }
             }
@@ -94,6 +94,7 @@ public class IdelState : GunnerBaseState
     public override void ExitState(GunnerStateController gunner)
     {
         //Play animation Gunner_Death
+          gunner.Gunner.isStopped = true;
           gunner.Gunner.enabled = false;
           gunner.gunnerAnimatorControlller.SetBool("isDead" ,true);
           gunner.Gun.SetActive(false);

@@ -8,7 +8,7 @@ using UnityEngine.Analytics;
 public class ExplosiveArea : MonoBehaviour
 {
     public UnitDatabaseSO unitDatabase;
-    bool isExplode;
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("OttomanRecruit")
@@ -17,9 +17,8 @@ public class ExplosiveArea : MonoBehaviour
            || other.CompareTag("RangedJanissary")
            || other.CompareTag("OttomanCannon")
            && other != null
-           && isExplode == false)
+           )
         {
-           isExplode = true;
            DamageCalculation(other);
         }
     }

@@ -122,9 +122,8 @@ public class ChasingState : GunnerBaseState
                     //Play animation Gunner_Walking
                     gunner.gunnerAnimatorControlller.SetBool("isMoveWhileReload", true);
                     //
-                    gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
+                    //gunner.Gunner.isStopped = false; // Gunner can move (to prevent gunner freezing after .isStopped = true)
                     gunner.selectedEnemy = null; // reset all selected enemy
-                    Debug.Log("Switching from Chasing state to Moving state");
                     gunner.SwitchState(gunner.movingState); // Switch to idel state
                 }
             }
@@ -143,10 +142,9 @@ public class ChasingState : GunnerBaseState
              gunner.gunnerAnimatorControlller.SetBool("isEnemyDeadWhileReload", true);
            //
 
-            gunner.Gunner.isStopped = false; // make the gunner stop
+            //gunner.Gunner.isStopped = false; // make the gunner stop
             gunner.Gunner.SetDestination(gunner.rootGameObject.transform.position);
             gunner.selectedEnemy = null; // set the selected enemy as null
-            Debug.Log("Switch from Chasing state to Idel state");
             gunner.SwitchState(gunner.idelState); // switch to idel state
         }
         #endregion
@@ -178,6 +176,7 @@ public class ChasingState : GunnerBaseState
     public override void ExitState(GunnerStateController gunner)
     {
         //Play animation Gunner_Death
+        gunner.Gunner.isStopped = true;
         gunner.Gunner.enabled = false;
         gunner.gunnerAnimatorControlller.SetBool("isDead", true);
         gunner.Gun.SetActive(false);

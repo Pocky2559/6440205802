@@ -36,8 +36,12 @@ public class Villager_GatheringState : VillagerBaseState
 
     public override void EnterState(VillagerStateController villager)
     {
-        villager.Villager.isStopped = false;
-        villager.Villager.enabled = true;
+        if(villager.unitStat.unitHP > 0)
+        {
+            villager.Villager.isStopped = false;
+            villager.Villager.enabled = true;
+        }
+
         avaliableWaypoint = null;
         conditionMet = false;
         startGathering = false;

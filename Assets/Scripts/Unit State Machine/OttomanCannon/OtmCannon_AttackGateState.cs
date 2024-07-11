@@ -68,13 +68,14 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
 
     private void Attack(OtmCannonStateController otmCannon)
     {
-        if (Time.time > lastShotTime + otmCannon.unitDatabase.unitDetails[4].attackSpeed)
+        if (Time.time > lastShotTime + otmCannon.unitDatabase.unitDetails[9].attackSpeed)
         {
             GameObject cannonball = MonoBehaviour.Instantiate(otmCannon.cannonball, otmCannon.transform.parent.position, Quaternion.identity);
             otmCannon.cannonballFunc = cannonball.GetComponent<CannonBallEnemyFunc>();
             lastShotTime = Time.time;
             otmCannon.cannonballFunc.AssignValueOfCannonball(cannonball, otmCannon.gate.transform.position); // CannonBallFunction Script handle the moving of cannonball, damage calculation and more
             otmCannon.firearmsParticle.StartPlayParticle(otmCannon.firePoint.position); //Play Particle
+            otmCannon.soundEffectController.PlayCannonFiringSound(); //Play CannonFire Sound
         }
     }
     public override void ExitState(OtmCannonStateController otmCannon)

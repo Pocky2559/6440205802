@@ -10,6 +10,7 @@ public class CannonBallEnemyFunc : MonoBehaviour
     public float speed = 50f;
     public ExplosiveAreaEnemyCannonball explosiveArea;
     public CannonballExplodeParticle explodeParticle;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     private void Awake()
     {
@@ -45,17 +46,23 @@ public class CannonBallEnemyFunc : MonoBehaviour
             || other.CompareTag("Gunner")
             || other.CompareTag("Captain")
             || other.CompareTag("Kartouwe")
-            //|| other.CompareTag("Ground")
             || other.CompareTag("PalisadeGate"))
         {
             explosiveArea.enabled = true;
-            Destroy(this.gameObject, 0.1f);
-            explodeParticle.StartPlayParticle(gameObject.transform.position);
-            
+            explodeParticle.StartPlayParticle(this.transform.position);
+            GameObject explodeSound = Instantiate(soundEffectController.gameObject);
+            SoundEffectController soundEffect = explodeSound.GetComponent<SoundEffectController>();
+            AudioSource audioSource = soundEffect.GetComponent<AudioSource>();
+            audioSource.enabled = true;
+            soundEffect.PlayCannonballExplodeSound();
+
+            Destroy(explodeSound,3f);
+            Destroy(this.gameObject);
         }
+
         else
         {
-            Destroy(this.gameObject, 3f);
+            Destroy(this.gameObject, 2f);
         }
     }
 }

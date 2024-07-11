@@ -14904,6 +14904,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4296929895643056, guid: 6191d242d97347540a6f4263049bdfed, type: 3}
   m_PrefabInstance: {fileID: 1245328686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &486381514 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5502266316692889509, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 498154689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &487602335
 GameObject:
   m_ObjectHideFlags: 0
@@ -20150,6 +20161,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4463400019329302, guid: 83561575068bf2042a4f289885d89d2f, type: 3}
   m_PrefabInstance: {fileID: 61518072}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &802269260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8550268340050148929, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+  m_PrefabInstance: {fileID: 7588252654105482086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &803585726
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25244,17 +25260,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1213622613}
   m_Mesh: {fileID: 4300000, guid: fe3ef29f6dae00344b41413c90b4cc57, type: 3}
---- !u!114 &1215338566 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5502266317588925233, guid: 98613193d4c355a479515d549d4f6348, type: 3}
-  m_PrefabInstance: {fileID: 498154689}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1218852615 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4132110684266712, guid: 0308f8ff86e69154a8064da3ef456125, type: 3}
@@ -43729,7 +43734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 512369696}
-  waveNumber: {fileID: 1215338566}
+  waveNumber: {fileID: 486381514}
   remainingTime: 0
   enemySpawnController: {fileID: 712562696}
   changeMusic: {fileID: 1170405346}
@@ -51268,6 +51273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ParticleController
       objectReference: {fileID: 0}
+    - target: {fileID: 9149643387932934281, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
+      propertyPath: explodeParticle
+      value: 
+      objectReference: {fileID: 802269260}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74b304f4eb454144ba1fe651c6d676bf, type: 3}
 --- !u!1001 &7601722329602339837

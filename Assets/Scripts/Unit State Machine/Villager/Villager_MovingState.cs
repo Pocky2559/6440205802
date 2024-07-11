@@ -7,10 +7,12 @@ public class Villager_MovingState : VillagerBaseState
 
     public override void EnterState(VillagerStateController villager)
     {
-        villager.Villager.enabled = true;
-        villager.Villager.isStopped= false;
-        //Play WalkSound 
-        villager.soundEffectController.PlayWalkingSound();
+        if(villager.unitStat.unitHP > 0) //Prevent Villager can walk when it died
+        {
+            villager.Villager.enabled = true;
+            villager.Villager.isStopped = false;
+            villager.soundEffectController.PlayWalkingSound();//Play WalkSound 
+        }
 
         if(villager.gatheringAmount > 0)
         {
@@ -112,7 +114,6 @@ public class Villager_MovingState : VillagerBaseState
         {
              if (Mathf.RoundToInt(villager.Villager.remainingDistance) == 0) //if distance between villager and destination are 0 
              {
-                  Debug.Log("Switching from Moving state to Idel state");
                   villager.SwitchState(villager.vil_IdelState); // Switch to moving state
              }
         }

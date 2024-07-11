@@ -5,8 +5,16 @@ public class MovingState : GunnerBaseState
     bool isDead;
     public override void EnterState(GunnerStateController gunner)
     {
-        gunner.Gunner.isStopped = false;
+        if(gunner.unitStat.unitHP > 0) //Prevent Gunner can walk when it died
+        {
+            gunner.Gunner.isStopped = false;
+        }
 
+        else
+        {
+            gunner.Gunner.isStopped = true;
+        }
+        
         //Play animation Gunner_Walking
         gunner.gunnerAnimatorControlller.SetBool("isWalking", true);
         gunner.gunnerAnimatorControlller.SetBool("isFollowing", false);
@@ -42,7 +50,6 @@ public class MovingState : GunnerBaseState
                 {
                     gunner.selectedEnemy = hit.collider.gameObject;
                     gunner.selectedEnemyStat = hit.collider.GetComponentInParent<UnitStat>();
-                    Debug.Log("Switching from Moving state to Chasing state");
                     gunner.SwitchState(gunner.chasingState);
                 }
                 else // if right click on something else
@@ -58,7 +65,7 @@ public class MovingState : GunnerBaseState
         {
             if (Mathf.RoundToInt(gunner.Gunner.remainingDistance) == 0)
             {
-                //Stop Playing Sound
+                gunner.soundEffectController.StopPlaySound();//Stop Playing Sound
                 gunner.SwitchState(gunner.idelState); // Switch to moving state
             }
         }
@@ -84,6 +91,7 @@ public class MovingState : GunnerBaseState
     public override void ExitState(GunnerStateController gunner)
     {
         //Play animation Gunner_Death
+        gunner.Gunner.isStopped = true;
         gunner.Gunner.enabled = false;
         gunner.gunnerAnimatorControlller.SetBool("isDead", true);
         gunner.Gun.SetActive(false);

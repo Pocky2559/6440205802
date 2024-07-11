@@ -93,8 +93,8 @@ public class UnitFormation : MonoBehaviour
                     && unitSelection.unitList.Contains(unitSelection.unitSelected[0]))
                 {
                     unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
-                    unit.enabled = true;
-                    unit.isStopped = false;
+                    //unit.enabled = true;
+                    //unit.isStopped = false;
                     unit.SetDestination(hit.point);
                 }
             }
@@ -103,8 +103,8 @@ public class UnitFormation : MonoBehaviour
                 && Physics.Raycast(ray, out hit, Mathf.Infinity, wallLayerMask))
             {
                 unit = unitSelection.unitSelected[0].GetComponent<NavMeshAgent>();
-                unit.enabled = true;
-                unit.isStopped = false;
+                //unit.enabled = true;
+                //unit.isStopped = false;
                 unit.SetDestination(hit.point);
             }
             #endregion
@@ -116,17 +116,17 @@ public class UnitFormation : MonoBehaviour
     {
         for (int i = 0; i < unitSelection.unitSelected.Count; i++)
         { 
-            try
-            {
+            //try
+            //{
                 unit = unitSelection.unitSelected[i].GetComponent<NavMeshAgent>();
-                unit.enabled = true; //make NavMeshAgent active
-                unit.isStopped = false;
+                //unit.enabled = true; //make NavMeshAgent active
+                //unit.isStopped = false;
                 unit.SetDestination(unitFormationPosition[i]);
-            }
-            catch
-            {
-                Debug.Log("Error");
-            }
+            //    }
+            //    catch
+            //    {
+            //        Debug.Log("Error");
+            //    }
         }
         unitFormationPosition.Clear();
     }

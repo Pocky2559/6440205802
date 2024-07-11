@@ -161,6 +161,7 @@ public class ShootingState : GunnerBaseState
     public override void ExitState(GunnerStateController gunner)
     {
         //Play animation Gunner_Death
+        gunner.Gunner.isStopped = true;
         gunner.Gunner.enabled = false;
         gunner.gunnerAnimatorControlller.SetBool("isDead", true);
         gunner.Gun.SetActive(false);
