@@ -10,48 +10,52 @@ using UnityEngine.UI;
 
 public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs that show building details (name,functions,etc.)
 {
-    public LayerMask Building;
-    public LayerMask Ground;
-    public LayerMask npc;
+    [Header("LayerMask")]
+    [SerializeField] private LayerMask Building;
+    [SerializeField] private LayerMask Ground;
+    [SerializeField] private LayerMask npc;
 
-    public Button removeButtonTownCenter;
-    public Button removeButtonHouse;
-    public Button removeButtonLumberCamp;
-    public Button removeButtonMiningCart;
-    public Button removeButtonWindMill;
-    public Button removeButtonBarrack;
-    public Button removeButtonArtillary;
+    [Header("Buttons")]
+    [SerializeField] private Button removeButtonTownCenter;
+    [SerializeField] private Button removeButtonHouse;
+    [SerializeField] private Button removeButtonLumberCamp;
+    [SerializeField] private Button removeButtonMiningCart;
+    [SerializeField] private Button removeButtonWindMill;
+    [SerializeField] private Button removeButtonBarrack;
+    [SerializeField] private Button removeButtonArtillary;
 
-    public Button produceVillagerButton;
-    public Button produceGunnerButton;
-    public Button produceLandsknetchButton;
-    public Button produceCaptainButton;
+    [SerializeField] private Button produceVillagerButton;
+    [SerializeField] private Button produceGunnerButton;
+    [SerializeField] private Button produceLandsknetchButton;
+    [SerializeField] private Button produceCaptainButton;
 
-    public Text nameText;
-
-    public GameObject selectedObject;
-    public GameObject buildingUIDetails;
+    [Header("General Attribute")]
+    private Text nameText;
+    private GameObject selectedObject;
     public Vector3 selectedObjectPosition;
     public GameObject selectedGameObj;
 
-    public PreviewSystem previewSystem;
-    public ObjectData data;
-    public UnitDatabaseSO unitDatabase;
-    public TownCenter_ProduceVillager produceVillager;
-    public Barrack_Producing produceMilitary;
-    public HouseList listOfHouse;
+    [Header("Required Components")]
+    [SerializeField] private PreviewSystem previewSystem;
+    [SerializeField] private ObjectData data;
+    [SerializeField] private UnitDatabaseSO unitDatabase;
+    [SerializeField] private TownCenter_ProduceVillager produceVillager;
+    [SerializeField] private Barrack_Producing produceMilitary;
+    [SerializeField] private HouseList listOfHouse;
+    //[SerializeField] private SoundEffectController soundEffectController;
 
-    /// Building Details UI
-    public GameObject townCenterUI;
-    public Transform townCenterVilQueUI;
-    public GameObject houseUI;
-    public GameObject lumberCampUI;
-    public GameObject miningCartUI;
-    public GameObject windMillUI;
-    public GameObject barrackUI;
-    public GameObject artillaryUI;
-    private GameObject buildingSelectionIndicator;
-    public Image villagerQueImage;
+    [Header("Building UI")]
+    [SerializeField] private GameObject buildingUIDetails;
+    [SerializeField] private GameObject townCenterUI;
+    [SerializeField] private Transform townCenterVilQueUI;
+    [SerializeField] private GameObject houseUI;
+    [SerializeField] private GameObject lumberCampUI;
+    [SerializeField] private GameObject miningCartUI;
+    [SerializeField] private GameObject windMillUI;
+    [SerializeField] private GameObject barrackUI;
+    [SerializeField] private GameObject artillaryUI;
+    [SerializeField] private GameObject buildingSelectionIndicator;
+    [SerializeField] private Image villagerQueImage;
 
     private void Start()
     {
@@ -103,8 +107,6 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
 
                         produceVillager.queIconInstantiateTarget.gameObject.SetActive(true); //Show Que UI
-
-                        
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
@@ -380,17 +382,17 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
         }
     }
 
-    public void RemoveObject()
+    private void RemoveObject()
     {
         #region Remove Building
         if (selectedObject.CompareTag("House"))
         {
             listOfHouse.DeleteHouseFromList(selectedObject);
             listOfHouse.currentPopulationCapacity = listOfHouse.currentPopulationCapacity - listOfHouse.houseCapacityAssign;
-            Destroy(selectedObject);
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();
-            selectedObject = null;
+            StartToPlayDeleteBuildingSound();
+            Destroy(selectedObject, 0.1f);
         }
         
         if (selectedObject.CompareTag("Town Center")
@@ -400,11 +402,21 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
             || selectedObject.CompareTag("Barrack")
             || selectedObject.CompareTag("Artillary"))
         {
-            Destroy(selectedObject);
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();
-            selectedObject = null;
+            StartToPlayDeleteBuildingSound();
+            Destroy(selectedObject, 0.1f);
         }
         #endregion
+    }
+
+    private void StartToPlayDeleteBuildingSound()
+    {
+        SoundEffectController soundEffectController = selectedObject.GetComponentInChildren<SoundEffectController>();
+        GameObject deleteSound = Instantiate(soundEffectController.gameObject);
+        AudioSource soundEffect = deleteSound.GetComponent<AudioSource>();
+        soundEffect.enabled = true;
+        soundEffectController.PlayDeleteBuildingSound();
+        Destroy(deleteSound,3f);
     }
 }

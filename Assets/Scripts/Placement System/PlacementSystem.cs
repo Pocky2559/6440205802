@@ -6,40 +6,29 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlacementSystem : MonoBehaviour
-{  
-    [SerializeField] ObjectDatabaseSO database;
-    [SerializeField] SelectObject selectObject;
+{
+    [Header("Building System")]
+    [SerializeField] private ObjectDatabaseSO database;
+    [SerializeField] private SelectObject selectObject;
+    [SerializeField] private Grid grid;
     public Vector3 currentPos;
-    public GameObject gameObj;
-    public LayerMask layername;
-    private int placeToken = 1;
-    public bool canItPlace;
-    private GameObject refGameObject;
-    private string refGameObjectName;
-    public Grid grid;
     private Vector3Int currentPosGrid;
-    MeshRenderer meshRenderer;
-    Material originMaterial;
-    public BuildingResourcesSpend buildingResourcesSpend;
-    public TargetSelected targetSelected;
-    public HouseList listOfHouse;
-    private PreSelection preSelection;
+    public LayerMask layernameToPlace;
+    private GameObject refBuilding;
+    public bool canItPlace;
+    private int placeToken = 1;
+    private string refBuildingName;
 
-    //this method recieve the Game Object from class PreviewSystem
-    public void PlaceObjectState(GameObject gameOBJ)
+    [Header("Required Components")]
+    [SerializeField] private BuildingResourcesSpend buildingResourcesSpend;
+    [SerializeField] private HouseList listOfHouse;
+    [SerializeField] private PreSelection preSelection;
+    [SerializeField] private SoundEffectController soundEffectController;
+
+    public void PlaceObjectState()
     {
-        //Assign Game Object
-        gameObj = gameOBJ;
-        refGameObject = database.objects[selectObject.ID].Prefab;
-        refGameObjectName = database.objects[selectObject.ID].Name;
-
-       if(gameObj != null)
-        { 
-          //Create the original material from the Original Game Object and assign that original material in "originMaterial"
-          meshRenderer = gameObj.GetComponent<MeshRenderer>();
-          originMaterial = meshRenderer.material;
-        }
-       
+        refBuilding = database.objects[selectObject.ID].Prefab;
+        refBuildingName = database.objects[selectObject.ID].Name;
     } 
 
     //start to instantiate Game Object and its material is the original material
@@ -48,28 +37,34 @@ public class PlacementSystem : MonoBehaviour
         buildingResourcesSpend.CheckAvailbleResources(selectObject.ID); // Check available resources first
         if(canItPlace == true) // if is has available resources
         {
-             Destroy(refGameObject.GetComponent<DetectTrigger>()); // Delete DetectTrigger from new game object that we place
-             refGameObject.layer = 6; // 6 layer = Building // change layermask of placed building
+             Destroy(refBuilding.GetComponent<DetectTrigger>()); // Delete DetectTrigger from new game object that we place
+             refBuilding.layer = 6; // 6 layer = Building // change layermask of placed building
              currentPosGrid.y = 0; // make building stick to the ground
-             meshRenderer.material = originMaterial;
-             refGameObject = Instantiate(refGameObject, grid.CellToWorld(currentPosGrid), Quaternion.identity); //clone object
-             refGameObject.AddComponent<TargetSelected>(); // add this compent for select and look details of this building
+             refBuilding = Instantiate(refBuilding, grid.CellToWorld(currentPosGrid), Quaternion.identity); //clone object
+             refBuilding.AddComponent<TargetSelected>(); // add this compent for select and look details of this building
+             StartToPlayPlaceBuildingSound();
 
              //Add Component PreSelection and assign its value
-             refGameObject.AddComponent<PreSelection>();
-             preSelection = refGameObject.GetComponent<PreSelection>();
-             preSelection.preSelectionIndicator = refGameObject.transform.GetChild(0).gameObject;
+             refBuilding.AddComponent<PreSelection>();
+             preSelection = refBuilding.GetComponent<PreSelection>();
+             preSelection.preSelectionIndicator = refBuilding.transform.GetChild(0).gameObject;
         }
 
-        if (canItPlace == true && refGameObjectName == "House" && listOfHouse.currentPopulationCapacity <= 200)
+        if (canItPlace == true && refBuildingName == "House" && listOfHouse.currentPopulationCapacity <= 200)
         {
-            listOfHouse.AddHouseToList(refGameObject);
+            listOfHouse.AddHouseToList(refBuilding);
         }
     }
 
     public void PlaceObjectStatus(int token)
     {
         placeToken = token;
+    }
+
+    private void StartToPlayPlaceBuildingSound()
+    {
+        soundEffectController = refBuilding.GetComponentInChildren<SoundEffectController>();
+        soundEffectController.PlayPlaceBuildingSound();
     }
 
     // this method use for find the current position reference from the mouse position
@@ -81,7 +76,7 @@ public class PlacementSystem : MonoBehaviour
         RaycastHit hit;
 
         /// if the ray go from this original point to that direction, in distant 100 unit and hit something that has this type of layer
-        if (Physics.Raycast(ray, out hit, 100, layername))
+        if (Physics.Raycast(ray, out hit, 100, layernameToPlace))
         {   
             //Assign the Current position as Vector3Int and set the y axis value = 1 to make the Game Object stick to the ground
             currentPos = hit.point;
@@ -90,16 +85,17 @@ public class PlacementSystem : MonoBehaviour
         }
 
         /// Checking the Game Object first, it cannot be null to prevent and error when place the Game Object/// 
-        if (gameObj != null)
+        //if (previewBuilding != null)
+        if(refBuilding != null)
         {
             ///if click left mouse button, the Game Object will be placed
-            if (Input.GetMouseButtonDown(0) || placeToken == 0)
+            if (Input.GetMouseButtonDown(0) && placeToken == 1)
             {   
                 //if click on the UI Nothing will happen, this if statement use for preventing place the Game Object when click the UI
                 // or the token = 0
                 if (EventSystem.current.IsPointerOverGameObject() || placeToken == 0)
                 {
-                   
+                   //Do nothing
                 }
 
                 // if the token = 1; the Game Object wii be placed

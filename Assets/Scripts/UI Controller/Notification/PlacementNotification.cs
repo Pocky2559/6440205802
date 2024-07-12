@@ -36,10 +36,10 @@ public class PlacementNotification : MonoBehaviour
    public void ShowNeedMoreResources()
    {
        
-        if(previewSystem.gameObj != null)
+        if(previewSystem.previewBuilding != null)
         {  
            notifyNeedMoreResourcesText.SetActive(true);
-           floatinfNotifyText.targetFloatingUI = previewSystem.gameObj.transform;
+           floatinfNotifyText.targetFloatingUI = previewSystem.previewBuilding.transform;
            canPlaceIcon.SetActive(false);
            cannotPlaceIcon.SetActive(false);
         }

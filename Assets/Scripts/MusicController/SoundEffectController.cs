@@ -67,4 +67,18 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = false;
         soundEffect.Play();
     }
+
+    public void PlayPlaceBuildingSound()
+    {
+        soundEffect.clip = soundEffectDatabase.placeBuildingSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
+
+    public void PlayDeleteBuildingSound()
+    {
+        soundEffect.clip = soundEffectDatabase.deleteBuildingSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }
