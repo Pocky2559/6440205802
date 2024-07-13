@@ -3184,8 +3184,9 @@ MonoBehaviour:
   mainCamera: {fileID: 963194225}
   top: {fileID: 1044490541}
   bottom: {fileID: 1735353681}
-  left: {fileID: 1329004702}
-  right: {fileID: 580455566}
+  left: {fileID: 580455566}
+  right: {fileID: 1329004702}
+  distance: 5
 --- !u!1 &178276354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1650968643332204680, guid: abd2bdcad33b04a4a9734d086224c170, type: 3}
@@ -8185,7 +8186,7 @@ GameObject:
   - component: {fileID: 580455565}
   - component: {fileID: 580455566}
   m_Layer: 2
-  m_Name: Right
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8217,8 +8218,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140.82486, y: 48.86939, z: 0.63000494}
-  m_Center: {x: -25.642845, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 140.82486, y: 48.86939, z: 11.237302}
+  m_Center: {x: -25.642845, y: 15.79516, z: -5.1186523}
 --- !u!1 &585084104
 GameObject:
   m_ObjectHideFlags: 0
@@ -13770,8 +13771,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 88.66492, y: 48.86939, z: 0.6300049}
-  m_Center: {x: -30.937271, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 88.66492, y: 48.86939, z: 16.81218}
+  m_Center: {x: -30.937271, y: 15.79516, z: 8.276085}
 --- !u!4 &1047936123 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7992715529498157145, guid: 0cc0db2b14252644da9f1f74ed0c8f90, type: 3}
@@ -18540,7 +18541,7 @@ GameObject:
   - component: {fileID: 1329004701}
   - component: {fileID: 1329004702}
   m_Layer: 2
-  m_Name: Left
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18572,8 +18573,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140.82486, y: 48.86939, z: 0.63000494}
-  m_Center: {x: -25.642845, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 140.82486, y: 48.86939, z: 9.370837}
+  m_Center: {x: -25.642845, y: 15.79516, z: 4.5554147}
 --- !u!4 &1329284546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2135475432616604210, guid: abd2bdcad33b04a4a9734d086224c170, type: 3}
@@ -23686,8 +23687,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 88.66492, y: 48.86939, z: 0.6300049}
-  m_Center: {x: -30.937271, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 88.66492, y: 48.86939, z: 6.231932}
+  m_Center: {x: -30.937271, y: 15.79516, z: -2.615966}
 --- !u!4 &1735473672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9014712036729627915, guid: 64cd66e3d91f41746892c3d07e49fc13, type: 3}
@@ -25477,8 +25478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55eb80f68001b8043896f13b0064c336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
-  cameraCurrentSpeed: 0
+  speed: 5
+  cameraCurrentSpeed: 5
+  distance: 5
+  targetPosition: {x: 0, y: 0, z: 0}
+  isPushingBack: 0
 --- !u!4 &1882113262
 Transform:
   m_ObjectHideFlags: 0

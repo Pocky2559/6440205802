@@ -41,9 +41,14 @@ public class UnitDetailsUI : MonoBehaviour
           CheckSelection();
        }
 
-       if (isSelectEnemy == true)
+       else if (isSelectEnemy == true)
        {
           SelectEnemy();
+       }
+
+       else
+       {
+          unitDetailsUI.SetActive(false);
        }
 
        if(Input.GetMouseButtonDown(0)) //if click at enemy
@@ -59,16 +64,25 @@ public class UnitDetailsUI : MonoBehaviour
                 isSelectEnemy = true;
             }
 
-            else if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+            //else if(Physics.Raycast(ray, out hit, Mathf.Infinity))
+            //{
+            //    if(enemySelectionIndicator != null)
+            //    {
+            //        enemySelectionIndicator.SetActive(false);
+            //        unitDetailsUI.SetActive(false);                   
+            //        isSelectEnemy = false;
+            //    }
+            //}
+
+            else
             {
-                if(enemySelectionIndicator != null)
+                if (enemySelectionIndicator != null)
                 {
                     enemySelectionIndicator.SetActive(false);
-                    unitDetailsUI.SetActive(false);
                     isSelectEnemy = false;
                 }
             }
-       }
+        }
     }
 
     private void CheckSelection()
@@ -77,8 +91,6 @@ public class UnitDetailsUI : MonoBehaviour
         {
             removeButton.SetActive(true);
             unitDetailsUI.SetActive(true); // show detail UI
-            try
-            {
                 unitStat = unitSelection.unitSelected[0].GetComponent<UnitStat>();
                 thisGameObject = unitSelection.unitSelected[0].gameObject;
                 unitName.text = unitStat.unitName;
@@ -86,17 +98,7 @@ public class UnitDetailsUI : MonoBehaviour
                 unitHPDetail.text = "HP : " + unitStat.unitHP.ToString();
                 unitMeleeArmorDetail.text = "Melee Armor : " + unitStat.unitMeleeArmor.ToString();
                 unitRangedArmorDetail.text = "Ranged Armor : " + unitStat.unitRangedArmor.ToString();
-            }
-            catch
-            {
-                unitDetailsUI.SetActive(false);
-            }
-               
         }
-        //else
-        //{
-        //    unitDetailsUI.SetActive(false); // hide detail UI
-        //}
     }
 
     private void SelectEnemy()

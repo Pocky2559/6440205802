@@ -17,6 +17,7 @@ public class Landsk_Chasing : LandsknetchBaseState
         if ((landsknetch.enemyStat.unitHP > 0 || landsknetch.targetEnemy != null) && landsknetch.unitStat.unitHP > 0)
         {
             float distanceOfLandsknetchAndTargetEnemy = Vector3.Distance(landsknetch.landsknetchAgent.transform.position, landsknetch.targetEnemy.transform.position);
+            
             if (distanceOfLandsknetchAndTargetEnemy <= 1f) //if enemy is in ranged
             {
                 landsknetch.landsknetchAgent.isStopped = true;
