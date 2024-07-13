@@ -3144,8 +3144,9 @@ MonoBehaviour:
   mainCamera: {fileID: 963194225}
   top: {fileID: 1044490541}
   bottom: {fileID: 1735353681}
-  left: {fileID: 1329004702}
-  right: {fileID: 580455566}
+  left: {fileID: 580455566}
+  right: {fileID: 1329004702}
+  distance: 5
 --- !u!1 &178276354 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1650968643332204680, guid: abd2bdcad33b04a4a9734d086224c170, type: 3}
@@ -5079,11 +5080,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridVisualization: {fileID: 1270214967}
   grid: {fileID: 2003835494}
-  gameObj: {fileID: 0}
+  previewBuilding: {fileID: 0}
   database: {fileID: 11400000, guid: 285e53664ec578d4d8f62ea3bbe2c353, type: 2}
   placementSystem: {fileID: 1088384106}
   selectObject: {fileID: 2082440313}
-  targetSelected: {fileID: 0}
   placementNotification: {fileID: 706542274}
 --- !u!1001 &364270979
 PrefabInstance:
@@ -8955,7 +8955,7 @@ GameObject:
   - component: {fileID: 580455565}
   - component: {fileID: 580455566}
   m_Layer: 2
-  m_Name: Right
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8987,8 +8987,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140.82486, y: 48.86939, z: 0.63000494}
-  m_Center: {x: -25.642845, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 140.82486, y: 48.86939, z: 11.521993}
+  m_Center: {x: -25.642845, y: 15.79516, z: -5.260998}
 --- !u!1 &585084104
 GameObject:
   m_ObjectHideFlags: 0
@@ -14054,8 +14054,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 88.66492, y: 48.86939, z: 0.6300049}
-  m_Center: {x: -30.937271, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 88.66492, y: 48.86939, z: 17.183487}
+  m_Center: {x: -30.937271, y: 15.79516, z: 8.461739}
 --- !u!1001 &1046149929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14681,8 +14681,9 @@ MonoBehaviour:
     m_Bits: 8
   canItPlace: 0
   buildingResourcesSpend: {fileID: 197448816}
-  targetSelected: {fileID: 0}
   listOfHouse: {fileID: 885180964}
+  preSelection: {fileID: 0}
+  soundEffectController: {fileID: 0}
 --- !u!1001 &1091833566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18850,7 +18851,7 @@ GameObject:
   - component: {fileID: 1329004701}
   - component: {fileID: 1329004702}
   m_Layer: 2
-  m_Name: Left
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18882,8 +18883,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 140.82486, y: 48.86939, z: 0.63000494}
-  m_Center: {x: -25.642845, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 140.82486, y: 48.86939, z: 9.717227}
+  m_Center: {x: -25.642845, y: 15.79516, z: 4.7286096}
 --- !u!4 &1329284546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2135475432616604210, guid: abd2bdcad33b04a4a9734d086224c170, type: 3}
@@ -24087,7 +24088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735353679}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -44.800003}
+  m_LocalPosition: {x: 0, y: 0, z: -48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24105,8 +24106,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 88.66492, y: 48.86939, z: 0.6300049}
-  m_Center: {x: -30.937271, y: 15.79516, z: 0.18499756}
+  m_Size: {x: 88.66492, y: 48.86939, z: 4.2044086}
+  m_Center: {x: -30.937271, y: 15.79516, z: 1.9721994}
 --- !u!4 &1735473672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9014712036729627915, guid: 64cd66e3d91f41746892c3d07e49fc13, type: 3}
@@ -25757,8 +25758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55eb80f68001b8043896f13b0064c336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.5
-  cameraCurrentSpeed: 0
+  speed: 5
+  cameraCurrentSpeed: 5
+  distance: 5
+  targetPosition: {x: 0, y: 0, z: 0}
+  isPushingBack: 0
 --- !u!4 &1882113262
 Transform:
   m_ObjectHideFlags: 0

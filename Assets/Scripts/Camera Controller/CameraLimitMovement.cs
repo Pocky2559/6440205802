@@ -10,30 +10,54 @@ public class CameraLimitMovement : MonoBehaviour
     public Collider bottom;
     public Collider left;
     public Collider right;
+    [SerializeField] private float distance;
+    Vector3 pushBackPosition;
 
+    private void Start()
+    {
+        pushBackPosition = cameraController.transform.position;
+    }
     private void Update()
     {
         Vector3 cameraPosition = mainCamera.transform.position;
 
         if(top.bounds.Contains(cameraPosition))
         {
-           mainCamera.transform.position += new Vector3(0,0,-cameraController.cameraCurrentSpeed); //the value should be same as speed of cameraDemo
+            pushBackPosition = cameraController.transform.position + (transform.forward * -1) * distance;
+            cameraController.isPushingBack = true;
+            cameraController.targetPosition = pushBackPosition;
         }
+        
+        
 
-        if(bottom.bounds.Contains(cameraPosition))
+        else if(bottom.bounds.Contains(cameraPosition))
         {
-           mainCamera.transform.position += new Vector3(0, 0, cameraController.cameraCurrentSpeed); //the value should be same as speed of cameraDemo
+            pushBackPosition = cameraController.transform.position + transform.forward * distance;
+            cameraController.isPushingBack = true;
+            cameraController.targetPosition = pushBackPosition;
         }
+       
 
-        if(left.bounds.Contains(cameraPosition)) 
+
+        else if(left.bounds.Contains(cameraPosition)) 
         {
-            mainCamera.transform.position += new Vector3(-cameraController.cameraCurrentSpeed, 0, 0);
+            pushBackPosition = cameraController.transform.position + transform.right * distance;
+            cameraController.isPushingBack = true;
+            cameraController.targetPosition = pushBackPosition;
         }
+       
 
-        if (right.bounds.Contains(cameraPosition))
+
+        else if (right.bounds.Contains(cameraPosition))
         {
-            mainCamera.transform.position += new Vector3(cameraController.cameraCurrentSpeed, 0, 0);
+            pushBackPosition = cameraController.transform.position + (transform.right * -1) * distance;
+            cameraController.isPushingBack = true;
+            cameraController.targetPosition = pushBackPosition;
         }
 
+        else
+        {
+            cameraController.isPushingBack = false;
+        }
     }
 }

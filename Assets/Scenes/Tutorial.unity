@@ -10946,16 +10946,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a6a766f4a5b074aa6525826089fbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridVisualization: {fileID: 1270214967}
+  grid: {fileID: 2003835494}
+  previewBuilding: {fileID: 0}
   database: {fileID: 11400000, guid: 285e53664ec578d4d8f62ea3bbe2c353, type: 2}
   placementSystem: {fileID: 1088384106}
   selectObject: {fileID: 2082440313}
-  targetSelected: {fileID: 0}
-  gameObj: {fileID: 0}
-  validMaterial: {fileID: 2100000, guid: 4e3192902df876348a5c777eec495ed2, type: 2}
-  InvalidMaterial: {fileID: 2100000, guid: 7a4ae8ad10ef7984d9328f09b1843c38, type: 2}
-  meshRenderer: {fileID: 0}
-  gridVisualization: {fileID: 1270214967}
-  grid: {fileID: 2003835494}
   placementNotification: {fileID: 773924887}
 --- !u!1 &360822517
 GameObject:
@@ -20779,9 +20775,6 @@ MonoBehaviour:
   produceGunnerButton: {fileID: 1778079357}
   produceLandsknetchButton: {fileID: 1050696254}
   produceCaptainButton: {fileID: 740813797}
-  nameText: {fileID: 1429591083}
-  selectedObject: {fileID: 0}
-  buildingUIDetails: {fileID: 842900353}
   selectedObjectPosition: {x: 0, y: 0, z: 0}
   selectedGameObj: {fileID: 0}
   previewSystem: {fileID: 358198949}
@@ -20790,6 +20783,7 @@ MonoBehaviour:
   produceVillager: {fileID: 0}
   produceMilitary: {fileID: 0}
   listOfHouse: {fileID: 885180964}
+  buildingUIDetails: {fileID: 842900353}
   townCenterUI: {fileID: 1832442800}
   townCenterVilQueUI: {fileID: 0}
   houseUI: {fileID: 850710785}
@@ -20798,6 +20792,7 @@ MonoBehaviour:
   windMillUI: {fileID: 806518991}
   barrackUI: {fileID: 482844000}
   artillaryUI: {fileID: 2019462062}
+  buildingSelectionIndicator: {fileID: 0}
   villagerQueImage: {fileID: 1187022699335840643, guid: 8c979633d9d221d429d368cff5e71633, type: 3}
 --- !u!1 &682630081
 GameObject:
@@ -32658,16 +32653,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   database: {fileID: 11400000, guid: 285e53664ec578d4d8f62ea3bbe2c353, type: 2}
   selectObject: {fileID: 2082440313}
+  grid: {fileID: 2003835494}
   currentPos: {x: 0, y: 0, z: 0}
-  gameObj: {fileID: 0}
-  layername:
+  layernameToPlace:
     serializedVersion: 2
     m_Bits: 8
   canItPlace: 0
-  grid: {fileID: 2003835494}
   buildingResourcesSpend: {fileID: 197448816}
-  targetSelected: {fileID: 0}
   listOfHouse: {fileID: 885180964}
+  preSelection: {fileID: 0}
+  soundEffectController: {fileID: 0}
 --- !u!1 &1088566777
 GameObject:
   m_ObjectHideFlags: 0
@@ -45708,17 +45703,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fde9af90ca403541a2f5e8aa3d05373, type: 3}
---- !u!114 &1429591083 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1508749369812981900, guid: 7f1880edbcaace94caac8dbda694e6b0, type: 3}
-  m_PrefabInstance: {fileID: 1508749369094556839}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1436037123
 GameObject:
   m_ObjectHideFlags: 0
@@ -66308,6 +66292,7 @@ MonoBehaviour:
   kartauneStateController: {fileID: 0}
   IsCannonDestroy: 0
   kartauneBuildPanel: {fileID: 1544328934}
+  soundEffectController: {fileID: 0}
 --- !u!1 &2070143947
 GameObject:
   m_ObjectHideFlags: 0

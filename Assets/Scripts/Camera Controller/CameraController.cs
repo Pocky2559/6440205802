@@ -7,60 +7,40 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float speed;
     public float cameraCurrentSpeed;
-    void Start()
+    public float distance;
+    public Vector3 targetPosition;
+    public bool isPushingBack;
+
+    private void Start()
     {
-        
+        targetPosition = transform.position;
     }
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(Input.GetKey(KeyCode.W) || (Input.mousePosition.y < 1080 && Input.mousePosition.y > 1020))
+        Vector3 direction = Vector3.zero;
+        if (Input.GetKey(KeyCode.W) || (Input.mousePosition.y < 1080 && Input.mousePosition.y > 1020) && isPushingBack == false)
         {
-            transform.position = transform.position + transform.forward * speed;
-            cameraCurrentSpeed = speed;
+            direction = direction + transform.forward;
         }
-        if(Input.GetKey(KeyCode.S) || (Input.mousePosition.y > 0 && Input.mousePosition.y < 60)) 
+        if(Input.GetKey(KeyCode.S) || (Input.mousePosition.y > 0 && Input.mousePosition.y < 60) && isPushingBack == false) 
         {
-            transform.position = transform.position + (transform.forward * -1) * speed;
-            cameraCurrentSpeed = speed;
+            direction = direction - transform.forward;
         }
-        if(Input.GetKey(KeyCode.D) || (Input.mousePosition.x < Screen.width && Input.mousePosition.x > 1855))
+        if(Input.GetKey(KeyCode.D) || (Input.mousePosition.x < Screen.width && Input.mousePosition.x > 1855) && isPushingBack == false)
         {
-            transform.position = transform.position + transform.right * speed;
-            cameraCurrentSpeed = speed;
+            direction= direction + transform.right;
         }
-        if(Input.GetKey(KeyCode.A) || (Input.mousePosition.x > 0 && Input.mousePosition.x < 60))
+        if(Input.GetKey(KeyCode.A) || (Input.mousePosition.x > 0 && Input.mousePosition.x < 60) && isPushingBack == false)
         {
-            transform.position = transform.position + (transform.right * -1 ) * speed;
-            cameraCurrentSpeed = speed;
+            direction = direction - transform.right;
         }
 
-        // Pan cameraDemo with mouse //
-        //    // Left
-        //  if(Input.mousePosition.x > 0 && Input.mousePosition.x < 60) 
-        //    {
-        //     transform.position = transform.position + (transform.right * -1) * speed;
-             
-        //    }
+        if (direction != Vector3.zero && isPushingBack == false) 
+        {
+            direction.Normalize(); 
+            targetPosition = transform.position + direction * distance;
+        }
 
-        //    // Right
-        //  if(Input.mousePosition. x < Screen.width && Input.mousePosition.x > 1855)
-        //    {
-        //     transform.position = transform.position + transform.right * speed;
-             
-        //    }
-
-        //    // Up
-        //  if(Input.mousePosition.y < 1080 && Input.mousePosition.y > 1020)
-        //    {
-        //     transform.position = transform.position + transform.forward* speed;
-        //    }
-
-        //    // Down
-        //  if(Input.mousePosition.y > 0 && Input.mousePosition.y < 60)
-        //{
-        //    transform.position = transform.position + (transform.forward * -1) * speed;
-        //}
-        
+        transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
     }
 }
