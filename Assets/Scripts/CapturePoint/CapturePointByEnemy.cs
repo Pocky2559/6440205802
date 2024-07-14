@@ -8,6 +8,10 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
     public float remainingTime;
     public TMP_Text capturePointTimerText;
     public bool IsEnemyInPoint;
+    [SerializeField] private SoundEffectController soundEffectController;
+    private bool isLosing;
+
+
     private void OnTriggerStay(Collider enemy)
     {
         if (enemy.CompareTag("OttomanRecruit")
@@ -17,6 +21,11 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
             || enemy.CompareTag("OttomanCannon"))
         {
             IsEnemyInPoint = true;
+            if(isLosing == false)
+            {
+                soundEffectController.PlayDefendedPointAlarm();
+                isLosing = true;
+            }
         }
     }
 
@@ -29,6 +38,11 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
             || enemy.CompareTag("OttomanCannon"))
         {
             IsEnemyInPoint = false;
+            if (isLosing == true)
+            {
+                soundEffectController.StopPlaySound();
+                isLosing = false;
+            }
         }
     }
 

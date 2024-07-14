@@ -35,8 +35,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
     public bool IsWaveBegin;
     public bool isExtraWaveBegin;
 
-    public GateWallExplode explodeParticle;
-    public Transform explodePoint;
+    [SerializeField] private OldMedievalWallDestroyed oldWallDestroyed;
 
     private void Awake()
     {
@@ -45,7 +44,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
         maximumWave = 7;
         IsSubWaveFinised = false;
         IsWaveBegin = false;
-        explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<GateWallExplode>();
+        //explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<GateWallExplode>();
 
         soundEffectController = GetComponent<SoundEffectController>();
         soundEffectController.soundEffect = GetComponent<AudioSource>();
@@ -539,10 +538,8 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
         #region Extra Wave
         if (isExtraWaveBegin == true)
         {
-            // Destroy Old Medieval Wall
-            Destroy(oldMedievalWall);
-            explodeParticle.StartPlayParticle(explodePoint.position);
             soundEffectController.PlayWaveBeginSound();
+            oldWallDestroyed.StartToDestroyOldWall();
 
             // Spawn Enemy
             // Melee Janissary x4
@@ -553,7 +550,6 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
             Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPointExtra4.transform.position, Quaternion.identity);
             Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPointExtra5.transform.position, Quaternion.identity);
             Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPointExtra6.transform.position, Quaternion.identity);
-
         }
         #endregion
     }

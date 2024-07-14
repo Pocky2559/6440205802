@@ -512,7 +512,7 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 200
   Pan2D: 0
@@ -1369,3 +1369,4 @@ MonoBehaviour:
   firearmsParticle: {fileID: 0}
   firePoint: {fileID: 2385190460339671510}
   soundEffectController: {fileID: 4476365368076981623}
+  targetEnemyStat: {fileID: 0}

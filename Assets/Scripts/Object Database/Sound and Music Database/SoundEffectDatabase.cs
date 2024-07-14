@@ -21,7 +21,6 @@ public class SoundEffectDatabase : ScriptableObject
     [Header("Placement Sound Effects")]
     public AudioClip placeBuildingSound;
     public AudioClip cannotPlaceSound;
-    public AudioClip canPlaceBuildingSound;
     public AudioClip deleteBuildingSound;
 
     [Header("UI Interaction Sound Effect")]
@@ -29,9 +28,8 @@ public class SoundEffectDatabase : ScriptableObject
     public AudioClip uiCloseSound;
 
     [Header("World Sound Effects")]
-    public AudioClip wallOrGateExplodeSound;
-    public AudioClip gateOpenSound;
-    public AudioClip gateCloseSound;
+    public AudioClip gateSound;
     public AudioClip hornSound;
     public AudioClip commandSound;
+    public AudioClip defendedPointAlarm;
 }

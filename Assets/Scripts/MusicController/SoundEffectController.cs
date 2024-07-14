@@ -99,4 +99,18 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = false;
         soundEffect.Play();
     }
+
+    public void PlayGateOpenSound()
+    {
+        soundEffect.clip = soundEffectDatabase.gateSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
+
+    public void PlayDefendedPointAlarm()
+    {
+        soundEffect.clip = soundEffectDatabase.defendedPointAlarm;
+        soundEffect.loop = true;
+        soundEffect.Play();
+    }
 }

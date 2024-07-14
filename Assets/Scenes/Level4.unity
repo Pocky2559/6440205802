@@ -11067,12 +11067,11 @@ MonoBehaviour:
   waveTimer: {fileID: 1854829301}
   waveNumber: 0
   maximumWave: 7
-  timeInWave: 20
+  timeInWave: 300
   globalWaveTime: 0
   IsWaveBegin: 0
   isExtraWaveBegin: 0
-  explodeParticle: {fileID: 0}
-  explodePoint: {fileID: 1457382514}
+  oldWallDestroyed: {fileID: 546953776154772517}
 --- !u!114 &712562696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13025,6 +13024,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2828482279131992962, guid: d348403df965d5c48998ec82f78e85f7, type: 3}
+      propertyPath: Priority
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 2828482279661400520, guid: d348403df965d5c48998ec82f78e85f7, type: 3}
       propertyPath: Priority
       value: 0
@@ -28048,6 +28051,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 811379578183713576, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2773541692512484273, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
       propertyPath: capturePointTimerText
       value: 
@@ -28743,6 +28750,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3523815e242b27f4c8f64a3b1f22c119, type: 3}
+--- !u!114 &546953776154772517 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2816087116628942643, guid: 3523815e242b27f4c8f64a3b1f22c119, type: 3}
+  m_PrefabInstance: {fileID: 546953776154772516}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671280168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578a561a1451cc1438fd8a3dbb038469, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &687141246668411511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5214496827076399924, guid: 203b1fc5c55650c4bb5e2d723565241c, type: 3}
