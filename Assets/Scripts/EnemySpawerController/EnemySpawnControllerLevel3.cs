@@ -17,6 +17,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
     public GameObject EnemySpawnPoint8;
 
     public UnitDatabaseSO unitDatabase;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     public WaveTimerLevel3 waveTimer;
     public int waveNumber;
@@ -34,6 +35,9 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
         maximumWave = 6;
         IsSubWaveFinised = false;
         IsWaveBegin = false;
+
+        soundEffectController = GetComponent<SoundEffectController>();
+        soundEffectController.soundEffect = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -52,6 +56,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 60;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 1;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x4
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -101,6 +106,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 2;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x3
                     //Ottoman Gunner Recruit x2
@@ -164,6 +170,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 120;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 3;
+                    soundEffectController.PlayWaveBeginSound();
 
                     // Ranged Janissary x2
                     Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -211,6 +218,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 4;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x3
                     //Ranged Janissary x1
@@ -263,6 +271,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 120;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 5;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ranged Janissary x2
                     Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
@@ -312,6 +321,7 @@ public class EnemySpawnControllerLevel3 : MonoBehaviour
                     timeInWave = 125;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 6;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x5
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);

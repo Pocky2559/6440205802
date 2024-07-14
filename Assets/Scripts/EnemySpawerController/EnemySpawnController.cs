@@ -15,6 +15,7 @@ public class EnemySpawnController : MonoBehaviour
     public GameObject EnemySpawnPoint8;
 
     public UnitDatabaseSO unitDatabase;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     public WaveTimer waveTimer;
     public int waveNumber;
@@ -33,6 +34,10 @@ public class EnemySpawnController : MonoBehaviour
         maximumWave = 5;
         IsSubWaveFinised = false;
         IsWaveBegin = false;
+
+        soundEffectController = GetComponent<SoundEffectController>();
+        soundEffectController.soundEffect = GetComponent<AudioSource>();
+        Debug.Log("Assign");
     }
     private void Update()
     {
@@ -53,9 +58,12 @@ public class EnemySpawnController : MonoBehaviour
              {
                 if(IsSubWaveFinised == false)
                 {
+                  Debug.Log("Start PLay Sound Horn");
+                  soundEffectController.PlayWaveBeginSound();
                   timeInWave = 60;
                   waveTimer.remainingTime = timeInWave;
                   waveNumber = 1;
+                  
 
                   // Ottoman Recruit x3
                   Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -91,6 +99,7 @@ public class EnemySpawnController : MonoBehaviour
             {
                 if(IsSubWaveFinised == false)
                 {
+                    soundEffectController.PlayWaveBeginSound();
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 2;
@@ -173,6 +182,7 @@ public class EnemySpawnController : MonoBehaviour
             //=============
             else if (Mathf.FloorToInt(globalWaveTime) == 150)
             {
+                soundEffectController.PlayWaveBeginSound();
                 timeInWave = 90;
                 waveTimer.remainingTime = timeInWave;
                 waveNumber = 3;
@@ -246,6 +256,7 @@ public class EnemySpawnController : MonoBehaviour
             //=============
             else if (Mathf.FloorToInt(globalWaveTime) == 240)
             {
+                soundEffectController.PlayWaveBeginSound();
                 timeInWave = 90;
                 waveTimer.remainingTime = timeInWave;
                 waveNumber = 4;
@@ -324,6 +335,7 @@ public class EnemySpawnController : MonoBehaviour
             {
                 if (IsSubWaveFinised == true)
                 {
+                    soundEffectController.PlayWaveBeginSound();
                     timeInWave = 60;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 5;

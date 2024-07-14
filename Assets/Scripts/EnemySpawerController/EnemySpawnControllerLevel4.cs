@@ -23,6 +23,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
     public GameObject oldMedievalWall;
 
     public UnitDatabaseSO unitDatabase;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     public WaveTimerLevel4 waveTimer;
     public int waveNumber;
@@ -45,6 +46,9 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
         IsSubWaveFinised = false;
         IsWaveBegin = false;
         explodeParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<GateWallExplode>();
+
+        soundEffectController = GetComponent<SoundEffectController>();
+        soundEffectController.soundEffect = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -63,6 +67,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 60;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 1;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x5
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -117,6 +122,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 2;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x3
                     Instantiate(unitDatabase.unitDetails[5].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -183,6 +189,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 120;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 3;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Melee Janissary x3
                     Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
@@ -248,6 +255,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 4;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Recruit x3
                     //Ranged Janissary x1
@@ -302,6 +310,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 100;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 5;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Melee Janissary x2
                     Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
@@ -365,6 +374,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 150;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 6;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Cannon x1
                     Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -444,6 +454,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                     timeInWave = 120;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 7;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Ottoman Cannon x1
                     Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
@@ -531,6 +542,7 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
             // Destroy Old Medieval Wall
             Destroy(oldMedievalWall);
             explodeParticle.StartPlayParticle(explodePoint.position);
+            soundEffectController.PlayWaveBeginSound();
 
             // Spawn Enemy
             // Melee Janissary x4

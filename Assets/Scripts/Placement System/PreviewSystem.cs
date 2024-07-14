@@ -15,10 +15,11 @@ public class PreviewSystem : MonoBehaviour
     
 
     [Header("Required Components")]
-    [SerializeField] ObjectDatabaseSO database;
-    [SerializeField] PlacementSystem placementSystem;
-    [SerializeField] SelectObject selectObject;
+    [SerializeField] private ObjectDatabaseSO database;
+    [SerializeField] private PlacementSystem placementSystem;
+    [SerializeField] private SelectObject selectObject;
     [SerializeField] private PlacementNotification placementNotification;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     public void CreatObjectPreview()
     {
@@ -83,9 +84,16 @@ public class PreviewSystem : MonoBehaviour
     public void StopPreview()
     {
         Destroy(previewBuilding);
+        previewBuilding = null;
         gridVisualization.SetActive(false);
         placementNotification.HideIndicator();
         placementNotification.HideNeedMoreResources();
         selectObject.isSelectBuilding = false;
     }
-}   
+
+    public void StartToPlayCannotPlaceBuildingSound()
+    {
+        soundEffectController = previewBuilding.GetComponentInChildren<SoundEffectController>();
+        soundEffectController.PlayCannotPlaceBuildingSound();
+    }
+}

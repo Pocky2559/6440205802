@@ -24,6 +24,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private HouseList listOfHouse;
     [SerializeField] private PreSelection preSelection;
     [SerializeField] private SoundEffectController soundEffectController;
+    [SerializeField] private PreviewSystem previewSystem;
 
     public void PlaceObjectState()
     {
@@ -52,7 +53,7 @@ public class PlacementSystem : MonoBehaviour
 
         if (canItPlace == true && refBuildingName == "House" && listOfHouse.currentPopulationCapacity <= 200)
         {
-            listOfHouse.AddHouseToList(refBuilding);
+             listOfHouse.AddHouseToList(refBuilding);
         }
     }
 
@@ -104,6 +105,10 @@ public class PlacementSystem : MonoBehaviour
                     StartPlacement();
                     placeToken = 0;
                 }
+            }
+            else if (Input.GetMouseButtonDown(0) && placeToken == 0 && previewSystem.previewBuilding != null)
+            {
+                previewSystem.StartToPlayCannotPlaceBuildingSound();
             }
         } 
     }

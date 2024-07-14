@@ -15,6 +15,7 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
     public GameObject EnemySpawnPoint8;
 
     public UnitDatabaseSO unitDatabase;
+    [SerializeField] private SoundEffectController soundEffectController;
 
     public WaveTimerLevel2 waveTimer;
     public int waveNumber;
@@ -32,6 +33,9 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
         maximumWave = 5;
         IsSubWaveFinised = false;
         IsWaveBegin = false;
+
+        soundEffectController = GetComponent<SoundEffectController>();
+        soundEffectController.soundEffect = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -50,6 +54,7 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
                     timeInWave = 60;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 1;
+                    soundEffectController.PlayWaveBeginSound();
 
                     // Melee Janissary x2
                     Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
@@ -83,6 +88,7 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 2;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Melee Janissary x2
                     Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
@@ -131,6 +137,8 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 3;
+                    soundEffectController.PlayWaveBeginSound();
+
 
                     //Ranged Janissary x2
                     Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
@@ -188,6 +196,7 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
                     timeInWave = 90;
                     waveTimer.remainingTime = timeInWave;
                     waveNumber = 4;
+                    soundEffectController.PlayWaveBeginSound();
 
                     //Melee Janissary x2
                     //Ranged Janissary x1
@@ -237,7 +246,8 @@ public class EnemeSpawnControllerLevel2 : MonoBehaviour
                     timeInWave = 70;
                     waveNumber = 5;
                     waveTimer.remainingTime = timeInWave;
-                    
+                    soundEffectController.PlayWaveBeginSound();
+
                     //Melee Janissary x2
                     //Ranged Janissary x1
                     Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);

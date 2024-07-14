@@ -81,4 +81,22 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = false;
         soundEffect.Play();
     }
+
+    public void PlayCannotPlaceBuildingSound()
+    {
+        soundEffect.clip = soundEffectDatabase.cannotPlaceSound;
+        soundEffect.loop = false;
+        soundEffect.enabled = true;
+        if(soundEffect.enabled == true)
+        {
+            soundEffect.Play();
+        }
+    }
+
+    public void PlayWaveBeginSound()
+    {
+        //soundEffect.clip = soundEffectDatabase.hornSound; //Assign Manually
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }
