@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CapturePointByEnemy : MonoBehaviour // attach this script to the DetectionArea of the Point
@@ -10,6 +11,8 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
     public bool IsEnemyInPoint;
     [SerializeField] private SoundEffectController soundEffectController;
     private bool isLosing;
+    [SerializeField] private GameObject warningIndicatorUI;
+    [SerializeField] private GameObject warningIndicatorAtPoint;
 
 
     private void OnTriggerStay(Collider enemy)
@@ -24,6 +27,8 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
             if(isLosing == false)
             {
                 soundEffectController.PlayDefendedPointAlarm();
+                warningIndicatorUI.SetActive(true);
+                warningIndicatorAtPoint.SetActive(true);
                 isLosing = true;
             }
         }
@@ -41,6 +46,8 @@ public class CapturePointByEnemy : MonoBehaviour // attach this script to the De
             if (isLosing == true)
             {
                 soundEffectController.StopPlaySound();
+                warningIndicatorUI.SetActive(false);
+                warningIndicatorAtPoint.SetActive(false);
                 isLosing = false;
             }
         }

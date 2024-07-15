@@ -256,6 +256,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 283996629596243539, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 283996629596243551, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 294835340756833975, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -595,6 +603,18 @@ PrefabInstance:
     - target: {fileID: 5435945168890189823, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469067168135737431, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_Name
+      value: Warning Sign UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469067168135737431, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469067168135737435, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_RootOrder
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5502266316422426946, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_IsActive
@@ -2178,6 +2198,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8643873018144361196, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: targetFloatingUI
+      value: 
+      objectReference: {fileID: 709398180}
     - target: {fileID: 8648445484945069482, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -10987,6 +11011,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!4 &709398180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 772245956668277178, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
+  m_PrefabInstance: {fileID: 2058234834}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &712562693
 GameObject:
   m_ObjectHideFlags: 0
@@ -19595,6 +19624,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7926878799383279493, guid: d009508a25a21284cbbdae659afd456e, type: 3}
   m_PrefabInstance: {fileID: 1311042412}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1311204432 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5469067168135737431, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1311417042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25372,6 +25406,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9014712036729627915, guid: 64cd66e3d91f41746892c3d07e49fc13, type: 3}
   m_PrefabInstance: {fileID: 249796309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1762158225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 283996629596243539, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1764692549 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2121115777601841395, guid: e334e6614ad50f749b0a37528784c614, type: 3}
@@ -28056,9 +28095,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2773541692512484273, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
+      propertyPath: warningIndicatorUI
+      value: 
+      objectReference: {fileID: 1311204432}
+    - target: {fileID: 2773541692512484273, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
       propertyPath: capturePointTimerText
       value: 
       objectReference: {fileID: 1709623979}
+    - target: {fileID: 2773541692512484273, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
+      propertyPath: warningIndicatorAtPoint
+      value: 
+      objectReference: {fileID: 1762158225}
     - target: {fileID: 3564583067129991829, guid: 1abb03bddc5ef3f42a88913af1a2115d, type: 3}
       propertyPath: m_Layer
       value: 2
