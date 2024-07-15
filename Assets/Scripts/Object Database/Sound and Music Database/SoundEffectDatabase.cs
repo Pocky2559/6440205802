@@ -32,4 +32,5 @@ public class SoundEffectDatabase : ScriptableObject
     public AudioClip hornSound;
     public AudioClip commandSound;
     public AudioClip defendedPointAlarm;
+    public AudioClip buildingOrUnitSelectionSound;
 }

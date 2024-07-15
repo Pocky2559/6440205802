@@ -113,4 +113,11 @@ public class SoundEffectController : MonoBehaviour
         soundEffect.loop = true;
         soundEffect.Play();
     }
+
+    public void PlayBuildingOrUnitSelectionSound()
+    {
+        soundEffect.clip = soundEffectDatabase.buildingOrUnitSelectionSound;
+        soundEffect.loop = false;
+        soundEffect.Play();
+    }
 }

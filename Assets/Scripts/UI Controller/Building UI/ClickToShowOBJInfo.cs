@@ -42,7 +42,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     [SerializeField] private TownCenter_ProduceVillager produceVillager;
     [SerializeField] private Barrack_Producing produceMilitary;
     [SerializeField] private HouseList listOfHouse;
-    //[SerializeField] private SoundEffectController soundEffectController;
+    [SerializeField] private SoundEffectController soundController;
 
     [Header("Building UI")]
     [SerializeField] private GameObject buildingUIDetails;
@@ -101,6 +101,8 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         }
 
                         produceVillager = hit.collider.GetComponent<TownCenter_ProduceVillager>();
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
                         produceVillagerButton.onClick.RemoveAllListeners();
                         produceVillagerButton.onClick.AddListener(produceVillager.AddVillagerQue);
                         buildingSelectionIndicator = hit.collider.transform.GetChild(1).gameObject;
@@ -141,6 +143,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         houseUI.SetActive(true);
@@ -176,6 +181,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         lumberCampUI.SetActive(true);
@@ -209,6 +217,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         {
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
+
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
@@ -245,6 +256,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
 
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
+
                         #region Show UI
                         buildingUIDetails.SetActive(true);
                         windMillUI.SetActive(true);
@@ -268,6 +282,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         {
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
+
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
 
                         //selectedObjectPosition = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().transform.position;
                         selectedGameObj = selectedObject.GetComponentInChildren<PositionToSpawnUnit>().gameObject;
@@ -332,6 +349,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
                         {
                             produceMilitary.queIconInstantiateTarget.gameObject.SetActive(false);
                         }
+
+                        soundController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                        soundController.PlayBuildingOrUnitSelectionSound();
 
                         #region Show UI
                         buildingUIDetails.SetActive(true);
