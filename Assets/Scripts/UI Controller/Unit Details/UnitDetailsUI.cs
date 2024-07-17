@@ -17,9 +17,12 @@ public class UnitDetailsUI : MonoBehaviour
     public HouseList population;
     public UnitDatabaseSO unitDatabase;
     public LayerMask enemyLayerMask;
+    public LayerMask playerLayerMask;
     public LayerMask groundLayerMask;
     private bool isSelectEnemy;
+    private bool isSelectUnitSoundPlay;
     private RaycastHit hit;
+    public SoundEffectController soundEffectController;
 
     public TMP_Text unitName;
     public TMP_Text unitAttackDetail;
@@ -36,9 +39,15 @@ public class UnitDetailsUI : MonoBehaviour
     }
     private void Update()
     {
-       if(unitSelection.unitSelected.Count == 1) //if select player unit
+       if(unitSelection.unitSelected.Count >= 1) //if select player unit
        {
           CheckSelection();
+          if (isSelectUnitSoundPlay == false)
+          {
+              soundEffectController = unitSelection.unitSelected[0].GetComponentInChildren<SoundEffectController>();
+              soundEffectController.PlayBuildingOrUnitSelectionSound();
+              isSelectUnitSoundPlay = true;
+          }
        }
 
        else if (isSelectEnemy == true)
@@ -49,6 +58,7 @@ public class UnitDetailsUI : MonoBehaviour
        else
        {
           unitDetailsUI.SetActive(false);
+          isSelectUnitSoundPlay = false;
        }
 
        if(Input.GetMouseButtonDown(0)) //if click at enemy
@@ -59,20 +69,12 @@ public class UnitDetailsUI : MonoBehaviour
                 if(enemySelectionIndicator != null)
                 {
                     enemySelectionIndicator.SetActive(false);
+                    
                 }
-
+                soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                soundEffectController.PlayBuildingOrUnitSelectionSound();
                 isSelectEnemy = true;
             }
-
-            //else if(Physics.Raycast(ray, out hit, Mathf.Infinity))
-            //{
-            //    if(enemySelectionIndicator != null)
-            //    {
-            //        enemySelectionIndicator.SetActive(false);
-            //        unitDetailsUI.SetActive(false);                   
-            //        isSelectEnemy = false;
-            //    }
-            //}
 
             else
             {
@@ -81,6 +83,12 @@ public class UnitDetailsUI : MonoBehaviour
                     enemySelectionIndicator.SetActive(false);
                     isSelectEnemy = false;
                 }
+            }
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, playerLayerMask))
+            {
+                soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                soundEffectController.PlayBuildingOrUnitSelectionSound();
             }
         }
     }
@@ -123,31 +131,31 @@ public class UnitDetailsUI : MonoBehaviour
         if (thisGameObject.CompareTag("Villager"))
         {
             population.PopulationChanges(-1 * unitDatabase.unitDetails[0].population);
-            Destroy(unitStat.gameObject);
+            unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Gunner"))
         {
             population.PopulationChanges(-1 * unitDatabase.unitDetails[1].population);
-            Destroy(unitStat.gameObject);
+            unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Landsknecht"))
         {
             population.PopulationChanges(-1 * unitDatabase.unitDetails[2].population);
-            Destroy(unitStat.gameObject);
+            unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Captain"))
         {
             population.PopulationChanges(-1 * unitDatabase.unitDetails[3].population);
-            Destroy(unitStat.gameObject);
+            unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Kartouwe"))
         {
             population.PopulationChanges(-1 * unitDatabase.unitDetails[4].population);
-            Destroy(unitStat.gameObject);
+            unitStat.unitHP = 0;
         }
         #endregion
     }

@@ -27,7 +27,7 @@ public class UnitSelection : MonoBehaviour
     {
         DeselectAll();
         unitSelected.Add(unitToAdd);
-        unitToAdd.transform.GetChild(0).gameObject.SetActive(true);
+        unitToAdd.transform.GetChild(0).gameObject.SetActive(true); //Show selection indicator
        // unitToAdd.GetComponent<UnitMovement>().enabled= true;
     }
     public void ShiftClickSelect(GameObject unitToAdd)
