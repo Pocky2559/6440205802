@@ -11,6 +11,11 @@ public class OtmCannon_AttackPlayerState : OtmCannonBaseState
         //positionToAim = otmCannon.targetPlayerUnit.transform.position;
         //positionToAim.y = otmCannon.transform.parent.position.y; //freeze y position
         otmCannon.OtmCannon.isStopped = true;
+
+        //Stop Play Animation//
+        otmCannon.leftWheelAnim.SetBool("isMoving", false);
+        otmCannon.rightWheelAnim.SetBool("isMoving", false);
+        //////////////////
     }
     public override void UpdateState(OtmCannonStateController otmCannon)
     {

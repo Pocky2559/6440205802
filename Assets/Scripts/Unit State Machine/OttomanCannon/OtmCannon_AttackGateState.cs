@@ -6,6 +6,7 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
 {
     private float lastShotTime;
     private float distanceCannonAndGate;
+    private bool isMoving;
     public override void EnterState(OtmCannonStateController otmCannon)
     {
         if(otmCannon.gate != null) // if there has a gate
@@ -30,6 +31,12 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
             if (distanceCannonAndGate <= otmCannon.attackRange.radius)
             {
                 otmCannon.OtmCannon.isStopped = true; // Stop moving
+                
+                //Stop Play Animation//
+                otmCannon.leftWheelAnim.SetBool("isMoving", false);
+                otmCannon.rightWheelAnim.SetBool("isMoving", false);
+                //////////////////
+                
                 otmCannon.transform.parent.LookAt(otmCannon.gate.transform.position);
                 Attack(otmCannon);
             }
@@ -37,6 +44,12 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
             if (distanceCannonAndGate > otmCannon.attackRange.radius)
             {
                 otmCannon.OtmCannon.isStopped = false;
+
+                //Play Animation//
+                otmCannon.leftWheelAnim.SetBool("isMoving", true);
+                otmCannon.rightWheelAnim.SetBool("isMoving", true);
+                //////////////////
+                    
                 otmCannon.OtmCannon.SetDestination(otmCannon.gate.transform.position);
             }
         }

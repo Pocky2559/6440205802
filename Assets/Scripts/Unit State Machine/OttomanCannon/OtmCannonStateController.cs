@@ -20,6 +20,8 @@ public class OtmCannonStateController : MonoBehaviour
     public FirearmsParticle firearmsParticle;
     public Transform firePoint;
     public SoundEffectController soundEffectController;
+    public Animator leftWheelAnim;
+    public Animator rightWheelAnim;
 
     private OtmCannonBaseState currentState;
     public OtmCannon_AttackGateState otmCannon_AttackGateState = new();

@@ -51,8 +51,8 @@ public class UnitDetailsUI : MonoBehaviour
        }
 
        else if (isSelectEnemy == true)
-       {
-          SelectEnemy();
+       { 
+            SelectEnemy();
        }
 
        else
@@ -71,8 +71,22 @@ public class UnitDetailsUI : MonoBehaviour
                     enemySelectionIndicator.SetActive(false);
                     
                 }
-                soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
-                soundEffectController.PlayBuildingOrUnitSelectionSound();
+
+                //if(hit.collider.CompareTag("OttomanCannon") == false)
+                //{  
+                   soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                   soundEffectController.PlayBuildingOrUnitSelectionSound();
+                   unitStat = hit.collider.GetComponent<UnitStat>();
+                //}
+
+                //else
+                //{
+                //   soundEffectController = hit.collider.transform.root.GetComponentInChildren<SoundEffectController>();
+                //   soundEffectController.PlayBuildingOrUnitSelectionSound();
+                //   unitStat = hit.collider.GetComponent<UnitStat>();
+                //}
+                
+                
                 isSelectEnemy = true;
             }
 
@@ -111,13 +125,13 @@ public class UnitDetailsUI : MonoBehaviour
 
     private void SelectEnemy()
     {
-        unitStat = hit.collider.GetComponent<UnitStat>();
+        //unitStat = Hit.collider.GetComponent<UnitStat>();
         unitName.text = unitStat.unitName;
         unitAttackDetail.text = "Attack : " + unitStat.unitDamage.ToString();
         unitHPDetail.text = "HP : " + unitStat.unitHP.ToString();
         unitMeleeArmorDetail.text = "Melee Armor : " + unitStat.unitMeleeArmor.ToString();
         unitRangedArmorDetail.text = "Ranged Armor : " + unitStat.unitRangedArmor.ToString();
-        enemySelectionIndicator = hit.transform.GetChild(0).gameObject;
+        enemySelectionIndicator = unitStat.transform.GetChild(0).gameObject;
         enemySelectionIndicator.SetActive(true);
         removeButton.SetActive(false);
         unitDetailsUI.SetActive(true);

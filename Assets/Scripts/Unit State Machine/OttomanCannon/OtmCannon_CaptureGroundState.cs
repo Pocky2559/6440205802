@@ -11,6 +11,12 @@ public class OtmCannon_CaptureGroundState : OtmCannonBaseState
         if(otmCannon.isCannonReachDestination == false)
         {
             otmCannon.OtmCannon.isStopped = false;
+
+            //Play Animation//
+            otmCannon.leftWheelAnim.SetBool("isMoving", true);
+            otmCannon.rightWheelAnim.SetBool("isMoving", true);
+            //////////////////
+            
             FindAvailablePoint(otmCannon);
         }
     }
@@ -24,6 +30,11 @@ public class OtmCannon_CaptureGroundState : OtmCannonBaseState
             if(distanceBetweenCannonAndPoint <= 1)
             {
                 otmCannon.isCannonReachDestination = true;
+
+                //Stop Play Animation//
+                otmCannon.leftWheelAnim.SetBool("isMoving", false);
+                otmCannon.rightWheelAnim.SetBool("isMoving", false);
+                //////////////////
             }
         }
 
