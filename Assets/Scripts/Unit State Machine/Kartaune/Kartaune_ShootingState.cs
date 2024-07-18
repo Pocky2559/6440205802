@@ -74,6 +74,10 @@ public class Kartaune_ShootingState : KartauneBaseState
         kartaune.buildCannonOnWall.positionToPlace.SetActive(true); //show the point that can build a cannon
         kartaune.buildCannonOnWall.icon.SetActive(true); //show icon of building cannon on wall
         kartaune.population.PopulationChanges(-1 * kartaune.unitStat.unitPopulation); //Decrease population
+        kartaune.cannonDestroyedParticle.StartPlayParticle(kartaune.transform.parent.position);
+        SoundEffectController destroyedSound = MonoBehaviour.Instantiate(kartaune.soundEffectController);
+        destroyedSound.PlayDeleteBuildingSound();
+        MonoBehaviour.Destroy(destroyedSound.gameObject, 3f);
         MonoBehaviour.Destroy(kartaune.transform.parent.gameObject); // Delete Villager from the game
     }
 }

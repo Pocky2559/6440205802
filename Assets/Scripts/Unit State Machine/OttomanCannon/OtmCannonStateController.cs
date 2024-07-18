@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Timeline;
 
 public class OtmCannonStateController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class OtmCannonStateController : MonoBehaviour
     public UnitStat unitStat;
     public GameObject availableWaypoint;
     public FirearmsParticle firearmsParticle;
+    public CannonballExplodeParticle cannonDestroyedParticle;
     public Transform firePoint;
     public SoundEffectController soundEffectController;
     public Animator leftWheelAnim;
@@ -39,7 +41,8 @@ public class OtmCannonStateController : MonoBehaviour
         unitStat = GetComponentInParent<UnitStat>();    
         isCannonReachDestination = false;
         availableWaypoint = null;
-        firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>(); 
+        firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>();
+        cannonDestroyedParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
     }
     private void Start()
     {

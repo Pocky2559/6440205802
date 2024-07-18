@@ -13,6 +13,7 @@ public class KartauneStateController : MonoBehaviour
     public UnitStat unitStat;
     public BuildCannonOnWall buildCannonOnWall;
     public FirearmsParticle firearmsParticle;
+    public CannonballExplodeParticle cannonDestroyedParticle;
     public Transform firePoint;
     public SoundEffectController soundEffectController;
     public UnitStat targetEnemyStat;
@@ -26,6 +27,7 @@ public class KartauneStateController : MonoBehaviour
         unitStat = GetComponentInParent<UnitStat>();
         population = GameObject.FindGameObjectWithTag("PopulationController").GetComponent<HouseList>();
         firearmsParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<FirearmsParticle>(); 
+        cannonDestroyedParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
     }
 
     private void Start()

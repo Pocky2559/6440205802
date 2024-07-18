@@ -107,7 +107,11 @@ public class OtmCannon_CaptureGroundState : OtmCannonBaseState
     }
     public override void ExitState(OtmCannonStateController otmCannon)
     {
+        otmCannon.cannonDestroyedParticle.StartPlayParticle(otmCannon.transform.position);
+        SoundEffectController destroyedSound = MonoBehaviour.Instantiate(otmCannon.soundEffectController);
+        destroyedSound.PlayDeleteBuildingSound();
         otmCannon.captureGroundPoint.WaypointStatus(otmCannon.availableWaypoint, true); //make waypoint available
+        MonoBehaviour.Destroy(destroyedSound.gameObject, 3f);
         MonoBehaviour.Destroy(otmCannon.transform.root.gameObject); // Delete Villager from the game
     }
 }

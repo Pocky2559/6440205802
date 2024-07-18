@@ -93,6 +93,10 @@ public class OtmCannon_AttackGateState : OtmCannonBaseState
     }
     public override void ExitState(OtmCannonStateController otmCannon)
     {
+        otmCannon.cannonDestroyedParticle.StartPlayParticle(otmCannon.transform.position);
+        SoundEffectController destroyedSound = MonoBehaviour.Instantiate(otmCannon.soundEffectController);
+        destroyedSound.PlayDeleteBuildingSound();
+        MonoBehaviour.Destroy(destroyedSound.gameObject,3f);
         MonoBehaviour.Destroy(otmCannon.transform.root.gameObject); // Delete Villager from the game
     }
 }

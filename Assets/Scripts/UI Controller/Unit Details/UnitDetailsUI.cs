@@ -50,7 +50,7 @@ public class UnitDetailsUI : MonoBehaviour
           }
        }
 
-       else if (isSelectEnemy == true)
+       else if (isSelectEnemy == true && unitStat != null)
        { 
             SelectEnemy();
        }
@@ -59,6 +59,7 @@ public class UnitDetailsUI : MonoBehaviour
        {
           unitDetailsUI.SetActive(false);
           isSelectUnitSoundPlay = false;
+          isSelectEnemy = false;
        }
 
        if(Input.GetMouseButtonDown(0)) //if click at enemy
@@ -72,21 +73,9 @@ public class UnitDetailsUI : MonoBehaviour
                     
                 }
 
-                //if(hit.collider.CompareTag("OttomanCannon") == false)
-                //{  
-                   soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
-                   soundEffectController.PlayBuildingOrUnitSelectionSound();
-                   unitStat = hit.collider.GetComponent<UnitStat>();
-                //}
-
-                //else
-                //{
-                //   soundEffectController = hit.collider.transform.root.GetComponentInChildren<SoundEffectController>();
-                //   soundEffectController.PlayBuildingOrUnitSelectionSound();
-                //   unitStat = hit.collider.GetComponent<UnitStat>();
-                //}
-                
-                
+                soundEffectController = hit.collider.GetComponentInChildren<SoundEffectController>();
+                soundEffectController.PlayBuildingOrUnitSelectionSound();
+                unitStat = hit.collider.GetComponent<UnitStat>();
                 isSelectEnemy = true;
             }
 
@@ -95,6 +84,7 @@ public class UnitDetailsUI : MonoBehaviour
                 if (enemySelectionIndicator != null)
                 {
                     enemySelectionIndicator.SetActive(false);
+                    unitDetailsUI.SetActive(false);
                     isSelectEnemy = false;
                 }
             }
@@ -125,16 +115,18 @@ public class UnitDetailsUI : MonoBehaviour
 
     private void SelectEnemy()
     {
-        //unitStat = Hit.collider.GetComponent<UnitStat>();
-        unitName.text = unitStat.unitName;
-        unitAttackDetail.text = "Attack : " + unitStat.unitDamage.ToString();
-        unitHPDetail.text = "HP : " + unitStat.unitHP.ToString();
-        unitMeleeArmorDetail.text = "Melee Armor : " + unitStat.unitMeleeArmor.ToString();
-        unitRangedArmorDetail.text = "Ranged Armor : " + unitStat.unitRangedArmor.ToString();
-        enemySelectionIndicator = unitStat.transform.GetChild(0).gameObject;
-        enemySelectionIndicator.SetActive(true);
-        removeButton.SetActive(false);
-        unitDetailsUI.SetActive(true);
+        if(unitStat != null)
+        {
+            unitName.text = unitStat.unitName;
+            unitAttackDetail.text = "Attack : " + unitStat.unitDamage.ToString();
+            unitHPDetail.text = "HP : " + unitStat.unitHP.ToString();
+            unitMeleeArmorDetail.text = "Melee Armor : " + unitStat.unitMeleeArmor.ToString();
+            unitRangedArmorDetail.text = "Ranged Armor : " + unitStat.unitRangedArmor.ToString();
+            enemySelectionIndicator = unitStat.transform.GetChild(0).gameObject;
+            enemySelectionIndicator.SetActive(true);
+            removeButton.SetActive(false);
+            unitDetailsUI.SetActive(true);
+        }
     }
 
     public void DeleteUnit()
