@@ -25,6 +25,12 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private PreSelection preSelection;
     [SerializeField] private SoundEffectController soundEffectController;
     [SerializeField] private PreviewSystem previewSystem;
+    [SerializeField] private CannonballExplodeParticle placeBuildingParticle;
+
+    private void Awake()
+    {
+        placeBuildingParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
+    }
 
     public void PlaceObjectState()
     {
@@ -44,6 +50,7 @@ public class PlacementSystem : MonoBehaviour
              refBuilding = Instantiate(refBuilding, grid.CellToWorld(currentPosGrid), Quaternion.identity); //clone object
              refBuilding.AddComponent<TargetSelected>(); // add this compent for select and look details of this building
              StartToPlayPlaceBuildingSound();
+             placeBuildingParticle.StartPlayParticle(refBuilding.transform.position);
 
              //Add Component PreSelection and assign its value
              refBuilding.AddComponent<PreSelection>();

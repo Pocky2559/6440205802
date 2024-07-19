@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -43,6 +44,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     [SerializeField] private Barrack_Producing produceMilitary;
     [SerializeField] private HouseList listOfHouse;
     [SerializeField] private SoundEffectController soundController;
+    [SerializeField] private CannonballExplodeParticle removeBuildingParticle;
 
     [Header("Building UI")]
     [SerializeField] private GameObject buildingUIDetails;
@@ -66,6 +68,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
         removeButtonWindMill.onClick.AddListener(RemoveObject);
         removeButtonBarrack.onClick.AddListener(RemoveObject);
         removeButtonArtillary.onClick.AddListener(RemoveObject);
+        removeBuildingParticle = GameObject.FindGameObjectWithTag("ParticleController").GetComponent<CannonballExplodeParticle>();
     }
     private void Update()
     {
@@ -412,6 +415,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();
             StartToPlayDeleteBuildingSound();
+            removeBuildingParticle.StartPlayParticle(selectedObject.transform.position);
             Destroy(selectedObject, 0.1f);
         }
         
@@ -425,6 +429,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
             buildingUIDetails.SetActive(false);
             previewSystem.StopPreview();
             StartToPlayDeleteBuildingSound();
+            removeBuildingParticle.StartPlayParticle(selectedObject.transform.position);
             Destroy(selectedObject, 0.1f);
         }
         #endregion
@@ -432,11 +437,9 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
     private void StartToPlayDeleteBuildingSound()
     {
-        SoundEffectController soundEffectController = selectedObject.GetComponentInChildren<SoundEffectController>();
-        GameObject deleteSound = Instantiate(soundEffectController.gameObject);
-        AudioSource soundEffect = deleteSound.GetComponent<AudioSource>();
-        soundEffect.enabled = true;
-        soundEffectController.PlayDeleteBuildingSound();
-        Destroy(deleteSound,3f);
+        SoundEffectController destroyedSound = selectedObject.GetComponentInChildren<SoundEffectController>();
+        destroyedSound = Instantiate(destroyedSound);
+        destroyedSound.PlayDeleteBuildingSound();
+        Destroy(destroyedSound.gameObject, 3f);
     }
 }
