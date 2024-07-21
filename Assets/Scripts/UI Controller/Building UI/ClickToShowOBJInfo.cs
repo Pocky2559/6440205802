@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.Requests;
+//using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -59,7 +59,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     [SerializeField] private GameObject buildingSelectionIndicator;
     [SerializeField] private Image villagerQueImage;
 
-    private void Start()
+    private void Awake()
     {
         removeButtonTownCenter.onClick.AddListener(RemoveObject);
         removeButtonHouse.onClick.AddListener(RemoveObject);
@@ -72,7 +72,7 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
     }
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

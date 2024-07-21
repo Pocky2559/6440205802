@@ -41,6 +41,12 @@ public class MainMenuSceneManagement : MonoBehaviour
             loadingScreen.SetActive(true);
             StartCoroutine(LoadScene1("Tutorial"));
         }
+
+        if (sceneName == "Outro")
+        {
+            loadingScreen.SetActive(true);
+            StartCoroutine(LoadScene1("Outro"));
+        }
     }
 
     public void ExitToDeskTop()
