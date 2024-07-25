@@ -3756,6 +3756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5174666147786883486}
   - component: {fileID: 7811710483360550026}
+  - component: {fileID: 7981874372085585932}
   m_Layer: 5
   m_Name: UnitQue
   m_TagString: Untagged
@@ -3806,6 +3807,29 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &7981874372085585932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7862296738025051658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &7963373595740976214
 GameObject:
   m_ObjectHideFlags: 0
@@ -4564,7 +4588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8224306016860830828, guid: f347aeadf4bbf6e498489c37c8fe19a3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 53.5153
+      value: 53.51526
       objectReference: {fileID: 0}
     - target: {fileID: 8224306016860830828, guid: f347aeadf4bbf6e498489c37c8fe19a3, type: 3}
       propertyPath: m_AnchoredPosition.y

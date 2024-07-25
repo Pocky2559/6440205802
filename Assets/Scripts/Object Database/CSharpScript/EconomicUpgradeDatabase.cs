@@ -13,7 +13,7 @@ public class EconomicUpgradeDatabase : ScriptableObject
 public class EconomicUpgradeInfo
 {
     public string upgradeType;
-    public int increaseGatheringSpeed;
+    public float increaseGatheringSpeed;
     public int increaseGatheringCapacity;
     public int goldCostForUpgradeGatheringSpeed;
     public int goldCostForUpgradeGatheringCapacity;
