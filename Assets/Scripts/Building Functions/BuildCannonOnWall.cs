@@ -33,7 +33,6 @@ public class BuildCannonOnWall : MonoBehaviour
             positionToPlace.SetActive(false);
             icon.SetActive(false);
             kartauneBuildPanel.SetActive(false);
-            population.PopulationChanges(unitDatabase.unitDetails[4].population);
             soundEffectController.PlayPlaceBuildingSound();//Play Place Building Sound
         }
     }

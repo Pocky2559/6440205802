@@ -133,6 +133,7 @@ public class OtmRecruit_AttackWallState : OttomanRecruitBaseState
         //-------------------------------
 
         otmRecruit.otmRecruitAgent.isStopped = true;
+        otmRecruit.otmRecruitAgent.enabled = false;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
         colliderOfThisEnemy.enabled = false;
         otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);

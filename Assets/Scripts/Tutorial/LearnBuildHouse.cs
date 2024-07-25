@@ -9,6 +9,8 @@ public class LearnBuildHouse : MonoBehaviour
     [SerializeField] private HouseList houseList;
     [SerializeField] private ResourcesStatus resourcesStatus;
     [SerializeField] private TutorialProgression tutorialProgression;
+    [SerializeField] private AudioSource mainMissionCompleteSound;
+    [SerializeField] private AudioSource secondaryMissionCompleteSound;
 
     [Header("Icon and indicators")]
     [SerializeField] private GameObject houseCheckIcon;
@@ -28,22 +30,26 @@ public class LearnBuildHouse : MonoBehaviour
     [SerializeField] private GameObject housingPanel;
 
     [Header("Boolean")]
-    [SerializeField] private bool isStopCountWood;
-
-   
+    private bool isStopCountWood;
+    private bool isHouseBuild;
+    private bool isHouseBuildCompleteSoundPlay;
+    private bool isEnoughWoodCompleteSoundPlay;
+    private bool isMainCompleteSoundPlay;
 
     private void Update()
     {
         if (tutorialProgression.learnTrainVilager == true && tutorialProgression.learnBuildHouse == false)
         {
-            buildHouseMissionDetail.text = string.Format("{0} / {1}", houseList.houseList.Count, 1);
+            buildHouseMissionDetail.text = string.Format("{0} / {1}", houseList.houseList.Count, 2);
 
             if(isStopCountWood == false) collectWoodMissionDetail.text = string.Format("{0} / {1}", resourcesStatus.wood_Amount, 50);
 
             //if Don't have enough wood show advice Ui and indicator
             // Check House
-            if (houseList.houseList.Count >= 1)
+            if (houseList.houseList.Count >= 2)
             {
+                isHouseBuild = true;
+                StartPlaySecondaryMissionCompleteSound();
                 houseCheckIcon.SetActive(true);
                 adviceCollectWoodFloatingUI.SetActive(false);
                 indicator.SetActive(false);
@@ -60,6 +66,7 @@ public class LearnBuildHouse : MonoBehaviour
             // Check Wood
             if (resourcesStatus.wood_Amount >= 50)
             {
+                StartPlaySecondaryMissionCompleteSound();
                 isStopCountWood = true; //Stop Count Wood
                 woodCheckIcon.SetActive(true);
                 adviceCollectWoodFloatingUI.SetActive(false);
@@ -96,9 +103,37 @@ public class LearnBuildHouse : MonoBehaviour
             }
         }
 
-        if(houseList.houseList.Count >= 1 && isStopCountWood == true && tutorialProgression.learnBuildHouse == false) //Mission Completed
+        if(isHouseBuild == true && isStopCountWood == true && tutorialProgression.learnBuildHouse == false) //Mission Completed
         {
             tutorialProgression.learnBuildHouse = true;
+            arrowIndicator1.SetActive(false);
+            arrowIndicator2.SetActive(false);
+            arrowIndicator3.SetActive(false);
+            StartPlayMainMissionCompleteSound();
+        }
+    }
+
+    private void StartPlayMainMissionCompleteSound()
+    {
+        if(isMainCompleteSoundPlay == false)
+        {
+            mainMissionCompleteSound.Play();
+            isMainCompleteSoundPlay = true;
+        }
+    }
+
+    private void StartPlaySecondaryMissionCompleteSound()
+    {
+        if(isHouseBuild == true && isHouseBuildCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isHouseBuildCompleteSoundPlay = true;
+        }
+
+        if(isStopCountWood == true && isEnoughWoodCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isEnoughWoodCompleteSoundPlay = true;
         }
     }
 }

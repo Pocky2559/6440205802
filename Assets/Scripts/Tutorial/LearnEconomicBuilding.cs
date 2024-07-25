@@ -6,6 +6,8 @@ public class LearnEconomicBuilding : MonoBehaviour
 {
     [Header("Required Component")]
     [SerializeField] private TutorialProgression tutorialProgression;
+    [SerializeField] private AudioSource mainMissionCompleteSound;
+    [SerializeField] private AudioSource secondaryMissionCompleteSound;
 
     [Header("Icons and indicator")]
     [SerializeField] private GameObject arrowIndicator1;
@@ -19,9 +21,13 @@ public class LearnEconomicBuilding : MonoBehaviour
     [SerializeField] private GameObject economicPanel;
 
     [Header("Boolean")]
-    [SerializeField] private bool isLumberCampBuild;
-    [SerializeField] private bool isMiningCartBuild;
-    [SerializeField] private bool isWindMillBuild;
+    private bool isLumberCampBuild;
+    private bool isMiningCartBuild;
+    private bool isWindMillBuild;
+    private bool isLumberCampMissionCompleteSoundPlay;
+    private bool isMiningCartMissionCompleteSoundPlay;
+    private bool isWindMillMissionCompleteSoundPlay;
+    private bool isMainCompleteSoundPlay;
 
     private void Update()
     {
@@ -31,18 +37,21 @@ public class LearnEconomicBuilding : MonoBehaviour
             {
                 isLumberCampBuild = true;
                 checkIconMissionBuildLumberCamp.SetActive(true);
+                StartPlaySeecondaryMissionCompleteSound();
             }
 
             if (GameObject.FindGameObjectWithTag("Gold Stone Storage") == true)
             {
                 isMiningCartBuild = true;
                 checkIconMissionBuildMiningCart.SetActive(true);
+                StartPlaySeecondaryMissionCompleteSound();
             }
 
             if (GameObject.FindGameObjectWithTag("Food Storage") == true)
             {
                 isWindMillBuild = true;
                 checkIconMissionBuildWindMill.SetActive(true);
+                StartPlaySeecondaryMissionCompleteSound();
             }
 
             // Arrow Indicators
@@ -67,7 +76,38 @@ public class LearnEconomicBuilding : MonoBehaviour
             if (isLumberCampBuild == true && isMiningCartBuild == true && isWindMillBuild == true) //Mission Completed
             {
                 tutorialProgression.learnEconomicBuilding = true;
+                StartPlayMainMissionCompleteSound();
             }
+        }
+    }
+
+    private void StartPlayMainMissionCompleteSound()
+    {
+        if (isMainCompleteSoundPlay == false)
+        {
+            mainMissionCompleteSound.Play();
+            isMainCompleteSoundPlay = true;
+        }
+    }
+
+    private void StartPlaySeecondaryMissionCompleteSound()
+    {
+        if (isLumberCampBuild == true && isLumberCampMissionCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isLumberCampMissionCompleteSoundPlay = true;
+        }
+
+        if (isMiningCartBuild == true && isMiningCartMissionCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isMiningCartMissionCompleteSoundPlay = true;
+        }
+
+        if (isWindMillBuild == true && isWindMillMissionCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isWindMillMissionCompleteSoundPlay = true;
         }
     }
 }

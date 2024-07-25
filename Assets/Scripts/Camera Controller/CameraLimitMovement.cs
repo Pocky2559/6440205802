@@ -17,7 +17,7 @@ public class CameraLimitMovement : MonoBehaviour
     {
         pushBackPosition = cameraController.transform.position;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 cameraPosition = mainCamera.transform.position;
 

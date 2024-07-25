@@ -7,6 +7,9 @@ public class LearnBuildBarrack : MonoBehaviour
 {
     [Header("Required Component")]
     [SerializeField] private TutorialProgression tutorialProgression;
+    [SerializeField] private AudioSource mainMissionCompleteSound;
+    [SerializeField] private AudioSource secondaryMissionCompleteSound;
+    [SerializeField] private CameraController cameraController;
 
     [Header("Camera and enemy")]
     [SerializeField] private GameObject mainCamera;
@@ -30,18 +33,22 @@ public class LearnBuildBarrack : MonoBehaviour
     [SerializeField] private GameObject enemyIndicator;
 
     [Header("Boolean")]
-    [SerializeField] private bool isBarrackBuild;
-    [SerializeField] private bool isPanBack;
-    [SerializeField] private bool isStopPanning;
-    [SerializeField] private bool isEnemySpawn;
-    [SerializeField] private bool isMilitaryTrain;
-    [SerializeField] private bool isEnemyEliminate;
+    private bool isPanBack;
+    private bool isStopPanning;
+    private bool isEnemySpawn;
+    private bool isBarrackBuild;
+    private bool isMilitaryTrain;
+    private bool isEnemyEliminate;
+    private bool isMainCompleteSoundPlay;
+    private bool isBarrackBuildMissionCompletePlaySound;
+    private bool isMilitaryTrainMissionCompletePlaySound;
+    private bool isEnemyEliminateMissionCompletePlaySound;
+
  
     private void Start()
     {
-        cameraOriginPos = new Vector3(99.9000015f, -48f, 100f);
+        cameraOriginPos = cameraController.transform.position;//new Vector3(99.9000015f, -48f, 100f);
         cameraEnemyPos = new Vector3(99.9000015f, -48f, 63f);
-  
     }
 
     private void Update()
@@ -90,6 +97,7 @@ public class LearnBuildBarrack : MonoBehaviour
                 arrowIndicator1.SetActive(false);
                 arrowIndicator2.SetActive(false);
                 arrowIndicator3.SetActive(false);
+                StartPlaySecondaryMissionCompleteSound();
             }
             if(isMilitaryTrain == false && (GameObject.FindGameObjectWithTag("Gunner") 
                                             || GameObject.FindGameObjectWithTag("Landsknecht")
@@ -97,17 +105,20 @@ public class LearnBuildBarrack : MonoBehaviour
             {
                 isMilitaryTrain = true;
                 trainMilitaryMissionCheckIcon.SetActive(true);
+                StartPlaySecondaryMissionCompleteSound();
             }
 
             if(isEnemyEliminate == false && GameObject.FindGameObjectWithTag("OttomanRecruit") == null) //if can eliminate enemy
             {
                 isEnemyEliminate = true;
                 eliminateEnemyMissionCheckIcon.SetActive(true);
+                StartPlaySecondaryMissionCompleteSound();
             }
 
             if(isBarrackBuild == true && isMilitaryTrain == true && isEnemyEliminate == true)
             {
                 tutorialProgression.learnBuildBarrack = true;
+                StartPlayMainMissionCompleteSound();
             }
         }
     }
@@ -116,7 +127,9 @@ public class LearnBuildBarrack : MonoBehaviour
     {
         if(isPanBack == false) //Start Pan Camera to enemy
         {
-            mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.position, cameraEnemyPos, panSpeed * Time.deltaTime);
+            //mainCamera.transform.localPosition = Vector3.Lerp(mainCamera.transform.position, cameraEnemyPos, panSpeed * Time.deltaTime);
+            cameraController.isStopPanning = true;
+            cameraController.targetPosition = cameraEnemyPos;
             if (Vector3.Distance(mainCamera.transform.position, cameraEnemyPos) < cameraAndTargetDistance) //if reach cameraDemo reach enemy
             {
                 StartCoroutine(StartPanCameraBack());
@@ -126,7 +139,8 @@ public class LearnBuildBarrack : MonoBehaviour
 
         if(isPanBack == true && isStopPanning == false) //pan cameraDemo back to town center
         {
-            mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraOriginPos, panSpeed * Time.deltaTime);
+            //mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, cameraOriginPos, panSpeed * Time.deltaTime);
+            //cameraController.targetPosition = cameraOriginPos;
             if (Vector3.Distance(mainCamera.transform.position, cameraOriginPos) < cameraAndTargetDistance) //if reach town center stop panning
             {
                 isStopPanning = true;
@@ -137,5 +151,41 @@ public class LearnBuildBarrack : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         isPanBack = true;
+        cameraController.targetPosition = cameraOriginPos;
+        yield return new WaitForSeconds(1.5f);
+        cameraController.isStopPanning = false;
+
+    }
+
+    private void StartPlayMainMissionCompleteSound()
+    {
+        if (isMainCompleteSoundPlay == false)
+        {
+            mainMissionCompleteSound.Play();
+            isMainCompleteSoundPlay = true;
+        }
+    }
+
+    private void StartPlaySecondaryMissionCompleteSound()
+    {
+ 
+        if (isBarrackBuild == true && isBarrackBuildMissionCompletePlaySound == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isBarrackBuildMissionCompletePlaySound = true;
+        }
+
+        if (isMilitaryTrain == true && isMilitaryTrainMissionCompletePlaySound == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isMilitaryTrainMissionCompletePlaySound = true;
+        }
+
+        if (isEnemyEliminate == true && isEnemyEliminateMissionCompletePlaySound == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isEnemyEliminateMissionCompletePlaySound = true;
+        }
+
     }
 }

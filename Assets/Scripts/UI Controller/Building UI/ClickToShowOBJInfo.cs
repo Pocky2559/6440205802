@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 //using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs that show building details (name,functions,etc.)
@@ -88,6 +89,16 @@ public class ClickToShowOBJInfo : MonoBehaviour // this script controll the UIs 
 
                     if (hit.collider.CompareTag("Town Center"))
                     {
+                        if(hit.collider.GetComponent<PreventDeleteMainTC>() != null)
+                        {
+                            removeButtonTownCenter.gameObject.SetActive(false);
+                        }
+
+                        else
+                        {
+                            removeButtonTownCenter.gameObject.SetActive(true);
+                        }
+
                         if(buildingSelectionIndicator != null)
                         {
                             buildingSelectionIndicator.SetActive(false);

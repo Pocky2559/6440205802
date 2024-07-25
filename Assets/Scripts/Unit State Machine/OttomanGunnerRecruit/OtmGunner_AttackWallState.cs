@@ -10,7 +10,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
     bool isDead;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
-        otmGunner.attackRange.radius = otmGunner.originAttackRange;
+        //otmGunner.attackRange.radius = otmGunner.originAttackRange;
         if (otmGunner.Wall != null) // if wall is still there
         {
             //=============================
@@ -22,7 +22,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
 
             otmGunner.otmGunnerAgent.SetDestination(otmGunner.Wall.transform.position);
             otmGunner.rootGameObject.transform.LookAt(otmGunner.Wall.transform.position);
-            otmGunner.attackRange.radius += 3.5f;
+            //otmGunner.attackRange.radius += 3.5f;
         }
 
         else
@@ -35,7 +35,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
             //-------------------------------------------------------------------------------------------
 
             otmGunner.SwitchState(otmGunner.otmGunner_CapturePointState);
-            otmGunner.attackRange.radius = otmGunner.originAttackRange;
+            //otmGunner.attackRange.radius = otmGunner.originAttackRange;
         }
 
         otmGunner.soundEffectController.StopPlaySound();//Stop all sound
@@ -172,6 +172,7 @@ public class OtmGunner_AttackWallState : OttomanGunnerRecruitBaseState
         otmGunner.rigBuilder.enabled = false;
         otmGunner.Gun.SetActive(false);
         otmGunner.otmGunnerAgent.isStopped = true;
+        otmGunner.otmGunnerAgent.enabled = false;
         //-------------------------------------------------------
 
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy

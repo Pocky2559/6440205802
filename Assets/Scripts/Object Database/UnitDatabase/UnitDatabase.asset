@@ -23,7 +23,7 @@ MonoBehaviour:
     attackSpeed: 2
     foodCost: 50
     goldCost: 0
-    trainingTime: 5
+    trainingTime: 20
     population: 1
   - unitID: 1
     unitPrefab: {fileID: 2018023881312256668, guid: 0777d02660f2269429d485a019fdd61c, type: 3}
@@ -35,7 +35,7 @@ MonoBehaviour:
     attackSpeed: 1.5
     foodCost: 100
     goldCost: 25
-    trainingTime: 5
+    trainingTime: 25
     population: 1
   - unitID: 2
     unitPrefab: {fileID: 5270080545818722101, guid: 03b62bcca5ee896429001e6816646ea0, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
     attackSpeed: 1.5
     foodCost: 100
     goldCost: 20
-    trainingTime: 5
+    trainingTime: 20
     population: 1
   - unitID: 3
     unitPrefab: {fileID: 3366754254638613108, guid: 24e7c279daaebea418995070330bdf01, type: 3}
@@ -59,7 +59,7 @@ MonoBehaviour:
     attackSpeed: 1.5
     foodCost: 200
     goldCost: 50
-    trainingTime: 10
+    trainingTime: 28
     population: 1
   - unitID: 4
     unitPrefab: {fileID: 4214432239203681802, guid: b6bc6e38e3e6489458874cca00332c33, type: 3}
@@ -100,7 +100,7 @@ MonoBehaviour:
   - unitID: 7
     unitPrefab: {fileID: 718742622349108304, guid: 319da2c937cd8aa4c92be3d987f4e108, type: 3}
     unitName: Melee Janissary
-    HP: 120
+    HP: 100
     damage: 15
     meleeArmor: 2
     rangedArmor: 4
@@ -112,7 +112,7 @@ MonoBehaviour:
   - unitID: 8
     unitPrefab: {fileID: 718742622349108304, guid: 2b10981f3e4df7d47b561415329b3eb0, type: 3}
     unitName: Ranged Janissary
-    HP: 120
+    HP: 70
     damage: 15
     meleeArmor: 1
     rangedArmor: 3

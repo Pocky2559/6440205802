@@ -29,8 +29,6 @@ public class UnitDetailsUI : MonoBehaviour
     public TMP_Text unitHPDetail;
     public TMP_Text unitMeleeArmorDetail;
     public TMP_Text unitRangedArmorDetail;
-    
-
 
     private void Awake()
     {
@@ -136,31 +134,31 @@ public class UnitDetailsUI : MonoBehaviour
         #region Remove Unit
         if (thisGameObject.CompareTag("Villager"))
         {
-            population.PopulationChanges(-1 * unitDatabase.unitDetails[0].population);
+           // population.PopulationChanges(-1 * unitDatabase.unitDetails[0].population);
             unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Gunner"))
         {
-            population.PopulationChanges(-1 * unitDatabase.unitDetails[1].population);
+           // population.PopulationChanges(-1 * unitDatabase.unitDetails[1].population);
             unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Landsknecht"))
         {
-            population.PopulationChanges(-1 * unitDatabase.unitDetails[2].population);
+           // population.PopulationChanges(-1 * unitDatabase.unitDetails[2].population);
             unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Captain"))
         {
-            population.PopulationChanges(-1 * unitDatabase.unitDetails[3].population);
+           // population.PopulationChanges(-1 * unitDatabase.unitDetails[3].population);
             unitStat.unitHP = 0;
         }
 
         if (thisGameObject.CompareTag("Kartouwe"))
         {
-            population.PopulationChanges(-1 * unitDatabase.unitDetails[4].population);
+           // population.PopulationChanges(-1 * unitDatabase.unitDetails[4].population);
             unitStat.unitHP = 0;
         }
         #endregion

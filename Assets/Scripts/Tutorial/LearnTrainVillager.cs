@@ -13,6 +13,8 @@ public class LearnTrainVillager : MonoBehaviour
     [SerializeField] private GameObject adviceSelectFloatingUI;
     [SerializeField] private TMP_Text missionTrainVillagerDetail;
     [SerializeField] private GameObject checkIconMissionTrainVillager;
+    [SerializeField] private AudioSource missionCompleteSound;
+    private bool isCompleteSoundPlay;
 
     private void Update()
     {
@@ -36,11 +38,21 @@ public class LearnTrainVillager : MonoBehaviour
             if (unitSelection.unitList.Count == 5 && tutorialProgression.learnTrainVilager == false) //Mission Completed
             {
                 tutorialProgression.learnTrainVilager = true;
+                StartPlayMissionCompleteSound();
                 checkIconMissionTrainVillager.SetActive(true);
                 indicator.SetActive(false);
                 arrowIndicator.SetActive(false);
                 adviceSelectFloatingUI.SetActive(false);
             }
+        }
+    }
+
+    private void StartPlayMissionCompleteSound()
+    {
+        if (isCompleteSoundPlay == false)
+        {
+            missionCompleteSound.Play();
+            isCompleteSoundPlay = true;
         }
     }
 }

@@ -15,7 +15,7 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
 
         if(otmRecruit.capturePointByEnemy != null)
         {
-           otmRecruit.otmRecruitAgent.isStopped = false;
+           //otmRecruit.otmRecruitAgent.isStopped = false;
            otmRecruit.otmRecruitAgent.SetDestination(otmRecruit.capturePointByEnemy.transform.position);
         }
 
@@ -34,6 +34,11 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
 
     public override void UpdaterState(OttomanRecruitStateController otmRecruit)
     {
+        if(otmRecruit.unitStat.unitHP > 0)
+        {
+            otmRecruit.otmRecruitAgent.isStopped = false;
+        }
+
         #region Switch to ExitState
         if (otmRecruit.unitStat.unitHP <= 0 && isDead == false)
         {
@@ -72,6 +77,7 @@ public class OtmRecruit_CapturePointState : OttomanRecruitBaseState
         //-------------------------------
 
         otmRecruit.otmRecruitAgent.isStopped = true;
+        otmRecruit.otmRecruitAgent.enabled = false;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
         colliderOfThisEnemy.enabled = false;
         if(otmRecruit.capturePointByEnemy != null) otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);

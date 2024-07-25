@@ -20,13 +20,16 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
         otmGunner.Gun.transform.localPosition = new Vector3(0.254000008f, 1.18599999f, 0.324000001f);
         otmGunner.Gun.transform.localRotation = Quaternion.Euler(357.268738f, 122.092773f, 359.583221f);
         //-------------------------------------------------------------------------------------------
-
-        otmGunner.otmGunnerAgent.isStopped = false;
-        otmGunner.otmGunnerAgent.SetDestination(otmGunner.capturePointByEnemy.transform.position);
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
+        if(otmGunner.unitStat.unitHP > 0)
+        {
+            otmGunner.otmGunnerAgent.isStopped = false;
+            otmGunner.otmGunnerAgent.SetDestination(otmGunner.capturePointByEnemy.transform.position);
+        }
+
         #region Switch to ExitState
         if (otmGunner.unitStat.unitHP <= 0 && isDead == false)
         {
@@ -64,6 +67,7 @@ public class OtmGunner_CapturePointState : OttomanGunnerRecruitBaseState
         otmGunner.rigBuilder.enabled = false;
         otmGunner.Gun.SetActive(false);
         otmGunner.otmGunnerAgent.isStopped = true;
+        otmGunner.otmGunnerAgent.enabled = false;
         //-------------------------------------------------------
 
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy

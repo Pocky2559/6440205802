@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering.PostProcessing;
@@ -57,7 +58,9 @@ public class TownCenter_ProduceVillager : MonoBehaviour
 
     public void AddVillagerQue() //if click button to train villager
     {
-        if (resourcesStatus.food_Amount >= 50 && population.currentPopulation + unitDatabase.unitDetails[0].population <= population.currentPopulationCapacity) // if resources is more than 50 , you can train villager
+        if (resourcesStatus.food_Amount >= 50
+            && population.currentPopulation + unitDatabase.unitDetails[0].population <= population.currentPopulationCapacity
+            && queIconList.Count <= 9) // if resources is more than 50 , you can train villager and que is less or equal 10
         {
             GameObject newPrefabVillager = unitDatabase.unitDetails[0].unitPrefab;
 
@@ -67,6 +70,7 @@ public class TownCenter_ProduceVillager : MonoBehaviour
             villagersQue.Add(newPrefabVillager);
             uniqueKeys.Add(uniqueKey);
             AddQueIcon(); //Add Que Icon
+            population.PopulationChanges(unitDatabase.unitDetails[0].population);
 
             //villagers.Add(unitDatabase.unitDetails[0].unitPrefab); // add villager to que (reference object from database)
             resourcesStatus.food_Amount = resourcesStatus.food_Amount - unitDatabase.unitDetails[0].foodCost;
@@ -109,44 +113,26 @@ public class TownCenter_ProduceVillager : MonoBehaviour
             queProgress.gameObject.SetActive(true);
         }
 
-        if(villagersQue.Count > 0)
-        { 
-            if (upgradeStatus.isTownCenterUpgrade == true)
-            {
-                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[0].trainingTime - townCenterUpgradeDatabase.townCenterUpgrades[0].reduceTrainingTime)
-                {
-                    GameObject villagerPrefab = villagersQue[villagersQue.Count - 1];
-                    // Check if the prefab has a stored spawn position
-                    if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
-                    {
-                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]].transform.position;
-                        positionToSpawnUnit.roundNumber++;
-                        Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
-                        villagersQue.Remove(villagerPrefab);
-                        lastTrainingTime = Time.time;
+        if(villagersQue.Count > 0 )
+        {
+            float traningTime = unitDatabase.unitDetails[0].trainingTime;
 
-                        // Remove the stored spawn position for this prefab
-                        positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
-                        uniqueKeys.Remove(uniqueKeys[villagerNumber]);
-                        population.PopulationChanges(unitDatabase.unitDetails[0].population);
-                    }
-                    else
-                    {
-                        villagerNumber++;
-                    }
-                }
+            if(upgradeStatus.isTownCenterUpgrade == true)
+            {
+                traningTime = traningTime - townCenterUpgradeDatabase.townCenterUpgrades[0].reduceTrainingTime;
             }
-
-            else
+            
+            if(population.currentPopulation <= population.currentPopulationCapacity)
             {
-                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[0].trainingTime)
+
+                elapsedTime += Time.deltaTime;
+
+                if (elapsedTime > traningTime)
                 {
                     GameObject villagerPrefab = villagersQue[villagersQue.Count - 1];
                     // Check if the prefab has a stored spawn position
                     if (positionsToSpawn.ContainsKey(uniqueKeys[villagerNumber]))
                     {
-                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]];
                         Vector3 spawnPosition = positionsToSpawn[uniqueKeys[villagerNumber]].transform.position;
                         positionToSpawnUnit.roundNumber++;
                         Instantiate(villagerPrefab, spawnPosition, Quaternion.identity);
@@ -161,25 +147,27 @@ public class TownCenter_ProduceVillager : MonoBehaviour
                         // Remove the stored spawn position for this prefab
                         positionsToSpawn.Remove(uniqueKeys[villagerNumber]);
                         uniqueKeys.Remove(uniqueKeys[villagerNumber]);
-                        population.PopulationChanges(unitDatabase.unitDetails[0].population);
+                        //population.PopulationChanges(unitDatabase.unitDetails[0].population);
                     }
+
                     else
                     {
                         villagerNumber++;
                     }
                 }
+
                 else
                 {
-                    elapsedTime = elapsedTime + Time.deltaTime;
-                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[0].trainingTime));
+                    //elapsedTime = elapsedTime + Time.deltaTime;
+                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / traningTime));
                 }
             }
         }
- 
+
         else
         {
-            lastTrainingTime = Time.time;
-            
+            //lastTrainingTime = Time.time - elapsedTime;
+            queProgress.fillAmount = 0f;
         }
     }
 }

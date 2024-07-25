@@ -9,6 +9,8 @@ public class LearnGatherFood : MonoBehaviour
     [SerializeField] private UnitSelection unitSelection;
     [SerializeField] private TutorialProgression tutorialProgression;
     [SerializeField] private ResourcesStatus resourcesStatus;
+    [SerializeField] private AudioSource mainMissionCompleteSound;
+    [SerializeField] private AudioSource secondaryMissionCompleteSound; 
 
     [Header("TMP_Text Details")]
     [SerializeField] private TMP_Text missionGatherFoodDetails;
@@ -23,7 +25,12 @@ public class LearnGatherFood : MonoBehaviour
     [SerializeField] private GameObject adviceGatherFoodFloatingUI;
 
     [Header("Boolean")]
-    [SerializeField] private bool isStopCountFood;
+    private bool isStopCountFood;
+    private bool isEnoughVillager;
+    private bool isTrainVillagerCompleteSoundPlay;
+    private bool isEnoughFoodCompleteSoundPlay;
+    private bool isMainCompleteSoundPlay;
+
 
     private void Update()
     {
@@ -40,15 +47,18 @@ public class LearnGatherFood : MonoBehaviour
             }
             else // if food more than or equal 250
             {
+                isStopCountFood = true;
                 checkIconMissionGatherFood.SetActive(true);
                 indicator.SetActive(false);
                 adviceGatherFoodFloatingUI.SetActive(false);
-                isStopCountFood = true;
+                StartPlayMainMissionComplete();
             }
 
             if(unitSelection.unitList.Count >= 10)
             {
+                isEnoughVillager = true;
                 checkIconMissionTrainVillager.SetActive(true);
+                StartPlayMainMissionComplete();
             }
 
             if(unitSelection.unitList.Count >= 10 && isStopCountFood == true) //Mission Completed
@@ -59,5 +69,27 @@ public class LearnGatherFood : MonoBehaviour
         }
     }
 
+    private void StartPlayMainMissionComplete()
+    {
+        if(isEnoughVillager == true && isTrainVillagerCompleteSoundPlay == false) 
+        {
+            secondaryMissionCompleteSound.Play();
+            isTrainVillagerCompleteSoundPlay = true;
+        }
 
+        if(isStopCountFood == true && isEnoughFoodCompleteSoundPlay == false)
+        {
+            secondaryMissionCompleteSound.Play();
+            isEnoughFoodCompleteSoundPlay = true;
+        }
+    }
+
+    private void StartPlaySecondaryMissionComplete()
+    {
+        if(isMainCompleteSoundPlay == false)
+        {
+            mainMissionCompleteSound.Play();
+            isMainCompleteSoundPlay = true;
+        }
+    }
 }

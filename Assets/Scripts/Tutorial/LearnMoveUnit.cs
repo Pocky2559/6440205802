@@ -12,6 +12,8 @@ public class LearnMoveUnit : MonoBehaviour
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private GameObject adviceSelectFlotingUI;
     [SerializeField] private GameObject adviceMoveFloatingUI;
+    [SerializeField] private AudioSource missionCompleteSound;
+    private bool isCompleteSoundPlay;
 
     public void Update()
     {
@@ -43,10 +45,20 @@ public class LearnMoveUnit : MonoBehaviour
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
                 {
                     tutorialProgression.learnMoveUnit = true;
+                    StartPlayMissionCompleteSound();
                     moveIndicatorTutorial.SetActive(false);
                     adviceMoveFloatingUI.SetActive(false);
                 }
             }
+        }
+    }
+
+    private void StartPlayMissionCompleteSound()
+    {
+        if(isCompleteSoundPlay == false)
+        {
+            missionCompleteSound.Play();
+            isCompleteSoundPlay = true;
         }
     }
 }

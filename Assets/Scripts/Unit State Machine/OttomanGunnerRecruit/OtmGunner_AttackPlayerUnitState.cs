@@ -9,13 +9,14 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
     bool isDead;
     public override void EnterState(OttomanGunnerRecruitStateController otmGunner)
     {
-        otmGunner.otmGunnerAgent.isStopped = true;
+        
     }
 
     public override void UpdateState(OttomanGunnerRecruitStateController otmGunner)
     {
         if (otmGunner.targetPlayerUnitStat.unitHP > 0 && otmGunner.unitStat.unitHP > 0)
         {
+            otmGunner.otmGunnerAgent.isStopped = true;
             Vector3 positionToAim = otmGunner.targetPlayerUnit.transform.position;
             positionToAim.y = otmGunner.transform.parent.position.y;
             otmGunner.transform.parent.LookAt(positionToAim);
@@ -109,6 +110,7 @@ public class OtmGunner_AttackPlayerUnitState : OttomanGunnerRecruitBaseState
         otmGunner.rigBuilder.enabled = false;
         otmGunner.Gun.SetActive(false);
         otmGunner.otmGunnerAgent.isStopped = true;
+        otmGunner.otmGunnerAgent.enabled = false;
         //-------------------------------------------------------
 
         Collider colliderOfThisEnemy = otmGunner.transform.parent.GetComponent<Collider>(); // collider of this enemy

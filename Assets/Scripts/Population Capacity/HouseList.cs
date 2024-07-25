@@ -17,10 +17,6 @@ public class HouseList : MonoBehaviour // X/number
     private void Start()
     {
         CalculatePopulationAtBeginning();
-        if(isTutorial == true)
-        {
-            currentPopulationCapacity = 5;
-        }
     }
     public void AddHouseToList(GameObject house)
     { 
@@ -40,12 +36,14 @@ public class HouseList : MonoBehaviour // X/number
 
     private void Update()
     {
-        currentPopulation = listOfUnits.unitList.Count;
+        //currentPopulation = listOfUnits.unitList.Count;
+        //currentPopulation = listOfUnits.unitList.Count;
         currentPopulationText.text = string.Format("{0}/{1}", currentPopulation, currentPopulationCapacity);
     }
 
     private void CalculatePopulationAtBeginning()
     {
         currentPopulationCapacity = houseCapacityAssign * houseList.Count;
+        currentPopulation = listOfUnits.unitList.Count;
     }
 }

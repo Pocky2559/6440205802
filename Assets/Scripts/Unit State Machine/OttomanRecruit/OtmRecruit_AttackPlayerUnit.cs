@@ -122,6 +122,7 @@ public class OtmRecruit_AttackPlayerUnit : OttomanRecruitBaseState
         //-------------------------------
 
         otmRecruit.otmRecruitAgent.isStopped = true;
+        otmRecruit.otmRecruitAgent.enabled = false;
         Collider colliderOfThisEnemy = otmRecruit.transform.parent.GetComponent<Collider>(); // collider of this enemy
         colliderOfThisEnemy.enabled = false;
         if(otmRecruit.capturePointByEnemy != null) otmRecruit.capturePointByEnemy.OnTriggerExit(colliderOfThisEnemy);
