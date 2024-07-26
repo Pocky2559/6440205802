@@ -79,13 +79,14 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     {
         if(resourcesStatus.food_Amount >= unitDatabase.unitDetails[1].foodCost
            && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[1].goldCost
-           && population.currentPopulation + unitDatabase.unitDetails[1].population <= population.currentPopulationCapacity)
+           && population.currentPopulation + unitDatabase.unitDetails[1].population <= population.currentPopulationCapacity
+           && queIconList.Count <= 9)
         {
             militaryQue.Add(unitDatabase.unitDetails[1].unitPrefab);
             uniqueKey = Guid.NewGuid().ToString();
-            //positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
+            population.PopulationChanges(unitDatabase.unitDetails[1].population);
 
             AddQueIcon("Gunner");
 
@@ -113,13 +114,14 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     {
         if (resourcesStatus.food_Amount >= unitDatabase.unitDetails[2].foodCost
             && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[2].goldCost
-            && population.currentPopulation + unitDatabase.unitDetails[2].population <= population.currentPopulationCapacity)
+            && population.currentPopulation + unitDatabase.unitDetails[2].population <= population.currentPopulationCapacity
+            && queIconList.Count <= 9)
         {
             militaryQue.Add(unitDatabase.unitDetails[2].unitPrefab);
-            uniqueKey = Guid.NewGuid().ToString();
-            // positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            uniqueKey = Guid.NewGuid().ToString();          
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
+            population.PopulationChanges(unitDatabase.unitDetails[2].population);
 
             AddQueIcon("Landsknecht");
 
@@ -147,13 +149,14 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
     {
         if (resourcesStatus.food_Amount >= unitDatabase.unitDetails[3].foodCost
             && resourcesStatus.gold_Amount >= unitDatabase.unitDetails[3].goldCost
-            && population.currentPopulation + unitDatabase.unitDetails[3].population <= population.currentPopulationCapacity)
+            && population.currentPopulation + unitDatabase.unitDetails[3].population <= population.currentPopulationCapacity
+            && queIconList.Count <= 9)
         {
             militaryQue.Add(unitDatabase.unitDetails[3].unitPrefab);
-            uniqueKey = Guid.NewGuid().ToString();
-            //positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedObjectPosition);
+            uniqueKey = Guid.NewGuid().ToString();          
             positionsToSpawn.Add(uniqueKey, clickToShowOBJInfo.selectedGameObj);
             uniqueKeys.Add(uniqueKey);
+            population.PopulationChanges(unitDatabase.unitDetails[3].population);
 
             AddQueIcon("Captain");
 
@@ -191,97 +194,59 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
 
         if (militaryQue.Count > 0)
         {
-            // if training Gunner
-            if(militaryQue[0].name == unitDatabase.unitDetails[1].unitPrefab.name)
+            if (population.currentPopulation <= population.currentPopulationCapacity)
             {
-                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[1].trainingTime)
+                // if training Gunner
+                if (militaryQue[0].name == unitDatabase.unitDetails[1].unitPrefab.name)
                 {
-                    if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
-                    {
-                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
-                        positionToSpawnUnit.roundNumber++;
-                        Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
-                        militaryQue.Remove(militaryQue[troopNumber]);
-                        lastTrainingTime = Time.time;
-                        positionsToSpawn.Remove(uniqueKeys[troopNumber]);
-                        uniqueKeys.Remove(uniqueKeys[troopNumber]);
-                        population.PopulationChanges(unitDatabase.unitDetails[1].population);
-
-                        RemoveIcon();
-                        elapsedTime = 0;
-                        queProgress.fillAmount = 1;
-                    }
+                    TrainTroop(unitDatabase.unitDetails[1].trainingTime);
                 }
-                else
+
+                // if training Landsknecht
+                else if (militaryQue[0].name == unitDatabase.unitDetails[2].unitPrefab.name)
                 {
-                    elapsedTime = elapsedTime + Time.deltaTime;
-                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[1].trainingTime));
+                    TrainTroop(unitDatabase.unitDetails[2].trainingTime);
+                }
+
+                //if training Captain
+                else if (militaryQue[0].name == unitDatabase.unitDetails[3].unitPrefab.name)
+                {
+                    TrainTroop(unitDatabase.unitDetails[3].trainingTime);
                 }
             }
 
-            // if training Landsknecht
-            if (militaryQue[0].name == unitDatabase.unitDetails[2].unitPrefab.name)
+            else
             {
-                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[2].trainingTime)
-                {
-                    if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
-                    {
-                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
-                        positionToSpawnUnit.roundNumber++;
-                        Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
-                        militaryQue.Remove(militaryQue[troopNumber]);
-                        lastTrainingTime = Time.time;
-                        positionsToSpawn.Remove(uniqueKeys[troopNumber]);
-                        uniqueKeys.Remove(uniqueKeys[troopNumber]);
-                        population.PopulationChanges(unitDatabase.unitDetails[2].population);
+                queProgress.fillAmount = 0f;
+            }        
+        }
+    }
 
-                        RemoveIcon();
-                        elapsedTime = 0;
-                        queProgress.fillAmount = 1;
-                    }
-                }
-                else
-                {
-                    elapsedTime = elapsedTime + Time.deltaTime;
-                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[2].trainingTime));
-                }
-            }
+    private void TrainTroop(float unitTrainingTime)
+    {
+        float trainingTime = unitTrainingTime;
 
-            //if training Captain
-            if (militaryQue[0].name == unitDatabase.unitDetails[3].unitPrefab.name)
+        elapsedTime += Time.deltaTime;
+
+        if (elapsedTime > trainingTime)
+        {
+            if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
             {
-                if (Time.time > lastTrainingTime + unitDatabase.unitDetails[3].trainingTime)
-                {
-                    if (positionsToSpawn.ContainsKey(uniqueKeys[troopNumber]))
-                    {
-                        //Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]];
-                        Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
-                        positionToSpawnUnit.roundNumber++;
-                        Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
-                        militaryQue.Remove(militaryQue[troopNumber]);
-                        lastTrainingTime = Time.time;
-                        positionsToSpawn.Remove(uniqueKeys[troopNumber]);
-                        uniqueKeys.Remove(uniqueKeys[troopNumber]);
-                        population.PopulationChanges(unitDatabase.unitDetails[3].population);
+                Vector3 spawnPosition = positionsToSpawn[uniqueKeys[troopNumber]].transform.position;
+                positionToSpawnUnit.roundNumber++;
+                Instantiate(militaryQue[troopNumber], spawnPosition, Quaternion.identity);
+                militaryQue.Remove(militaryQue[troopNumber]);
+                positionsToSpawn.Remove(uniqueKeys[troopNumber]);
+                uniqueKeys.Remove(uniqueKeys[troopNumber]);
 
-                        RemoveIcon();
-                        elapsedTime = 0;
-                        queProgress.fillAmount = 1;
-                    }
-                }
-                else
-                {
-                    elapsedTime = elapsedTime + Time.deltaTime;
-                    queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / unitDatabase.unitDetails[3].trainingTime));
-                }
+                RemoveIcon();
+                elapsedTime = 0;
+                queProgress.fillAmount = 1;
             }
         }
-
         else
         {
-            lastTrainingTime = Time.time;
+            queProgress.fillAmount = Mathf.Clamp01(1f - (elapsedTime / trainingTime));
         }
     }
 }
