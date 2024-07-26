@@ -10,6 +10,7 @@ public class Villager_IdelState : VillagerBaseState
     {
         // Enter IdelState
         villager.Villager.enabled = true;
+        villager.Villager.isStopped = true;
 
         //Stop All Sound
         villager.soundEffectController.StopPlaySound();

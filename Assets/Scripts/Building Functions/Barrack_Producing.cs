@@ -213,12 +213,12 @@ public class Barrack_Producing : MonoBehaviour // Attach this script to one game
                 {
                     TrainTroop(unitDatabase.unitDetails[3].trainingTime);
                 }
-            }
+            }           
+        }
 
-            else
-            {
-                queProgress.fillAmount = 0f;
-            }        
+        else
+        {
+            queProgress.fillAmount = 0f;
         }
     }
 

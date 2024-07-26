@@ -95,15 +95,21 @@ public class Villager_GatheringState : VillagerBaseState
         if (conditionMet == true 
             && villager.Villager.enabled == true) // if there has a available waypoint and NavmeshAgent is enabled
         {
-            if (villager.Villager.remainingDistance <= 0) // Is villager reach the destination
+            if (villager.Villager.remainingDistance <= 0 && villager.Villager.pathPending == false) // Is villager reach the destination
             {
                 //Play animation Villager_Gathering
                 villager.villagerAnimator.SetBool("isReachResources", true);
                 villager.rigBuilder.enabled = false;// make hand can move 
 
+                villager.Villager.isStopped = true;
                 villager.Villager.enabled = false; // villager will stop
                 villager.transform.LookAt(villager.targetResources.transform.position);
                 startGathering = true;
+            }
+            else
+            {
+                //Stop Play Sound
+                villager.soundEffectController.StopPlaySound();
             }
         }
 
@@ -195,25 +201,7 @@ public class Villager_GatheringState : VillagerBaseState
 
     public override void ExitState(VillagerStateController villager)
     {
-        if(villager.currentCarryingResource == "Wood")
-        {
-           villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-        }
-
-        if(villager.currentCarryingResource == "Food")
-        {
-            villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-        }
-
-        if(villager.currentCarryingResource == "Gold")
-        {
-            villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-        }
-
-        if(villager.currentCarryingResource == "Stone")
-        {
-            villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-        }
+        MakeWayPointAvailable(villager);
 
         //Play animation Villager_Death
         villager.villagerAnimator.SetBool("isDead", true);
@@ -306,6 +294,29 @@ public class Villager_GatheringState : VillagerBaseState
         #endregion
     }
 
+    private void MakeWayPointAvailable(VillagerStateController villager)
+    {
+        if (villager.currentCarryingResource == "Wood")
+        {
+            villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
+        }
+
+        if (villager.currentCarryingResource == "Gold")
+        {
+            villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
+        }
+
+        if (villager.currentCarryingResource == "Food")
+        {
+            villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
+        }
+
+        if (villager.currentCarryingResource == "Stone")
+        {
+            villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
+        }
+    }
+
     public void ChangeTargetResources(VillagerStateController villager)
     {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -313,100 +324,90 @@ public class Villager_GatheringState : VillagerBaseState
 
         #region Change target resources
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, villager.resorcesLayerMask))
+        {      
+            if (hit.collider.gameObject == villager.targetResources) // if select the same game object, it will have nothing happen.
             {
-            
-
-                if (hit.collider.gameObject == villager.targetResources) // if select the same game object, it will have nothing happen.
-                {
                    ////Keep Playing animation Villager_Gathering
                    //villager.villagerAnimator.SetBool("isReachResources", true);
                    //villager.rigBuilder.enabled = false;
-                }
+            }
 
-                else if (hit.collider.gameObject.CompareTag("Wood") && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
-                {
-                     if (villager.currentCarryingResource != "Wood") // if the new target resources not wood it will start new count
-                     {
-                        villager.gatheringAmount = 0;
-                     }
-
-                     //Play animation Villager_Walking
-                     villager.villagerAnimator.SetBool("isReachResources", false);
-                     villager.rigBuilder.enabled = true;
-                     //
-
-                     startGathering = false; // stop villager from gathering
-                     villager.Villager.enabled = true;
-                     villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
-                     villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make that waypoint available
-                     villager.targetResources = hit.collider.gameObject; // assign new target resources
-                     villager.currentCarryingResource = "Wood"; // assign new name of resources
-                     villager.Villager.isStopped = false; // make villager can move
-                     FindClosestWaypoint(villager);
-                }
-
-                else if (hit.collider.gameObject.CompareTag("Gold") && hit.collider.gameObject != villager.targetResources) // if select Gold and it not the same object that you clicked.
-                {
-                   if (villager.currentCarryingResource != "Gold") // if the new target resources not Gold it will start new count
-                {
-                     villager.gatheringAmount = 0;
-                   }
-
-                    //Play animation Villager_Walking
-                      villager.villagerAnimator.SetBool("isReachResources", false);
-                      villager.rigBuilder.enabled = true;
-                    //
-
-                   startGathering = false;
-                   villager.Villager.enabled = true;
-                   villager.gatheringWaypointForGold= hit.collider.GetComponent<GatheringWaypointForGold>();
-                   villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true);
-                   villager.targetResources = hit.collider.gameObject; // assign new target resources
-                   villager.currentCarryingResource = "Gold"; // assign new name of resources
-                   villager.Villager.isStopped = false;// make villager can move
-                   FindClosestWaypoint(villager);
-                }
-
-                else if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
-                {
-                   if (villager.currentCarryingResource != "Stone") // if the new target resources not stone it will start new count
-                   {
-                     villager.gatheringAmount = 0;
-                   }
-                   //Play animation Villager_Walking
-                     villager.villagerAnimator.SetBool("isReachResources", false);
-                     villager.rigBuilder.enabled = true;
-                   //
-                   startGathering = false;
-                   villager.Villager.enabled = true;
-                   villager.gatheringWaypointForStone = hit.collider.GetComponent<GatheringWaypointForStone>();
-                   villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);
-                   villager.targetResources = hit.collider.gameObject; // assign new target resources
-                   villager.currentCarryingResource = "Stone"; // assign new name of resources
-                   villager.Villager.isStopped = false;// make villager can move
-                   FindClosestWaypoint(villager);
-                } 
-
-            else if (hit.collider.gameObject.CompareTag("Food") && hit.collider.gameObject != villager.targetResources) // if select food and it not the same object that you clicked.
+            else if (hit.collider.gameObject.CompareTag("Wood")
+                     && hit.collider.gameObject != villager.targetResources) // if select wood and it not the same object that you clicked.
             {
-                if (villager.currentCarryingResource != "Food") // if the new target resources not food it will start new count
-                {
-                    villager.gatheringAmount = 0;
-                }
-
                 //Play animation Villager_Walking
                 villager.villagerAnimator.SetBool("isReachResources", false);
                 villager.rigBuilder.enabled = true;
                 //
 
+                MakeWayPointAvailable(villager);
+                startGathering = false; // stop villager from gathering
+                villager.Villager.enabled = true;
+                villager.Villager.isStopped = false; // make villager can move
+
+                villager.gatheringWaypointForTree = hit.collider.GetComponent<GatheringWaypointForTree>();
+                villager.targetResources = hit.collider.gameObject; // target resources game object
+                villager.currentCarryingResource = "Wood";
+                villager.gatheringAmount = 0;
+                villager.SwitchState(villager.vil_GatheringState);
+            }
+
+            else if (hit.collider.gameObject.CompareTag("Gold")
+                && hit.collider.gameObject != villager.targetResources) // if select Gold and it not the same object that you clicked.
+            {
+                //Play animation Villager_Walking
+                villager.villagerAnimator.SetBool("isReachResources", false);
+                villager.rigBuilder.enabled = true;
+                //
+
+                MakeWayPointAvailable(villager);
                 startGathering = false;
                 villager.Villager.enabled = true;
-                villager.gatheringWaypointForFood = hit.collider.GetComponent<GatheringWaypointForFood>();
-                villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);
-                villager.targetResources = hit.collider.gameObject; // assign new target resources
-                villager.currentCarryingResource = "Food"; // assign new name of resources
                 villager.Villager.isStopped = false;// make villager can move
-                FindClosestWaypoint(villager);
+
+                villager.gatheringWaypointForGold = hit.collider.GetComponent<GatheringWaypointForGold>();
+                villager.targetResources = hit.collider.gameObject; // target resources game object
+                villager.currentCarryingResource = "Gold";
+                villager.gatheringAmount = 0;
+                villager.SwitchState(villager.vil_GatheringState);
+            }
+
+            else if (hit.collider.gameObject.CompareTag("Stone") && hit.collider.gameObject != villager.targetResources) // if select stone and it not the same object that you clicked.
+            {
+                //Play animation Villager_Walking
+                villager.villagerAnimator.SetBool("isReachResources", false);
+                villager.rigBuilder.enabled = true;
+                //
+
+                MakeWayPointAvailable(villager);
+                startGathering = false;
+                villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;// make villager can move
+
+                villager.gatheringWaypointForStone = hit.collider.GetComponent<GatheringWaypointForStone>();
+                villager.targetResources = hit.collider.gameObject;
+                villager.currentCarryingResource = "Stone";
+                villager.gatheringAmount = 0;
+                villager.SwitchState(villager.vil_GatheringState);
+            }
+
+            else if (hit.collider.gameObject.CompareTag("Food") && hit.collider.gameObject != villager.targetResources) // if select food and it not the same object that you clicked.
+            {
+                //Play animation Villager_Walking
+                villager.villagerAnimator.SetBool("isReachResources", false);
+                villager.rigBuilder.enabled = true;
+                //
+
+                MakeWayPointAvailable(villager);
+                startGathering = false;
+                villager.Villager.enabled = true;
+                villager.Villager.isStopped = false;// make villager can move
+
+                villager.gatheringWaypointForFood = hit.collider.GetComponent<GatheringWaypointForFood>();
+                villager.targetResources = hit.collider.gameObject;
+                villager.currentCarryingResource = "Food";
+                villager.gatheringAmount = 0;
+                villager.SwitchState(villager.vil_GatheringState);
             }
         }
         #endregion
@@ -422,26 +423,8 @@ public class Villager_GatheringState : VillagerBaseState
                     && !hit.collider.CompareTag("Food")
                     && !hit.collider.CompareTag("Gold")
                     && !hit.collider.CompareTag("Stone"))
-                {              
-                    if (villager.currentCarryingResource == "Wood")
-                    {
-                        villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
-                    }
-
-                    if(villager.currentCarryingResource == "Gold")
-                    {
-                        villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); // make the waypoint available
-                    }
-
-                    if(villager.currentCarryingResource == "Food")
-                    {
-                        villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
-                    }
-
-                    if (villager.currentCarryingResource == "Stone")
-                    {
-                        villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true);// make the waypoint available
-                    }
+                {
+                    MakeWayPointAvailable(villager);
                     villager.villagerAnimator.SetBool("isReachResources", false);
                     villager.Villager.enabled = true; //make NavMeshAgent active
                     villager.Villager.isStopped = false; // make villager can move
@@ -460,25 +443,7 @@ public class Villager_GatheringState : VillagerBaseState
             {
                 if (hit.collider.CompareTag("Town Center")) //if click on Town Center
                 {
-                    if (villager.currentCarryingResource == "Wood")
-                    {
-                        villager.gatheringWaypointForTree.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-                    }
-
-                    if (villager.currentCarryingResource == "Food")
-                    {
-                        villager.gatheringWaypointForFood.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-                    }
-
-                    if (villager.currentCarryingResource == "Gold")
-                    {
-                        villager.gatheringWaypointForGold.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-                    }
-
-                    if (villager.currentCarryingResource == "Stone")
-                    {
-                        villager.gatheringWaypointForStone.WaypointStatus(avaliableWaypoint, true); //make waypoint available
-                    }
+                    MakeWayPointAvailable(villager);
                     villager.Villager.isStopped = false; // make villager can move
                     villager.selectedStoringPoint = hit.collider.gameObject;
                     villager.isStoringManual = true; //manual storing resources

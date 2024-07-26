@@ -25,7 +25,7 @@ public class CannonBallEnemyFunc : MonoBehaviour
         explosiveArea.enabled = false;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isCannonballFiring == true)
         {

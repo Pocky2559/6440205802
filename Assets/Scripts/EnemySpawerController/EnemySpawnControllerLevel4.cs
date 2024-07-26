@@ -517,13 +517,13 @@ public class EnemySpawnControllerLevel4 : MonoBehaviour
                 if(IsSubWaveFinised == true)
                 {
                     //Ottoman Cannon x8
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint1.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint2.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPoint3.transform.position, Quaternion.identity);
                     Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint4.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
-                    Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint5.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[7].unitPrefab, EnemySpawnPoint6.transform.position, Quaternion.identity);
+                    Instantiate(unitDatabase.unitDetails[8].unitPrefab, EnemySpawnPoint7.transform.position, Quaternion.identity);
                     Instantiate(unitDatabase.unitDetails[9].unitPrefab, EnemySpawnPoint8.transform.position, Quaternion.identity);
 
                     IsSubWaveFinised = false;
