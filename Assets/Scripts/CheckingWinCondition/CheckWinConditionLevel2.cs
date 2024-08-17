@@ -21,7 +21,7 @@ public class CheckWinConditionLevel2 : MonoBehaviour
 
     private void Update()
     {
-        if (enemy.globalWaveTime > 400) // if after all the enemy has spawned 
+        if (enemy.globalWaveTime > 402) // if after all the enemy has spawned 
         {
             if (GameObject.FindGameObjectWithTag("MeleeJanissary") == null
                 && GameObject.FindGameObjectWithTag("RangedJanissary") == null

@@ -104,5 +104,4 @@ public class IdelState : GunnerBaseState
         gunner.population.PopulationChanges(-1 * gunner.unitStat.unitPopulation); //Decrease population
         MonoBehaviour.Destroy(gunner.transform.parent.gameObject, 4); // Delete Villager from the game
     }
-
 }

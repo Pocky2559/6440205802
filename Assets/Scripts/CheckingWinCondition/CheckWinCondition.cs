@@ -21,7 +21,7 @@ public class CheckWinCondition : MonoBehaviour //For Level 1
 
     private void Update() 
     {
-        if (enemy.globalWaveTime > 390) // if after all the enemy has spawned 
+        if (enemy.globalWaveTime > 392) // if after all the enemy has spawned 
         {
             if (GameObject.FindGameObjectWithTag("OttomanRecruit") == null
                 && GameObject.FindGameObjectWithTag("OttomanGunnerRecruit") == null
