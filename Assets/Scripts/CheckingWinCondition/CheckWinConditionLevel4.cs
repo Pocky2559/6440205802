@@ -11,6 +11,7 @@ public class CheckWinConditionLevel4 : MonoBehaviour
     public GameObject palisadeDoor;
     private bool isLose;
     [SerializeField] private ChangeMusic changeMusic;
+    [SerializeField] private SummariseGatheredResources summariseResources;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class CheckWinConditionLevel4 : MonoBehaviour
             {
                 WinUI.SetActive(true);
                 changeMusic.TransitionMusicToVictoryTheme();
+                summariseResources.SummariseResourcesAfterWin();
                 isLose = true;
             }
         }
@@ -56,6 +58,7 @@ public class CheckWinConditionLevel4 : MonoBehaviour
         {
             LostUI.SetActive(true);
             changeMusic.TransitionMusicToLoseTheme();
+            summariseResources.SummariseResourcesAfterLose();
             isLose = true;
         }
     }

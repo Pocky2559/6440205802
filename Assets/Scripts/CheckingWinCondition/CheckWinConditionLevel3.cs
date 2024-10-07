@@ -12,6 +12,7 @@ public class CheckWinConditionLevel3 : MonoBehaviour
     [SerializeField] private SaveGame saveGame;
     private bool isGameSave;
     [SerializeField] private ChangeMusic changeMusic;
+    [SerializeField] private SummariseGatheredResources summariseResources;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class CheckWinConditionLevel3 : MonoBehaviour
                 {
                     saveGame.SaveLevel3();
                     changeMusic.TransitionMusicToVictoryTheme();
+                    summariseResources.SummariseResourcesAfterWin();
                     isGameSave = true;
                 }
             }
@@ -43,6 +45,7 @@ public class CheckWinConditionLevel3 : MonoBehaviour
         {
             LostUI.SetActive(true);
             changeMusic.TransitionMusicToLoseTheme();
+            summariseResources.SummariseResourcesAfterLose();
             isLose = true;
         }
     }

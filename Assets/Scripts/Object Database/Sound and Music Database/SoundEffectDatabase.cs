@@ -14,8 +14,7 @@ public class SoundEffectDatabase : ScriptableObject
     public AudioClip cannonFireSound;
     public AudioClip cannonballExplodeSound;
     public AudioClip storingSound;
-    public AudioClip walkSound;
-    
+    public AudioClip walkSound;  
     public AudioClip unitDieSound;
 
     [Header("Placement Sound Effects")]

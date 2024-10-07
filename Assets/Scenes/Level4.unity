@@ -1802,6 +1802,10 @@ PrefabInstance:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5502266317837408413, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 5502266317883669815, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 335.30005
@@ -1986,6 +1990,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5502266318076293133, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5502266318092098285, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -2032,7 +2040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502266318174458797, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -10.4
+      value: -10.3
       objectReference: {fileID: 0}
     - target: {fileID: 5502266318262847797, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_fontColor.b
@@ -2129,6 +2137,10 @@ PrefabInstance:
     - target: {fileID: 5502266318449437779, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502266318490682249, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5502266318522448703, guid: 98613193d4c355a479515d549d4f6348, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -8742,6 +8754,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2749600ae85213d43bd6f97080bba830, type: 3}
+--- !u!114 &146183017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7989187834228154245, guid: 98613193d4c355a479515d549d4f6348, type: 3}
+  m_PrefabInstance: {fileID: 22433469}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f869c2a65bc8b940b39937c02867b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &150061800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2135475432616604210, guid: abd2bdcad33b04a4a9734d086224c170, type: 3}
@@ -20664,6 +20687,7 @@ MonoBehaviour:
   WinUI: {fileID: 612240066}
   palisadeDoor: {fileID: 1093584179}
   changeMusic: {fileID: 861070316}
+  summariseResources: {fileID: 146183017}
 --- !u!1001 &687974266
 PrefabInstance:
   m_ObjectHideFlags: 0
