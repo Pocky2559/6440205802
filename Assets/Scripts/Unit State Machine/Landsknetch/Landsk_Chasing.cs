@@ -151,7 +151,7 @@ public class Landsk_Chasing : LandsknetchBaseState
     public void TargetRecieveDamage(LandsknetchStateController landsknetch, RaycastHit hit) // calculate reciever hp that recieve damage from attacker
     {
         UnitStat recieverStat = hit.collider.GetComponent<UnitStat>();
-        recieverStat.unitHP = recieverStat.unitHP - (landsknetch.unitStat.unitDamage - recieverStat.unitRangedArmor); // HP of reciever = HP of reciever - Damage from attacker  - Ranged Armor of reciever
+        recieverStat.unitHP = recieverStat.unitHP - (landsknetch.unitStat.unitDamage - recieverStat.unitMeleeArmor); // HP of reciever = HP of reciever - Damage from attacker  - Ranged Armor of reciever
     }
 
     public override void OnTriggerStay(LandsknetchStateController landsknetch, Collider coll)

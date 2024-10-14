@@ -5,17 +5,26 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Camera Movement")]
     [SerializeField] private float speed;
     [SerializeField] private float borderThickness;
-    public float cameraCurrentSpeed;
-    public float distance;
+    [SerializeField] private float distance;
     public Vector3 targetPosition;
     public bool isPushingBack;
     public bool isStopPanning;
 
+    [Header("Camera Zooming")]
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float targetFOV;
+    [SerializeField] private float farestFOV;
+    [SerializeField] private float closestFOV;
+    [SerializeField] private float zoomingSpeed;
+    [SerializeField] private int zoomingScale;
+
     private void Start()
     {
         targetPosition = transform.position;
+        targetFOV = mainCamera.fieldOfView;
     }
     void FixedUpdate()
     {
@@ -37,12 +46,23 @@ public class CameraController : MonoBehaviour
             direction = direction - transform.right;
         }
 
+        if (Input.mouseScrollDelta.y > 0 && mainCamera.fieldOfView >= closestFOV) //Zoom In
+        {
+            targetFOV = mainCamera.fieldOfView - zoomingScale;
+        }
+
+        if (Input.mouseScrollDelta.y < 0 && mainCamera.fieldOfView <= farestFOV) //Zoom Out
+        {
+            targetFOV = mainCamera.fieldOfView + zoomingScale;
+        }
+
         if (direction != Vector3.zero && isPushingBack == false && isStopPanning == false) 
         {
             direction.Normalize(); 
             targetPosition = transform.position + direction * distance;
         }
 
+        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, zoomingSpeed * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, targetPosition, speed * Time.deltaTime);
     }
 }
