@@ -30460,11 +30460,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   borderThickness: 20
-  cameraCurrentSpeed: 5
   distance: 5
   targetPosition: {x: 0, y: 0, z: 0}
   isPushingBack: 0
   isStopPanning: 0
+  mainCamera: {fileID: 963194227}
+  targetFOV: 0
+  farestFOV: 70
+  closestFOV: 45
+  zoomingSpeed: 2
+  zoomingScale: 15
 --- !u!4 &1882113262
 Transform:
   m_ObjectHideFlags: 0
